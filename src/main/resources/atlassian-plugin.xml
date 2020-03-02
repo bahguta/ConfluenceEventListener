@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2"> 
+  <plugin-info> 
+    <description>${project.description}</description>  
+    <version>${project.version}</version>  
+    <vendor name="${project.organization.name}" url="${project.organization.url}"/>  
+    <param name="plugin-icon">images/pluginIcon.png</param>  
+    <param name="plugin-logo">images/pluginLogo.png</param> 
+  </plugin-info>  
+  <!-- add our i18n resource -->  
+  <resource type="i18n" name="i18n" location="eventService"/>  
+  <!-- add our web resources -->  
+  <web-resource key="eventService-resources" name="eventService Web Resources">
+    <dependency>com.atlassian.auiplugin:ajs</dependency>
+    <resource type="download" name="eventService.css" location="/css/eventService.css"/>
+    <resource type="download" name="eventService.js" location="/js/eventService.js"/>
+    <resource type="download" name="images/" location="/images"/>
+    <context>eventService</context>
+  </web-resource>
+<!--  <component key="confluence-event-service-impl" class="com.cis.confluence.plugins.impl.ConfluenceEventServiceImpl" name="Confluence Event Service Impl" i18n-name-key="confluence-event-service-impl.name">-->
+<!--    <description key="confluence-event-service-impl.description">The Confluence Event Service Impl Plugin</description>-->
+<!--    <interface>com.cis.confluence.plugins.impl.ConfluenceEventService</interface>-->
+<!--  </component>-->
+
+  <listener name='Confluence Event Listener' class='com.cis.confluence.plugins.impl.ConfluenceEventServiceImpl' key='eventlistener'>
+  <description>Provides an audit log for each event within Confluence.</description>
+  </listener>
+</atlassian-plugin>
