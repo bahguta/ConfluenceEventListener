@@ -1,8 +1,11 @@
 package com.cis.confluence.plugins.impl;
 
+import com.atlassian.confluence.event.events.content.blogpost.BlogPostCreateEvent;
+import com.atlassian.confluence.event.events.content.comment.CommentEvent;
 import com.atlassian.confluence.event.events.content.page.PageCreateEvent;
 import com.atlassian.confluence.event.events.content.page.PageRemoveEvent;
 import com.atlassian.confluence.event.events.content.page.PageUpdateEvent;
+import com.atlassian.confluence.event.events.like.LikeCreatedEvent;
 import com.cis.confluence.plugins.api.ConfluenceEventService;
 import com.atlassian.confluence.event.events.space.SpaceCreateEvent;
 import com.atlassian.event.api.EventListener;
@@ -89,6 +92,33 @@ public class ConfluenceEventServiceImpl implements ConfluenceEventService, Event
 
             logger.error("--------------------PAGE CREATED>> {}", event.getPage().getCreator());
             logger.debug("--------------------PAGE CREATED-debug>> {}", event.getPage().getLastModifier().getFullName());
+        }
+    }
+
+    @EventListener
+    public void handleEventCommentCreate(CommentEvent event){
+        for (int i = 0; i < 10; i++) {
+
+            logger.error("--------------------COMMENT CREATED>> {}", event.getComment().toString());
+            logger.debug("--------------------COMMENT CREATED-debug>> {}", event.getContent().getCreator().getFullName());
+        }
+    }
+
+    @EventListener
+    public void handleEventBlogCreate(BlogPostCreateEvent event){
+        for (int i = 0; i < 10; i++) {
+
+            logger.error("--------------------BLOG CREATED>> {}", event.getBlogPost().getComments().get(0));
+            logger.debug("--------------------BLOG CREATED-debug>> {}", event.getContent().getCreator().getFullName());
+        }
+    }
+
+    @EventListener
+    public void handleEventLikeCreate(LikeCreatedEvent event){
+        for (int i = 0; i < 10; i++) {
+
+            logger.error("--------------------LIKE CREATED>> {}", event.getOriginatingUser().getEmail());
+            logger.debug("--------------------LIKE CREATED-debug>> {}", event.getContent().getCreator().getFullName());
         }
     }
 
