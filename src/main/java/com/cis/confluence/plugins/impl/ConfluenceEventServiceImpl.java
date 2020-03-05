@@ -3,8 +3,6 @@ package com.cis.confluence.plugins.impl;
 import com.atlassian.confluence.event.events.content.blogpost.BlogPostCreateEvent;
 import com.atlassian.confluence.event.events.content.comment.CommentEvent;
 import com.atlassian.confluence.event.events.content.page.PageCreateEvent;
-import com.atlassian.confluence.event.events.content.page.PageRemoveEvent;
-import com.atlassian.confluence.event.events.content.page.PageUpdateEvent;
 import com.atlassian.confluence.event.events.like.LikeCreatedEvent;
 import com.cis.confluence.plugins.api.ConfluenceEventService;
 import com.atlassian.confluence.event.events.space.SpaceCreateEvent;
@@ -13,8 +11,8 @@ import com.atlassian.plugin.spring.scanner.annotation.component.ConfluenceCompon
 import com.atlassian.plugin.spring.scanner.annotation.export.ExportAsService;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.sal.api.ApplicationProperties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.cis.confluence.plugins.utils.ConfluencerManager;
+import org.apache.log4j.Logger;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -26,7 +24,7 @@ import java.lang.annotation.Annotation;
 @Named("ConfluenceEventServiceImpl")
 public class ConfluenceEventServiceImpl implements ConfluenceEventService, EventListener {
 
-    private Logger logger = LoggerFactory.getLogger(ConfluenceEventService.class);
+    private Logger logger = org.apache.log4j.Logger.getLogger(ConfluenceEventServiceImpl.class);
 
     @ComponentImport
     private final ApplicationProperties applicationProperties;
@@ -37,8 +35,8 @@ public class ConfluenceEventServiceImpl implements ConfluenceEventService, Event
     }
 
     public String getName() {
-            logger.error("--------------->>> ConfluenceEventService  ");
-            return "ConfluenceEventService:" ;
+        logger.error("--------------->>> ConfluenceEventService  ");
+        return "ConfluenceEventService";
 
     }
 
@@ -53,73 +51,71 @@ public class ConfluenceEventServiceImpl implements ConfluenceEventService, Event
     }
 
     @EventListener
-    public void onEvent(SpaceCreateEvent event) {
-        for (int i = 0; i < 10; i++) {
-            logger.error("-------------------------------- > [error] Handled an event: " + event.getSpace().getName());
-            logger.debug("-------------------------------- > [DEBUG] Handled an event: " + event.getSpace().getCreator());
+    public void handleEventSpaceCreate(SpaceCreateEvent event) {
+        if (ConfluencerManager.containsUser(event.getSpace().getCreator().getEmail())) {
+            ConfluencerManager.addSpace(event.getSpace().getCreator().getEmail());
         }
+        logger.debug("---=== Space add to " + event.getSpace().getCreator().getFullName() + " ===---");
     }
 
     @EventListener
-    public void handleEvent(SpaceCreateEvent event){
-        for (int i = 0; i < 10; i++) {
-            logger.error("--------------------CREATED>> {}", event.getSpace().getCreator());
-            logger.debug("--------------------CREATED-debug>> {}", event.getSpace().getName());
+    public void handleEventPageCreate(PageCreateEvent event) {
+        if (ConfluencerManager.containsUser(event.getPage().getCreator().getEmail())) {
+            ConfluencerManager.addPage(event.getPage().getCreator().getEmail());
         }
+        logger.debug("---=== Page add to " + event.getPage().getCreator().getFullName() + " ===---");
     }
 
     @EventListener
-    public void handleEventUpdate(PageUpdateEvent event){
-            for (int i = 0; i < 10; i++) {
-
-                logger.error("--------------------UPDATED>> {}", event.getPage().getCreator());
-                logger.debug("--------------------UPDATED-debug>> {}", event.getPage().getContentStatus());
-            }
+    public void handleEventCommentCreate(CommentEvent event) {
+        if (ConfluencerManager.containsUser(event.getComment().getCreator().getEmail())) {
+            ConfluencerManager.addComment(event.getComment().getCreator().getEmail());
+        }
+        logger.debug("---=== Comment add to " + event.getComment().getCreator().getFullName() + " ===---");
     }
 
     @EventListener
-    public void handleEventDelete(PageRemoveEvent event){
-        for (int i = 0; i < 10; i++) {
-
-            logger.error("--------------------REMOVED>> {}", event.getPage().getCreator());
-            logger.debug("--------------------REMOVED-debug>> {}", event.getPage().getLastModifier().getFullName());
+    public void handleEventBlogCreate(BlogPostCreateEvent event) {
+        if (ConfluencerManager.containsUser(event.getBlogPost().getCreator().getEmail())) {
+            ConfluencerManager.addBlog(event.getBlogPost().getCreator().getEmail());
         }
+        logger.debug("---=== Blog add to " + event.getBlogPost().getCreator().getFullName() + " ===---");
     }
 
     @EventListener
-    public void handleEventPageCreate(PageCreateEvent event){
-        for (int i = 0; i < 10; i++) {
-
-            logger.error("--------------------PAGE CREATED>> {}", event.getPage().getCreator());
-            logger.debug("--------------------PAGE CREATED-debug>> {}", event.getPage().getLastModifier().getFullName());
+    public void handleEventLikeCreate(LikeCreatedEvent event) {
+        if (ConfluencerManager.containsUser(event.getContent().getCreator().getEmail())) {
+            ConfluencerManager.addLike(event.getContent().getCreator().getEmail());
         }
+        logger.debug("---=== Like add to " + event.getContent().getCreator().getFullName() + " ===---");
+        ConfluencerManager.printResults();
     }
 
-    @EventListener
-    public void handleEventCommentCreate(CommentEvent event){
-        for (int i = 0; i < 10; i++) {
 
-            logger.error("--------------------COMMENT CREATED>> {}", event.getComment().toString());
-            logger.debug("--------------------COMMENT CREATED-debug>> {}", event.getContent().getCreator().getFullName());
-        }
-    }
 
-    @EventListener
-    public void handleEventBlogCreate(BlogPostCreateEvent event){
-        for (int i = 0; i < 10; i++) {
+//    @EventListener
+//    public void handleEventUpdate(PageUpdateEvent event) {
+//        for (int i = 0; i < 10; i++) {
+//
+//            logger.error("--------------------UPDATED>> {}", event.getPage().getCreator());
+//            logger.debug("--------------------UPDATED-debug>> {}", event.getPage().getContentStatus());
+//        }
+//    }
 
-            logger.error("--------------------BLOG CREATED>> {}", event.getBlogPost().getComments().get(0));
-            logger.debug("--------------------BLOG CREATED-debug>> {}", event.getContent().getCreator().getFullName());
-        }
-    }
+//    @EventListener
+//    public void handleEventDelete(PageRemoveEvent event) {
+//        for (int i = 0; i < 10; i++) {
+//
+//            logger.error("--------------------REMOVED>> {}", event.getPage().getCreator());
+//            logger.debug("--------------------REMOVED-debug>> {}", event.getPage().getLastModifier().getFullName());
+//        }
+//    }
 
-    @EventListener
-    public void handleEventLikeCreate(LikeCreatedEvent event){
-        for (int i = 0; i < 10; i++) {
-
-            logger.error("--------------------LIKE CREATED>> {}", event.getOriginatingUser().getEmail());
-            logger.debug("--------------------LIKE CREATED-debug>> {}", event.getContent().getCreator().getFullName());
-        }
-    }
-
+//    @EventListener
+//    public void onEvent(SpaceCreateEvent event) {
+//        for (int i = 0; i < 10; i++) {
+//            logger.error("-------------------------------- > [error] Handled an event: " + event.getSpace().getName());
+//            logger.debug("-------------------------------- > [DEBUG] Handled an event: " + event.getSpace().getCreator());
+//        }
+//    }
 }
