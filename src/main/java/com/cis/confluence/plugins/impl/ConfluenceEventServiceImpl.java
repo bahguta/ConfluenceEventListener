@@ -9,12 +9,8 @@ import com.atlassian.confluence.event.events.space.SpaceCreateEvent;
 import com.atlassian.event.api.EventListener;
 import com.atlassian.plugin.spring.scanner.annotation.component.ConfluenceComponent;
 import com.atlassian.plugin.spring.scanner.annotation.export.ExportAsService;
-import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
-import com.atlassian.sal.api.ApplicationProperties;
 import com.cis.confluence.plugins.utils.ConfluencerManager;
 import org.apache.log4j.Logger;
-
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.lang.annotation.Annotation;
 
@@ -24,20 +20,12 @@ import java.lang.annotation.Annotation;
 @Named("ConfluenceEventServiceImpl")
 public class ConfluenceEventServiceImpl implements ConfluenceEventService, EventListener {
 
-    private Logger logger = org.apache.log4j.Logger.getLogger(ConfluenceEventServiceImpl.class);
-
-    @ComponentImport
-    private final ApplicationProperties applicationProperties;
-
-    @Inject
-    public ConfluenceEventServiceImpl(ApplicationProperties applicationProperties) {
-        this.applicationProperties = applicationProperties;
-    }
+    private final Logger logger = org.apache.log4j.Logger.getLogger(ConfluenceEventServiceImpl.class);
+    private final ConfluencerManager confluencerManager = new ConfluencerManager();
 
     public String getName() {
         logger.error("--------------->>> ConfluenceEventService  ");
         return "ConfluenceEventService";
-
     }
 
     @Override
@@ -52,42 +40,56 @@ public class ConfluenceEventServiceImpl implements ConfluenceEventService, Event
 
     @EventListener
     public void handleEventSpaceCreate(SpaceCreateEvent event) {
-        if (ConfluencerManager.containsUser(event.getSpace().getCreator().getEmail())) {
-            ConfluencerManager.addSpace(event.getSpace().getCreator().getEmail());
+        if (!ConfluencerManager.containsUser(event.getSpace().getCreator().getEmail())) {
+            ConfluencerManager.addUser(event.getSpace().getCreator().getEmail(), event.getSpace().getCreator().getFullName());
         }
+        ConfluencerManager.addSpace(event.getSpace().getCreator().getEmail());
         logger.debug("---=== Space add to " + event.getSpace().getCreator().getFullName() + " ===---");
+        System.out.println("---=== Space add to " + event.getSpace().getCreator().getFullName() + " ===---");
+        ConfluencerManager.printResults();
     }
 
     @EventListener
     public void handleEventPageCreate(PageCreateEvent event) {
-        if (ConfluencerManager.containsUser(event.getPage().getCreator().getEmail())) {
-            ConfluencerManager.addPage(event.getPage().getCreator().getEmail());
+        if (!ConfluencerManager.containsUser(event.getPage().getCreator().getEmail())) {
+           ConfluencerManager.addUser(event.getPage().getCreator().getEmail(), event.getPage().getCreator().getFullName());
         }
+        ConfluencerManager.addPage(event.getPage().getCreator().getEmail());
         logger.debug("---=== Page add to " + event.getPage().getCreator().getFullName() + " ===---");
+        System.out.println("---=== Page add to " + event.getPage().getCreator().getFullName() + " ===---");
+        ConfluencerManager.printResults();
     }
 
     @EventListener
     public void handleEventCommentCreate(CommentEvent event) {
-        if (ConfluencerManager.containsUser(event.getComment().getCreator().getEmail())) {
-            ConfluencerManager.addComment(event.getComment().getCreator().getEmail());
+        if (!ConfluencerManager.containsUser(event.getComment().getCreator().getEmail())) {
+            ConfluencerManager.addUser(event.getComment().getCreator().getEmail(), event.getComment().getCreator().getFullName());
         }
+        ConfluencerManager.addComment(event.getComment().getCreator().getEmail());
         logger.debug("---=== Comment add to " + event.getComment().getCreator().getFullName() + " ===---");
+        System.out.println("---=== Comment add to " + event.getComment().getCreator().getFullName() + " ===---");
+        ConfluencerManager.printResults();
     }
 
     @EventListener
     public void handleEventBlogCreate(BlogPostCreateEvent event) {
-        if (ConfluencerManager.containsUser(event.getBlogPost().getCreator().getEmail())) {
-            ConfluencerManager.addBlog(event.getBlogPost().getCreator().getEmail());
+        if (!ConfluencerManager.containsUser(event.getBlogPost().getCreator().getEmail())) {
+            ConfluencerManager.addUser(event.getBlogPost().getCreator().getEmail(), event.getBlogPost().getCreator().getFullName());
         }
+        ConfluencerManager.addBlog(event.getBlogPost().getCreator().getEmail());
         logger.debug("---=== Blog add to " + event.getBlogPost().getCreator().getFullName() + " ===---");
+        System.out.println("---=== Blog add to " + event.getBlogPost().getCreator().getFullName() + " ===---");
+        ConfluencerManager.printResults();
     }
 
     @EventListener
     public void handleEventLikeCreate(LikeCreatedEvent event) {
-        if (ConfluencerManager.containsUser(event.getContent().getCreator().getEmail())) {
-            ConfluencerManager.addLike(event.getContent().getCreator().getEmail());
+        if (!ConfluencerManager.containsUser(event.getContent().getCreator().getEmail())) {
+            ConfluencerManager.addUser(event.getContent().getCreator().getEmail(), event.getContent().getCreator().getFullName());
         }
+        ConfluencerManager.addLike(event.getContent().getCreator().getEmail());
         logger.debug("---=== Like add to " + event.getContent().getCreator().getFullName() + " ===---");
+        System.out.println("---=== Like add to " + event.getContent().getCreator().getFullName() + " ===---");
         ConfluencerManager.printResults();
     }
 
