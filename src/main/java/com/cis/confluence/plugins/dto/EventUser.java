@@ -1,9 +1,12 @@
 package com.cis.confluence.plugins.dto;
 
+import com.atlassian.confluence.api.model.web.Icon;
+
 import java.io.Serializable;
 
 public class EventUser implements Serializable {
 
+    private Icon icon;
     private String correo;
     private String fullName;
     private int space;
@@ -12,14 +15,19 @@ public class EventUser implements Serializable {
     private int comment;
     private int like;
 
-    public EventUser(String correo, String fullName) {
+    public EventUser(String correo, String fullName, Icon icon) {
         this.correo = correo;
         this.fullName = fullName;
+        this.icon = icon;
         this.space = 0;
         this.blog = 0;
         this.page = 0;
         this.comment = 0;
         this.like = 0;
+    }
+
+    public Icon getIcon() {
+        return icon;
     }
 
     public String getCorreo() {
@@ -72,9 +80,8 @@ public class EventUser implements Serializable {
 
     @Override
     public String toString() {
-        return "EventUser{" +
-                "correo='" + correo + '\'' +
-                ", fullName='" + fullName + '\'' +
+        return fullName +
+                " :: correo='" + correo + '\'' +
                 ", space=" + space +
                 ", page=" + page +
                 ", blog=" + blog +

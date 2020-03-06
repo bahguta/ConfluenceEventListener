@@ -1,5 +1,6 @@
 package com.cis.confluence.plugins.utils;
 
+import com.atlassian.confluence.api.model.web.Icon;
 import com.cis.confluence.plugins.dto.EventUser;
 import org.apache.log4j.Logger;
 
@@ -16,8 +17,8 @@ public class ConfluencerManager {
         return ConfluencerManager.list.containsKey(correo);
     }
 
-    public static void addUser(String correo, String fullName){
-        ConfluencerManager.list.put(correo, new EventUser(correo, fullName));
+    public static void addUser(String correo, String fullName, Icon icon){
+        ConfluencerManager.list.put(correo, new EventUser(correo, fullName, icon));
     }
 
     public static void addSpace(String correo){
