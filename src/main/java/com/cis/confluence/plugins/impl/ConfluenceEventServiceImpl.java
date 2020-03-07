@@ -6,8 +6,7 @@ import com.atlassian.confluence.event.events.content.blogpost.BlogPostCreateEven
 import com.atlassian.confluence.event.events.content.comment.CommentEvent;
 import com.atlassian.confluence.event.events.content.page.PageCreateEvent;
 import com.atlassian.confluence.event.events.like.LikeCreatedEvent;
-import com.atlassian.confluence.user.ConfluenceUserImpl;
-import com.atlassian.confluence.user.avatar.ConfluenceAvatarOwner;
+import com.atlassian.confluence.user.UserAccessor;
 import com.cis.confluence.plugins.api.ConfluenceEventService;
 import com.atlassian.confluence.event.events.space.SpaceCreateEvent;
 import com.atlassian.event.api.EventListener;
@@ -113,8 +112,7 @@ public class ConfluenceEventServiceImpl implements ConfluenceEventService, Event
 
     @EventListener
     public void handleEventLikeCreate(LikeCreatedEvent event) {
-        System.out.println("-------" +  User.fromUserkey(event.getContent().getCreator().getKey()).toString());
-        System.out.println("-------" + User.fromUsername(event.getOriginatingUser().getName()).getProfilePicture());
+
         String correoLiked = event.getContent().getCreator().getEmail();
         String fullNameLiked = event.getContent().getCreator().getFullName();
         Icon iconLiked = User.fromUserkey(event.getContent().getCreator().getKey()).getProfilePicture();

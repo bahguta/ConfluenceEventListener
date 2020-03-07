@@ -1,24 +1,26 @@
 package com.cis.confluence.plugins.dto;
 
 import com.atlassian.confluence.api.model.web.Icon;
+import com.atlassian.confluence.user.ConfluenceUser;
+import com.atlassian.user.User;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-public class EventUser implements Serializable, Comparable<EventUser> {
+public class EventUser implements Serializable, User, Comparable<EventUser> {
 
     private Icon icon;
-    private String correo;
-    private String fullName;
+    private String email;
+    private String name;
     private int space;
     private int page;
     private int blog;
     private int comment;
     private int like;
 
-    public EventUser(String correo, String fullName, Icon icon) {
-        this.correo = correo;
-        this.fullName = fullName;
+    public EventUser(String email, String name, Icon icon) {
+        this.email = email;
+        this.name = name;
         this.icon = icon;
         this.space = 0;
         this.blog = 0;
@@ -31,12 +33,17 @@ public class EventUser implements Serializable, Comparable<EventUser> {
         return icon;
     }
 
-    public String getCorreo() {
-        return correo;
+    @Override
+    public String getFullName() {
+        return name;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getSpace() {
@@ -81,8 +88,8 @@ public class EventUser implements Serializable, Comparable<EventUser> {
 
     @Override
     public String toString() {
-        return fullName +
-                " :: correo='" + correo + '\'' +
+        return name +
+                " :: email='" + email + '\'' +
                 ", space=" + space +
                 ", page=" + page +
                 ", blog=" + blog +
@@ -101,14 +108,14 @@ public class EventUser implements Serializable, Comparable<EventUser> {
         int thisScore = space+page+blog+comment+like;
         int userScore = user.getSpace()+user.getPage()+user.getBlog()+user.getComment()+user.getLike();
 
-        if (this == user || userScore == thisScore){
+        if (userScore == thisScore){
             return 0;
         }
 
-        if (thisScore > userScore){
-            return -1;
-        } else {
-            return -1;
-        }
+        return thisScore < userScore ? 1 : -1;
+    }
+
+    public int totalScore(){
+        return space+page+blog+comment+like;
     }
 }

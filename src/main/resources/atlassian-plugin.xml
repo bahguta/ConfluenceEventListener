@@ -17,33 +17,17 @@
     <resource type="download" name="eventService.js" location="/js/eventService.js"/>  
     <resource type="download" name="images/" location="/images"/>  
     <context>eventService</context> 
-  </web-resource>  
-  <!--  <component key="confluence-event-service-impl" class="com.cis.confluence.plugins.impl.ConfluenceEventServiceImpl" name="Confluence Event Service Impl" i18n-name-key="confluence-event-service-impl.name">-->  
-  <!--    <description key="confluence-event-service-impl.description">The Confluence Event Service Impl Plugin</description>-->  
-  <!--    <interface>com.cis.confluence.plugins.impl.ConfluenceEventService</interface>-->  
-  <!--  </component>-->  
+  </web-resource>
   <listener name="Confluence Event Listener" class="com.cis.confluence.plugins.impl.ConfluenceEventServiceImpl" key="eventlistener"> 
     <description>Provides an audit log for each event within Confluence.</description> 
-  </listener>  
-  <!-- <coontent-template key="page-template" i18n-name-key="page-template">
-  <resource name="page" type="download" location="templates/page.xml"/>
-</content-template> -->  
-  <!--  <web-resource name="page" i18n-name-key="page.name" key="page"> -->  
-  <!--    <description key="page.description">The page Plugin</description>  -->  
-  <!--    <resource namePattern="pagePattern" type="download" location="/templates/view.vm">-->
-  <!--&lt;!&ndash;      <param name="ConfluencerManager" value="getResults()"/> &ndash;&gt;-->  
-  <!--    </resource> -->  
-  <!--  </web-resource>-->  
+  </listener>
   <xhtml-macro name="Confluencer Macro Page" class="com.cis.confluence.plugins.impl.ConfluencerMacroPage" key="confluencer-macro-page"> 
     <description key="confluencer.macro.page"/>
     <category name="Administration"/>
     <parameters/> 
-  </xhtml-macro>  
-<!--  <web-panel name="Confluencer Panel" i18n-name-key="confluencer-panel.name" key="confluencer-panel" location="confluencer=panel" weight="1000"> -->
-<!--    <description key="confluencer-panel.description">The Confluencer Panel Plugin</description> -->
-<!--  </web-panel>  -->
-<!--  <web-panel name="confluencePanel" i18n-name-key="confluence-panel.name" key="confluence-panel"-->
-<!--             location="/templates/view.vm" weight="1000">-->
-<!--    <description key="confluence-panel.description">The confluencePanel Plugin</description> -->
-<!--  </web-panel>-->
+  </xhtml-macro>
 </atlassian-plugin>
+
+
+
+

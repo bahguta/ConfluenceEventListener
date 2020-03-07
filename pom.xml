@@ -67,6 +67,15 @@
             <version>1.8.5</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
@@ -86,7 +95,7 @@
                         <!-- Add package to export here -->
                         <Export-Package>com.cis.confluence.plugins.api,</Export-Package>
                         <!-- Add package import here -->
-                        <Import-Package> com.atlassian.confluence.*;resolution:="optional",org.springframework.osgi.*;resolution:="optional", org.eclipse.gemini.blueprint.*;resolution:="optional", *</Import-Package>
+                        <Import-Package>com.atlassian.confluence.user.*;resolution:="optional",org.springframework.osgi.*;resolution:="optional", org.eclipse.gemini.blueprint.*;resolution:="optional", *</Import-Package>
                         <!-- Ensure plugin is spring powered -->
                         <Spring-Context>*</Spring-Context>
                     </instructions>

@@ -18,9 +18,27 @@ public class ConfluencerManager {
         return list;
     }
 
-    public static void getSortedList(){
+    public static List<EventUser> sortList(){
         List<EventUser> sortedList = getList();
-        Arrays.sort(sortedList.toArray());
+        Collections.sort(sortedList);
+        return sortedList;
+    }
+
+    public static EventUser getFirst(){
+        if (sortList().size() > 0) {
+            return sortList().get(0);
+        } else {
+            return null;
+        }
+    }
+
+    public static List<EventUser> sortedListWithoutFirst(){
+        List<EventUser> lista = new LinkedList<>();
+        List<EventUser> sortedList = sortList();
+        for (int i = 1; i < sortedList.size(); i++) {
+            lista.add(sortedList.get(i));
+        }
+        return lista;
     }
 
     public static boolean containsUser(String correo){
