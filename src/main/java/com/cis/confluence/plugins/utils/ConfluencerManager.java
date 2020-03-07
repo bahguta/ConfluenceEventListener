@@ -4,14 +4,24 @@ import com.atlassian.confluence.api.model.web.Icon;
 import com.cis.confluence.plugins.dto.EventUser;
 import org.apache.log4j.Logger;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ConfluencerManager {
 
     private static final Logger logger = Logger.getLogger(ConfluencerManager.class);
 
     private static Map<String, EventUser> list = new LinkedHashMap<>();
+
+    public static List<EventUser> getList(){
+        List<EventUser> list = new LinkedList<>();
+        ConfluencerManager.list.forEach((key, value) -> list.add(value));
+        return list;
+    }
+
+    public static void getSortedList(){
+        List<EventUser> sortedList = getList();
+        Arrays.sort(sortedList.toArray());
+    }
 
     public static boolean containsUser(String correo){
         return ConfluencerManager.list.containsKey(correo);
@@ -42,9 +52,11 @@ public class ConfluencerManager {
     }
 
     public static void printResults(){
-        list.entrySet().forEach(e -> {
-            System.out.println(" ----- ====== " + e.getValue().toString() + " ====== ------");
-            logger.debug(e.getValue().toString());
+        System.out.println("====================================================================================");
+        list.forEach((key, value) -> {
+            System.out.println(" ----- ====== " + value.toString() + " ====== ------");
+            logger.debug(" ----- ====== " + value.toString() + " ====== ------");
         });
+        System.out.println("====================================================================================");
     }
 }

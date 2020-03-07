@@ -2,9 +2,10 @@ package com.cis.confluence.plugins.dto;
 
 import com.atlassian.confluence.api.model.web.Icon;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-public class EventUser implements Serializable {
+public class EventUser implements Serializable, Comparable<EventUser> {
 
     private Icon icon;
     private String correo;
@@ -88,5 +89,26 @@ public class EventUser implements Serializable {
                 ", comment=" + comment +
                 ", like=" + like +
                 '}';
+    }
+
+    @Override
+    public int compareTo(@NotNull EventUser user) {
+
+        if (user == null){
+            return -1;
+        }
+
+        int thisScore = space+page+blog+comment+like;
+        int userScore = user.getSpace()+user.getPage()+user.getBlog()+user.getComment()+user.getLike();
+
+        if (this == user || userScore == thisScore){
+            return 0;
+        }
+
+        if (thisScore > userScore){
+            return -1;
+        } else {
+            return -1;
+        }
     }
 }
