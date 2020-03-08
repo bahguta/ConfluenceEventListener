@@ -23,9 +23,17 @@
   </listener>
   <xhtml-macro name="Confluencer Macro Page" class="com.cis.confluence.plugins.impl.ConfluencerMacroPage" key="confluencer-macro-page"> 
     <description key="confluencer.macro.page"/>
+    <resource type="velocity" name="view" location="/templates/view.vm"/>
     <category name="Administration"/>
     <parameters/> 
   </xhtml-macro>
+<!--  <xhtml-macro name="Profile Picture Macro" class="com.cis.confluence.plugins.utils.ProfilePictureMacro" key="profile-picture-macro">-->
+<!--    <description key="profile.picture.macro"/>-->
+<!--    <resource type="velocity" name="view" location="/templates/view.vm"/>-->
+<!--    <category name="Administration"/>-->
+<!--    <parameters/>-->
+<!--  </xhtml-macro>-->
+
 </atlassian-plugin>
 
 

@@ -6,7 +6,6 @@ import com.atlassian.confluence.event.events.content.blogpost.BlogPostCreateEven
 import com.atlassian.confluence.event.events.content.comment.CommentEvent;
 import com.atlassian.confluence.event.events.content.page.PageCreateEvent;
 import com.atlassian.confluence.event.events.like.LikeCreatedEvent;
-import com.atlassian.confluence.user.UserAccessor;
 import com.cis.confluence.plugins.api.ConfluenceEventService;
 import com.atlassian.confluence.event.events.space.SpaceCreateEvent;
 import com.atlassian.event.api.EventListener;
@@ -18,6 +17,7 @@ import org.apache.log4j.Logger;
 import javax.inject.Named;
 import java.lang.annotation.Annotation;
 import java.util.List;
+import java.util.Objects;
 
 
 @ConfluenceComponent
@@ -72,7 +72,6 @@ public class ConfluenceEventServiceImpl implements ConfluenceEventService, Event
         ConfluencerManager.addPage(correo);
         logger.debug("---=== Page add to " + fullName + " ===---");
         System.out.println("---=== Page add to " + fullName + " ===---");
-        System.out.println("====================================================================================");
         ConfluencerManager.printResults();
     }
 
@@ -89,7 +88,6 @@ public class ConfluenceEventServiceImpl implements ConfluenceEventService, Event
         ConfluencerManager.addBlog(correo);
         logger.debug("---=== Blog add to " + fullName + " ===---");
         System.out.println("---=== Blog add to " + fullName + " ===---");
-        System.out.println("====================================================================================");
         ConfluencerManager.printResults();
     }
 
@@ -106,7 +104,6 @@ public class ConfluenceEventServiceImpl implements ConfluenceEventService, Event
         ConfluencerManager.addComment(correo);
         logger.debug("---=== Comment add to " + fullName + " ===---");
         System.out.println("---=== Comment add to " + fullName + " ===---");
-        System.out.println("====================================================================================");
         ConfluencerManager.printResults();
     }
 
@@ -117,7 +114,7 @@ public class ConfluenceEventServiceImpl implements ConfluenceEventService, Event
         String fullNameLiked = event.getContent().getCreator().getFullName();
         Icon iconLiked = User.fromUserkey(event.getContent().getCreator().getKey()).getProfilePicture();
 
-        String correoLiker = event.getOriginatingUser().getEmail();
+        String correoLiker = Objects.requireNonNull(event.getOriginatingUser()).getEmail();
         String fullNameLiker = event.getOriginatingUser().getFullName();
         Icon iconLiker = User.fromUsername(event.getOriginatingUser().getName()).getProfilePicture();
 
@@ -136,9 +133,6 @@ public class ConfluenceEventServiceImpl implements ConfluenceEventService, Event
         logger.debug("---=== Like add to " + fullNameLiker + " ===---");
         System.out.println("---=== Like add to " + fullNameLiked + " ===---");
         System.out.println("---=== Like add to " + fullNameLiker + " ===---");
-
-        System.out.println("====================================================================================");
-        ConfluencerManager.printResults();
     }
 
 }
