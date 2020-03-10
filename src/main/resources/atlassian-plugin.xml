@@ -15,23 +15,31 @@
     <dependency>com.atlassian.auiplugin:ajs</dependency>  
     <resource type="download" name="eventService.css" location="/css/eventService.css"/>  
     <resource type="download" name="eventService.js" location="/js/eventService.js"/>  
-    <resource type="download" name="images/" location="/images"/>  
+    <resource type="download" name="images/" location="/images"/>
+
     <context>eventService</context> 
   </web-resource>
   <listener name="Confluence Event Listener" class="com.cis.confluence.plugins.impl.ConfluenceEventServiceImpl" key="eventlistener"> 
     <description>Provides an audit log for each event within Confluence.</description> 
   </listener>
-  <xhtml-macro name="Confluencer Macro Page" class="com.cis.confluence.plugins.impl.ConfluencerMacroPage" key="confluencer-macro-page"> 
+  <xhtml-macro name="Confluencer Macro Page" class="com.cis.confluence.plugins.impl.ConfluencerMacroPage" key="confluencer-macro-page">
     <description key="confluencer.macro.page"/>
-    <resource type="velocity" name="view" location="/templates/view.vm"/>
+<!--    <resource type="velocity" name="view" location="/templates/editmyprofile.vm"/>-->
     <category name="Administration"/>
     <parameters/> 
   </xhtml-macro>
+<!--  <web-item key="myuserpreferences" name="Custom User Settings"-->
+<!--            section="system.settings.edit/yoursettings" weight="40">-->
+<!--    <label key="myapp.user.settings.tabs.header"/>-->
+<!--    <link>/users/viewmycustomettings.action</link>-->
+<!--  </web-item>-->
 <!--  <xhtml-macro name="Profile Picture Macro" class="com.cis.confluence.plugins.utils.ProfilePictureMacro" key="profile-picture-macro">-->
 <!--    <description key="profile.picture.macro"/>-->
 <!--    <resource type="velocity" name="view" location="/templates/view.vm"/>-->
 <!--    <category name="Administration"/>-->
-<!--    <parameters/>-->
+<!--    <parameters>-->
+<!--      <parameter name="user" required="false"/>-->
+<!--    </parameters>-->
 <!--  </xhtml-macro>-->
 
 </atlassian-plugin>

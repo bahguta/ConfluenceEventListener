@@ -10,7 +10,7 @@
         <url>https://cis.ieci-servicios.com/</url>
     </organization>
     <name>Confluencer Module</name>
-    <description>This module collect all information to bring out one of the CiS Events - Confluencer of the year !!!</description>
+    <description>This module collect information to bring out one of the CiS Events - Confluencer of the year !!!</description>
     <packaging>atlassian-plugin</packaging>
     <dependencies>
         <dependency>
@@ -87,7 +87,11 @@
                         <!-- Add package to export here -->
                         <Export-Package>com.cis.confluence.plugins.api,</Export-Package>
                         <!-- Add package import here -->
-                        <Import-Package>org.springframework.osgi.*;resolution:="optional", org.eclipse.gemini.blueprint.*;resolution:="optional", *</Import-Package>
+                        <Import-Package>
+                            com.atlassian.confluence.user.*;resolution:="optional",
+                            org.springframework.osgi.*;resolution:="optional",
+                            org.eclipse.gemini.blueprint.*;resolution:="optional",
+                            *</Import-Package>
                         <!-- Ensure plugin is spring powered -->
                         <Spring-Context>*</Spring-Context>
                     </instructions>
