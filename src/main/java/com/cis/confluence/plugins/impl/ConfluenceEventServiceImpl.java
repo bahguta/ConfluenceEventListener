@@ -6,6 +6,8 @@ import com.atlassian.confluence.event.events.content.blogpost.BlogPostCreateEven
 import com.atlassian.confluence.event.events.content.comment.CommentEvent;
 import com.atlassian.confluence.event.events.content.page.PageCreateEvent;
 import com.atlassian.confluence.event.events.like.LikeCreatedEvent;
+import com.atlassian.confluence.user.UserAccessor;
+import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.cis.confluence.plugins.api.ConfluenceEventService;
 import com.atlassian.confluence.event.events.space.SpaceCreateEvent;
 import com.atlassian.event.api.EventListener;
@@ -14,6 +16,8 @@ import com.atlassian.plugin.spring.scanner.annotation.export.ExportAsService;
 import com.cis.confluence.plugins.dto.EventUser;
 import com.cis.confluence.plugins.utils.ConfluencerManager;
 import org.apache.log4j.Logger;
+
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -23,10 +27,16 @@ import java.util.Objects;
 @ConfluenceComponent
 @ExportAsService({ConfluenceEventServiceImpl.class})
 @Named("ConfluenceEventServiceImpl")
-public class ConfluenceEventServiceImpl implements ConfluenceEventService, EventListener {
+public class ConfluenceEventServiceImpl implements ConfluenceEventService, EventListener, InitializationBean {
 
     private final Logger logger = org.apache.log4j.Logger.getLogger(ConfluenceEventServiceImpl.class);
     private final ConfluencerManager confluencerManager = new ConfluencerManager();
+//
+//    UserAccessor userAccessor;
+//    @Inject
+//    public ConfluenceEventServiceImpl(@ComponentImport UserAccessor userAccessor) {
+//        this.userAccessor = userAccessor;
+//    }
 
     @Override
     public List<EventUser> getList() {
