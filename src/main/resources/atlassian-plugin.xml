@@ -15,23 +15,68 @@
     <dependency>com.atlassian.auiplugin:ajs</dependency>  
     <resource type="download" name="eventService.css" location="/css/eventService.css"/>  
     <resource type="download" name="eventService.js" location="/js/eventService.js"/>  
-    <resource type="download" name="images/" location="/images"/>  
+    <resource type="download" name="images/" location="/images"/>
+
     <context>eventService</context> 
   </web-resource>
   <listener name="Confluence Event Listener" class="com.cis.confluence.plugins.impl.ConfluenceEventServiceImpl" key="eventlistener"> 
     <description>Provides an audit log for each event within Confluence.</description> 
   </listener>
-  <xhtml-macro name="Confluencer Macro Page" class="com.cis.confluence.plugins.impl.ConfluencerMacroPage" key="confluencer-macro-page"> 
+  <xhtml-macro name="Confluencer Macro Page" class="com.cis.confluence.plugins.impl.ConfluencerMacroPage" key="confluencer-macro-page">
     <description key="confluencer.macro.page"/>
-    <resource type="velocity" name="view" location="/templates/view.vm"/>
     <category name="Administration"/>
     <parameters/> 
   </xhtml-macro>
+
+  <webwork key="confluencer-participate-button" name="Participate Confluencer Button" section="system.profile.edit">
+    <actions>
+      <action name="ConfluencerParticipate" alias="ConfluencerParticipate">
+        <view name="confluencerparticipate">/templates/confluencer.vm</view>
+      </action>
+    </actions>
+  </webwork>
+
+  <web-section key="Confluencer-section" name="Confluencer Section" location="system.profile.edit/confluencer" weight="300">
+    <label key="Confluencer Section" />
+<!--    <condition class="com.atlassian.confluence.plugin.descriptor.web.conditions.NotPersonalSpaceCondition"/>-->
+  </web-section>
+
+  <web-item key="Confluencer" name="Participate Confluencer Page" section="system.profile.edit/confluencer" weight="10">
+    <description key="confluencer-participate.desc">Participate Confluencer Page</description>
+    <label key="Confluencer" />
+    <link linkId="confluencer-participate-page">/secure/confluencer!default.jspa</link>
+  </web-item>
+
+  <web-item key="web-item-example" name="My Web Item" section="system.profile.edit/user-administion" weight="200">
+    <description key="my-web-item-desc">General description</description>
+    <label key="my-web-item-label" />
+    <link linkId="my-web-item-link">/my-web-item</link>
+  </web-item>
+
+
+
+
+
+<!--  <xhtml-macro name="Custom Profile Page" class="com.cis.confluence.plugins.impl.ConfluencerParticipateipate" key="custom-profile-page">-->
+<!--    <description key="custom.profile.page"/>-->
+<!--        <resource type="velocity" name="view" location="/templates/profile-macro.vm"/>-->
+<!--    <category name="Administration"/>-->
+<!--    <parameters/>-->
+<!--  </xhtml-macro>-->
+
+
+<!--  <web-item key="myuserpreferences" name="Custom User Settings"-->
+<!--            section="system.editor.featured.macros.default" weight="40">-->
+<!--    <label key="myapp.user.settings.tabs.header"/>-->
+<!--    <link>/users/viewmycustomettings.action</link>-->
+<!--  </web-item>-->
 <!--  <xhtml-macro name="Profile Picture Macro" class="com.cis.confluence.plugins.utils.ProfilePictureMacro" key="profile-picture-macro">-->
 <!--    <description key="profile.picture.macro"/>-->
 <!--    <resource type="velocity" name="view" location="/templates/view.vm"/>-->
 <!--    <category name="Administration"/>-->
-<!--    <parameters/>-->
+<!--    <parameters>-->
+<!--      <parameter name="user" required="false"/>-->
+<!--    </parameters>-->
 <!--  </xhtml-macro>-->
 
 </atlassian-plugin>

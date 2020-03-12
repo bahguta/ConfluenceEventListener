@@ -13,20 +13,21 @@ public class ConfluencerManager {
     private static Map<String, EventUser> list = new LinkedHashMap<>();
 
     public static List<EventUser> getList(){
-        List<EventUser> list = new LinkedList<>();
-        ConfluencerManager.list.forEach((key, value) -> list.add(value));
-        return list;
+        List<EventUser> lista = new LinkedList<>();
+        ConfluencerManager.list.forEach((key, value) -> lista.add(value));
+        return lista;
     }
 
-    public static List<EventUser> sortList(){
+    public static List<EventUser> getSortedList(){
         List<EventUser> sortedList = getList();
         Collections.sort(sortedList);
         return sortedList;
     }
 
     public static EventUser getFirst(){
-        if (sortList().size() > 0) {
-            return sortList().get(0);
+        List<EventUser> sortedList = getList();
+        if (sortedList.size() > 0) {
+            return sortedList.get(0);
         } else {
             return null;
         }
@@ -34,7 +35,7 @@ public class ConfluencerManager {
 
     public static List<EventUser> sortedListWithoutFirst(){
         List<EventUser> lista = new LinkedList<>();
-        List<EventUser> sortedList = sortList();
+        List<EventUser> sortedList = getSortedList();
         for (int i = 1; i < sortedList.size(); i++) {
             lista.add(sortedList.get(i));
         }
