@@ -1,0 +1,11 @@
+<html>
+	<head>
+       <meta name="decorator" content="atl.userprofile" />
+        <meta content="system.profile.edit/confluencer-profile-section" name="system.profile.edit">
+	</head>
+
+
+    <body>
+        <p style="border: 1px solid black">TESTTTTTT </p>
+    </body>
+</html>
