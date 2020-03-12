@@ -37,7 +37,7 @@ public class ConfluencerMacroPage implements Macro {
                 append("<tr>").
                 append("<td style=\"text-align: center;\">").append("N&#8791").append("</td>").
                 append("<td style=\"text-align: center;\">").append("</td>").
-                append("<td style=\"text-align: left;\">").append("Confluencer").append("</td>").
+                append("<td style=\"text-align: left; margin: 10px;\">").append("Confluencer").append("</td>").
                 append("<td style=\"text-align: center;\">").append("Spaces").append("</td>").
                 append("<td style=\"text-align: center;\">").append("Pages").append("</td>").
                 append("<td style=\"text-align: center;\">").append("Blogs").append("</td>").
@@ -54,7 +54,7 @@ public class ConfluencerMacroPage implements Macro {
             sb.append("<tr style=\"font-size: 17px; width: 100%; color: blue; background: grey; text-align: center;\">").
                     append("<td>").append("<p>").append(cont[0]).append("</p>").append("</td>").
                     append("<td>").append("<img  style=\"border-radius: 25%; border: 1px solid black; margin: 10px;\" src=\"" + ConfluencerManager.getFirst().getIcon().getPath() + "\"  width=\"50\" height=\"50\" />").append("</td>").
-                    append("<td>").append("<p style=\"text-align: left;\">").append(ConfluencerManager.getFirst().getFullName()).append("</p>").append("</td>").
+                    append("<td>").append("<p style=\"text-align: left; margin: 10px;\">").append(ConfluencerManager.getFirst().getFullName()).append("</p>").append("</td>").
                     append("<td>").append("<p>").append(ConfluencerManager.getFirst().getSpace()).append("</p>").append("</td>").
                     append("<td>").append("<p>").append(ConfluencerManager.getFirst().getPage()).append("</p>").append("</td>").
                     append("<td>").append("<p>").append(ConfluencerManager.getFirst().getBlog()).append("</p>").append("</td>").
@@ -69,7 +69,7 @@ public class ConfluencerMacroPage implements Macro {
                 sb.append("<tr style=\"font-size: 15px; width: 100%; text-align: center; color: #5b9aa0;\">").
                         append("<td>").append("<p>").append(cont[0]).append("</p>").append("</td>").
                         append("<td>").append("<img  style=\"border-radius: 25%; border: 1px solid black; margin: 10px;\" src=\"" + u.getIcon().getPath() + "\" width=\"50\" height=\"50\" />").append("</td>").
-                        append("<td>").append("<p style=\"color: #bc5a45; text-align: left;\">").append(u.getFullName()).append("</p>").append("</td>").
+                        append("<td>").append("<p style=\"color: #bc5a45; text-align: left; margin: 10px;\">").append(u.getFullName()).append("</p>").append("</td>").
                         append("<td>").append("<p>").append(u.getSpace()).append("</p>").append("</td>").
                         append("<td>").append("<p>").append(u.getPage()).append("</p>").append("</td>").
                         append("<td>").append("<p>").append(u.getBlog()).append("</p>").append("</td>").
