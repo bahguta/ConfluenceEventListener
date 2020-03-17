@@ -1,6 +1,7 @@
 package com.cis.confluence.plugins.utils;
 
 import com.atlassian.confluence.api.model.web.Icon;
+import com.atlassian.sal.api.user.UserKey;
 import com.cis.confluence.plugins.dto.EventUser;
 import org.apache.log4j.Logger;
 
@@ -25,7 +26,7 @@ public class ConfluencerManager {
     }
 
     public static EventUser getFirst(){
-        List<EventUser> sortedList = getList();
+        List<EventUser> sortedList = getSortedList();
         if (sortedList.size() > 0) {
             return sortedList.get(0);
         } else {
@@ -46,8 +47,8 @@ public class ConfluencerManager {
         return ConfluencerManager.list.containsKey(correo);
     }
 
-    public static void addUser(String correo, String fullName, Icon icon){
-        ConfluencerManager.list.put(correo, new EventUser(correo, fullName, icon));
+    public static void addUser(String correo, String fullName, String key, Icon icon){
+        ConfluencerManager.list.put(correo, new EventUser(correo, fullName, key, icon));
     }
 
     public static void addSpace(String correo){

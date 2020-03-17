@@ -13,8 +13,8 @@
   <!-- add our web resources -->  
   <web-resource key="eventService-resources" name="eventService Web Resources"> 
     <dependency>com.atlassian.auiplugin:ajs</dependency>  
-    <resource type="download" name="eventService.css" location="/css/eventService.css"/>  
-    <resource type="download" name="eventService.js" location="/js/eventService.js"/>  
+    <resource type="download" name="view.css" location="/css/view.css"/>
+    <resource type="download" name="view.js" location="/js/view.js"/>
     <resource type="download" name="images/" location="/images"/>
 
     <context>eventService</context> 
@@ -28,57 +28,6 @@
     <parameters/> 
   </xhtml-macro>
 
-<!--  <webwork key="confluencer-participate-button" name="Participate Confluencer Button" section="system.profile.edit">-->
-<!--    <actions>-->
-<!--      <action name="ConfluencerParticipate" alias="ConfluencerParticipate">-->
-<!--        <view name="confluencerparticipate">/templates/view.vm</view>-->
-<!--      </action>-->
-<!--    </actions>-->
-<!--  </webwork>-->
-
-<!--  <web-section key="Confluencer-section" name="Confluencer Section" location="system.profile.edit/confluencer" weight="300">-->
-<!--    <label key="Confluencer Section" />-->
-<!--&lt;!&ndash;    <condition class="com.atlassian.confluence.plugin.descriptor.web.conditions.NotPersonalSpaceCondition"/>&ndash;&gt;-->
-<!--  </web-section>-->
-
-<!--  <web-item key="Confluencer" name="Participate Confluencer Page" section="system.profile.edit/confluencer" weight="10">-->
-<!--    <description key="confluencer-participate.desc">Participate Confluencer Page</description>-->
-<!--    <label key="Confluencer" />-->
-<!--    <link linkId="confluencer-participate-page">/secure/confluencer!default.jspa</link>-->
-<!--  </web-item>-->
-
-<!--  <web-item key="web-item-example" name="My Web Item" section="system.profile.edit/user-administion" weight="200">-->
-<!--    <description key="my-web-item-desc">General description</description>-->
-<!--    <label key="my-web-item-label" />-->
-<!--    <link linkId="my-web-item-link">/my-web-item</link>-->
-<!--  </web-item>-->
-
-
-
-
-<!--  <webwork1 key="confluencer-participate-button" name="Participate Confluencer Button" i18n-name-key="confluencer-participate-button.name">-->
-<!--    <description key="confluencer-participate-button.desc">This is a section of Confluencer Panel</description>-->
-<!--&lt;!&ndash;    <resource type="download" name="view.css" location="/css/view.css"/>&ndash;&gt;-->
-
-<!--    <actions>-->
-<!--      <action class="com.cis.confluence.plugins.impl.ConfluencerParticipate" alias="ConfluencerPanel">-->
-<!--        <view name="SUCCESS">/templates/view.vm</view>-->
-<!--        <view name="ERROR">/templates/error.vm</view>-->
-<!--      </action>-->
-<!--    </actions>-->
-<!--  </webwork1>-->
-
-
-<!--  <webwork1 key="scheduler-webwork-list-key" name="Scheduler WebWork List" i18n-name-key="scheduler-webwork-list-key.name">-->
-<!--    <description key="scheduler-webwork-list-key.desc">This is a webwork for Scheduler List Panel</description>-->
-<!--    &lt;!&ndash;    <resource type="download" name="view.css" location="/css/view.css"/>&ndash;&gt;-->
-<!--    <actions>-->
-<!--      <action name="com.cis.confluence.plugins.impl.ConfluencerParticipate" alias="SchedulerPanel">-->
-<!--        <view name="SUCCESS">/templates/listview.vm</view>-->
-<!--        <view name="ERROR">/templates/listerror.vm</view>-->
-<!--      </action>-->
-<!--    </actions>-->
-<!--  </webwork1>-->
 
 
     <xwork name="Confluencer" key="add-draft-label-action-xwork">
@@ -88,6 +37,7 @@
             <action name="confluencer-panel" class="com.cis.confluence.plugins.impl.ConfluencerParticipate" method="execute">
 <!--                <view name="SUCCESS">/templates/view.vm</view>-->
 <!--                <view name="ERROR">/templates/error.vm</view>-->
+                <parameters></parameters>
                 <result name="SUCCESS" type="velocity">/templates/view.vm</result>
                 <result name="ERROR" type="velocity">/templates/error.vm</result>
 <!--                <result name="success" type="redirect">${page.urlPath}</result>-->
@@ -112,29 +62,6 @@
 <!--    <condition class="com.cis.confluence.plugins.impl.CustomWebCondition"/>-->
   </web-item>
 
-
-
-<!--  <xhtml-macro name="Custom Profile Page" class="com.cis.confluence.plugins.impl.ConfluencerParticipateipate" key="custom-profile-page">-->
-<!--    <description key="custom.profile.page"/>-->
-<!--        <resource type="velocity" name="view" location="/templates/profile-macro.vm"/>-->
-<!--    <category name="Administration"/>-->
-<!--    <parameters/>-->
-<!--  </xhtml-macro>-->
-
-
-<!--  <web-item key="myuserpreferences" name="Custom User Settings"-->
-<!--            section="system.editor.featured.macros.default" weight="40">-->
-<!--    <label key="myapp.user.settings.tabs.header"/>-->
-<!--    <link>/users/viewmycustomettings.action</link>-->
-<!--  </web-item>-->
-<!--  <xhtml-macro name="Profile Picture Macro" class="com.cis.confluence.plugins.utils.ProfilePictureMacro" key="profile-picture-macro">-->
-<!--    <description key="profile.picture.macro"/>-->
-<!--    <resource type="velocity" name="view" location="/templates/view.vm"/>-->
-<!--    <category name="Administration"/>-->
-<!--    <parameters>-->
-<!--      <parameter name="user" required="false"/>-->
-<!--    </parameters>-->
-<!--  </xhtml-macro>-->
 
 </atlassian-plugin>
 
