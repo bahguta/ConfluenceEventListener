@@ -70,7 +70,7 @@ public class EventSeekerManager {
             if (null != space.getCreator() && null != space.getCreator().getKey() ) {
                 System.out.println("=-============================== space Keuy   " + space.getCreator().getKey());
                 if (null != user.getKey()){
-                    System.out.println("------------------ userkey NE E NULL " + user.getKey());
+                    System.out.println("------------------ userkey ISNT NULL " + user.getKey());
                     if (space.getCreator().getKey().equals(user.getKey())) {
                         cont++;
                         ConfluencerManager.addSpace(user.getEmail());
@@ -134,4 +134,8 @@ public class EventSeekerManager {
 //    }
 
 
+    @Override
+    public String toString() {
+        return "EventSeekerManager{}";
+    }
 }

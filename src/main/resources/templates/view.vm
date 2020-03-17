@@ -6,14 +6,24 @@
 #requireResource("com.atlassian.auiplugin:aui-inline-dialog2")
 #requireResource("com.atlassian.auiplugin:aui-toggle")
 
+
+
 <html>
 	<head>
         <meta name="decorator" content="atl.userprofile" />
         <meta content="system.profile.edit/confluencer-profile-section" name="system.profile.edit">
         $webResourceManager.requireResource("com.cis.confluence.plugins.confluencer-module:eventService-resources")
+	    ##set($user = "$user")
+	   ## <script>
+       ##      AJS.$(document).ready(function(){
+        ##        AJS.$("#btnOK").click(function(){
+       ##             $$eventSeekerManager.userParticipate($user);
+       ##         }
+      ##       }
+      ##  </script>
 	</head>
 
-    <body onload="script();">
+    <body>
         <section id="content" role="main">
             <div class="field-group form-buttons compact-form-buttons">
                 <div class="aui-page-panel">
@@ -32,53 +42,38 @@
                                 <aui-toggle id="toggle" data-aui-trigger value="$user.isParticipate()" label="Participaaaa !!!!!" >
                                     Paaaaaaarticipaaaa !!!!!
                                 </aui-toggle>
-                                <p>$user</p>
-                                <script>
-                                    AJS.$(document).ready(function(){
-                                        AJS.$("#btnOK").click(function(){
-                                        var trigger = document.querySelector('[data-aui-trigger]');
-                                        var toggle = document.getElementById('toggle');
-                                        var isChecked = toggle.checked;
+                                </br>
+                                ##<script>
+                                ##    AJS.$(document).ready(function(){
+                                ##        AJS.$("#btnOK").click(function(){
+                                 ##       var trigger = document.querySelector('[data-aui-trigger]');
+                                  ##      var toggle = document.getElementById('toggle');
+                                   ##     var isChecked = toggle.checked;
 
-                                            if (isChecked){
-                                                alert("I WAS CLICKED   " + isChecked);
-                                                $eventSeekerManager.userParticipate($user);
-                                                alert("I WAS CLICKED   " + isChecked);
-                                                window.location.href = href="/confluence/display/CON/Confluencer+Home";
-                                            }
-                                        });
-                                    });
-                                </script>
+                                     ##       if (isChecked){
+                                       ##         alert("I WAS CLICKED   " + isChecked);
+                                         ##       $eventSeekerManager.userParticipate($user);
+                                           ##     alert("I WAS CLICKED   " + isChecked);
+                                      ##          window.location.href = href="/confluence/display/CON/Confluencer+Home";
+                                   ##         }
+                               ##         });
+                             ##       });
+                            ##    </script>
                             </div>
-                           ## <script>
-                             ##   function participaUser(){
-                             ##       var trigger = document.querySelector('[data-aui-trigger]');
-                             ##       var toggle = document.getElementById('toggle');
-                             ##       var isChecked = toggle.isChecked();
-                             ##       if (isChecked){
-                             ##       Console.log("TRIGGER IS ENABLED !!!!" trigger.isEnabled());
-                             ##           $user.setParticipate(isChecked);
-                             ##       }
-                             ##   }
-                           ## </script>
+
                             <div class="aui-page-panel-inner">
-                                <a id="btnOK" class="aui-button aui-button-primary aui-style">
+                                <button id="btnOK" class="aui-button aui-button-primary aui-style" onclick="participa($user, $eventSeekerManager)">
                                     Voy a Participar
-                                </a>
-                                <a class="aui-button aui-button-link">Close</a>
+                                </button>
+                                <button class="aui-button aui-button-link">Close</button>
                             </div>
+
+
 
                         </div>
                     </div>
                 </div>
-                <div>
-                    ##<input type="checkbox" id="checkbox" name="checkbox" value="$participate">Participa</input>
-                    <p>if participate</p>
-                    #if ($participate) <p>$participate</p> #end
-                    <p>if user.participate</p>
-                    #if ($user.isParticipate()) <p> $user.isParticipate()</p> #end
-                    <p>fin</p>
-                </div>
+
             </div>
         </section>
     </body>

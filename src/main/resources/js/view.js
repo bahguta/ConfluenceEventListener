@@ -1,3 +1,25 @@
+function participa(user, eventSeekerManager){
+    var toggle = document.getElementById('toggle');
+    if (toggle.checked == true){
+       // var user = "$user";
+        user.setParticipate(toggle.checked);
+        eventSeekerManager.userParticipate(user);
+        alert("user");
+
+        window.location.href = href="/confluence/display/CON/Confluencer+Home";
+    }
+
+}
+
+//AJS.$(document).ready(function(){
+//    AJS.$("#btnOK").click(function(){
+//        $eventSeekerManager.userParticipate($user);
+//    }
+// }
+
+
+
+
 //function participa(){
 //   user.setParticipa();
 //}
