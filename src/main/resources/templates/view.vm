@@ -5,7 +5,9 @@
 #requireResource("confluence.web.resources:aui-forms")
 #requireResource("com.atlassian.auiplugin:aui-inline-dialog2")
 #requireResource("com.atlassian.auiplugin:aui-toggle")
-
+#requireResource("com.atlassian.auiplugin:aui-buttons")
+#requireResource("confluence.web.resources:jquery")
+#requireResource("confluence.web.resources:ajs")
 
 
 <html>
@@ -13,14 +15,18 @@
         <meta name="decorator" content="atl.userprofile" />
         <meta content="system.profile.edit/confluencer-profile-section" name="system.profile.edit">
         $webResourceManager.requireResource("com.cis.confluence.plugins.confluencer-module:eventService-resources")
-	    ##set($user = "$user")
-	   ## <script>
-       ##      AJS.$(document).ready(function(){
-        ##        AJS.$("#btnOK").click(function(){
-       ##             $$eventSeekerManager.userParticipate($user);
-       ##         }
-      ##       }
-      ##  </script>
+
+	    <script>
+            AJS.toInit(function () {
+            alert("jquery :: " + jQuery("#checkBoxOne"));
+            el: jQuery("#checkBoxOne");
+
+               ## function participa(){
+                    alert(el);
+
+               ## }
+            });
+        </script>
 	</head>
 
     <body>
@@ -33,13 +39,13 @@
                         </div>
                         <div class="aui-page-panel-inner">
                             <h3>Cis Confluencer of the year</h3>
-                            <div id="toggle-form">
+                            <div id="toggle-form" onsubmit="return participa()">
                                 <p>
                                     Pulsando el boton estas deacuerdo que vamos a recoger informacion de la cantidad de las spaces/paginas/comentarios que ha creado (en numeros),
                                     NO de la informacion del contenido de estas ultimas. La informacion va a ser usada unicamente
                                     para celebrar el evento de <b>"IECISA | Informatica El Corte Ingles" - Confluencer del año !!!</b>
                                 </p>
-                                <aui-toggle id="toggle" data-aui-trigger value="$user.isParticipate()" label="Participaaaa !!!!!" >
+                                <aui-toggle id="toggle" data-aui-trigger  label="Participaaaa !!!!!" >
                                     Paaaaaaarticipaaaa !!!!!
                                 </aui-toggle>
                                 </br>
@@ -59,14 +65,15 @@
                                ##         });
                              ##       });
                             ##    </script>
+                                <div class="aui-page-panel-inner">
+                                    <button id="btnOK" class="aui-button aui-button-primary aui-style" type="submit" onclick="participa()" >
+                                        Voy a Participar
+                                    </button>
+                                    <button class="aui-button aui-button-link">Close</button>
+                                </div>
                             </div>
 
-                            <div class="aui-page-panel-inner">
-                                <button id="btnOK" class="aui-button aui-button-primary aui-style" onclick="participa($user, $eventSeekerManager)">
-                                    Voy a Participar
-                                </button>
-                                <button class="aui-button aui-button-link">Close</button>
-                            </div>
+
 
 
 
@@ -76,5 +83,23 @@
 
             </div>
         </section>
+
+        <form class="aui" action="/confluence/display/CON/Confluencer+Home" onsubmit="participa()">
+            <fieldset class="group">
+                <legend><span>Description of the set of checkboxes</span></legend>
+                <div class="checkbox">
+                    <input class="checkbox" type="checkbox" name="checkBoxOne" id="checkBoxOne">
+                    <label for="checkBoxOne">Participa</label>
+                </div>
+            </fieldset>
+            <div class="buttons-container">
+                <div class="buttons">
+                    <input class="button submit" type="submit" value="Save" id="btnParticipa" >
+                    <a class="cancel" href="#">Cancel</a>
+                </div>
+            </div>
+        </form>
+
+
     </body>
 </html>

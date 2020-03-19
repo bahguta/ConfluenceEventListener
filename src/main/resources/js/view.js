@@ -1,15 +1,32 @@
-function participa(user, eventSeekerManager){
+function participa(){
     var toggle = document.getElementById('toggle');
+     alert("toggle :: " + toggle.checked);
+        alert("checkbox :: " + AJS.$("$user").toString());
     if (toggle.checked == true){
        // var user = "$user";
-        user.setParticipate(toggle.checked);
-        eventSeekerManager.userParticipate(user);
-        alert("user");
+        //user.setParticipate(toggle.checked);
+        //eventSeekerManager.userParticipate(user);
+        alert("toggle :: " + toggle.checked);
 
-        window.location.href = href="/confluence/display/CON/Confluencer+Home";
+        //window.location.href = href="/confluence/display/CON/Confluencer+Home";
     }
 
 }
+
+
+//
+//             function participa(){
+//                 var toggle = document.getElementById('checkBoxOne');
+//                 if (toggle.checked == true){
+//                    // var user = "$user";
+//                     alert(toggle.checked);
+//                     $eventSeekerManager.userParticipate($user);
+//
+//                     window.location.href = href="/confluence/display/CON/Confluencer+Home";
+//                    return toggle.checked;
+//                 }
+//
+//             }
 
 //AJS.$(document).ready(function(){
 //    AJS.$("#btnOK").click(function(){

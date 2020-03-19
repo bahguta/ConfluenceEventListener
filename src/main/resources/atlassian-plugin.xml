@@ -28,8 +28,6 @@
     <parameters/> 
   </xhtml-macro>
 
-
-
     <xwork name="Confluencer" key="add-draft-label-action-xwork">
         <description key="item.confluencer-participate-action-xwork.link.desc">This is a section of Confluencer Panel</description>
         <package name="Confluencer Page" extends="default" namespace="/plugins/confluencer">
@@ -62,6 +60,10 @@
 <!--    <condition class="com.cis.confluence.plugins.impl.CustomWebCondition"/>-->
   </web-item>
 
+
+    <rest key="confluencer-rest" path="/Confluencer" version="1.0">
+        <description>Provides hello world services.</description>
+    </rest>
 
 </atlassian-plugin>
 
