@@ -43,6 +43,19 @@ public class ConfluencerManager {
         return lista;
     }
 
+    public static boolean participa(String name){
+        return getSortedList().stream().filter( user -> user.getName().equals(name)).findFirst().get().isParticipate();
+    }
+
+    public static boolean setParticipa(String name, boolean participa){
+        getSortedList().stream().filter( user -> user.getName().equals(name)).findFirst().get().setParticipate(participa);
+        return participa;
+    }
+
+//    public static String getUserCorreo(String name){
+//        return getSortedList().stream().filter( user -> user.getName().equals(name)).findFirst().get().getEmail();
+//    }
+
     public static boolean containsUser(String correo){
         return ConfluencerManager.list.containsKey(correo);
     }

@@ -66,13 +66,16 @@ public class ConfluencerParticipate extends ConfluenceActionSupport implements P
     private boolean participate;
     private String text;
     private EventSeekerManager eventSeekerManager;
+    private Map<String,Object> map;
+    private ConfluencerMacroPage confluencerMacroPage;
 
 
     public ConfluencerParticipate() throws EntityException {
         eventSeekerManager = new EventSeekerManager();
         this.text = "some Text";
         this.participate = false;
-
+        map = MacroUtils.defaultVelocityContext();
+        confluencerMacroPage = new ConfluencerMacroPage();
         //AuthenticatedUserThreadLocal.get()
 
         //AuthenticationContext authenticationContext = (AuthenticationContext) ContainerManager.getComponent("AuthenticationContext");
@@ -81,7 +84,7 @@ public class ConfluencerParticipate extends ConfluenceActionSupport implements P
         //if (AuthenticatedUserThreadLocal.isAnonymousUser()){
         ConfluenceUser confluenceUser = getCurrentUser();
         this.user = new EventUser(confluenceUser.getEmail(), confluenceUser.getFullName(), confluenceUser.getKey().getStringValue(), getIcon());
-        System.out.println("--------------------------11111111111 " + confluenceUser.getKey() + " "  + user.toString());
+        System.out.println("--------------------------11111111111 "  + user.toString());
 
 
 
@@ -119,6 +122,13 @@ public class ConfluencerParticipate extends ConfluenceActionSupport implements P
        // AuthenticatedUserThreadLocal.asUser(userAccessor.getUserByKey(user.getKey()));
     }
 
+    public Map<String, Object> getMap() {
+        return map;
+    }
+
+    public String getConfluencerMacroPage() {
+        return confluencerMacroPage.getPage();
+    }
 
     private ConfluenceUser getCurrentUser(){
         ConfluenceUser currentUser = null;

@@ -18,11 +18,11 @@
 
 	    <script>
             AJS.toInit(function () {
-            alert("jquery :: " + jQuery("#checkBoxOne"));
-            el: jQuery("#checkBoxOne");
+            ##alert("jquery :: " + jQuery("#checkBoxOne"));
+            ##el: jQuery("#checkBoxOne");
 
                ## function participa(){
-                    alert(el);
+                    ##alert(el);
 
                ## }
             });
@@ -84,7 +84,10 @@
             </div>
         </section>
 
-        <form class="aui" action="/confluence/display/CON/Confluencer+Home" onsubmit="participa()">
+        <form class="aui" action="/confluence/display/CON/Confluencer+Home" onsubmit="setParticipa()">
+        <p>getCurrentUserData()</p>
+        #set($name = $req.userPrincipal.name)
+        <p>$name =  participa() </p>
             <fieldset class="group">
                 <legend><span>Description of the set of checkboxes</span></legend>
                 <div class="checkbox">
@@ -100,6 +103,8 @@
             </div>
         </form>
 
+
+<table id="project-config-versions-table"></table>
 
     </body>
 </html>

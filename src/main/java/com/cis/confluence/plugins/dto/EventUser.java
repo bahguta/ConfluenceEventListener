@@ -20,7 +20,7 @@ public class EventUser extends ConfluenceUserImpl implements Serializable, User,
     private int blog;
     private int comment;
     private int like;
-    public boolean participate;
+    private boolean participate;
 
     public EventUser(String email, String name, String key, Icon icon) {
         this.key = new UserKey(key);

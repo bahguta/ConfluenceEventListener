@@ -1,17 +1,68 @@
 function participa(){
-    var toggle = document.getElementById('toggle');
-     alert("toggle :: " + toggle.checked);
-        alert("checkbox :: " + AJS.$("$user").toString());
-    if (toggle.checked == true){
+    new AJS.$.ajax({//http://localhost:1990/confluence/rest/Confluencer/1.0/participa
+        url: "http://localhost:1990/confluence/rest/Confluencer/1.0/participa?name=" + AJS.params.remoteUser,
+        type: "GET",
+        dataType: "json",
+        contentType: "application/json",
+        async: "false",
+        success: function (){
+
+            alert("SUCCESS !!! " + AJS.params.remoteUser);
+        },
+        error: function(){
+            alert("ERROR !!!");
+        }
+    });
+}
+
+function setParticipa(){
+    new AJS.$.ajax({//http://localhost:1990/confluence/rest/Confluencer/1.0/{name}/{participa}name=admin&participa=true
+        url: "http://localhost:1990/confluence/rest/Confluencer/1.0/{name}/{participa}/name=" + AJS.params.remoteUser + "&participa=true",
+        type: "SET",
+        dataType: "xml",
+        contentType: "application/xml",
+        async: "false",
+        success: function (){
+            alert("SUCCESS !!! " + AJS.params.remoteUser);
+        },
+        error: function(){
+            alert("ERROR !!!!!!!!!!!!!!");
+        }
+    });
+}
+
+
+    //    autoFocus: true,
+    //    el: jQuery("#project-config-versions-table"),
+    //    allowReorder: true,
+    //    resources: {//http://localhost:1990/confluence/rest/Confluencer/1.0/participa
+    //        //all: "rest/project/HSP/versions?expand=operations",
+    //        all: "rest/Confluencer/1.0/participa",
+    //        self: "rest/version"
+    //    }
+
+    //var toggle = document.getElementById('toggle');
+   // alert("name : " + AJS.params.remoteUser );
+     //alert("toggle :: " + toggle.checked);
+        //alert("checkbox :: " + AJS.$("$user").toString());
+    //if (toggle.checked == true){
        // var user = "$user";
         //user.setParticipate(toggle.checked);
         //eventSeekerManager.userParticipate(user);
-        alert("toggle :: " + toggle.checked);
+        //alert("toggle :: " + toggle.checked);
 
         //window.location.href = href="/confluence/display/CON/Confluencer+Home";
-    }
+    //}
 
-}
+
+
+//alert("User:" + getCurrentUserData()+ " Group:"+ getCurrentUserGroups());
+
+
+//})();
+
+
+
 
 
 //
