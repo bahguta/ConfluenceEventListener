@@ -47,10 +47,9 @@ public class ConfluencerManager {
         return getSortedList().stream().filter( user -> user.getName().equals(name)).findFirst().get().isParticipate();
     }
 
-    public static boolean setParticipa(String name, boolean participa){
-        System.out.println("------------> participaaaa :: " + name + " :: " + participa );
-        getSortedList().stream().filter( user -> user.getName().equals(name)).findFirst().get().setParticipate(participa);
-        return participa;
+    public static boolean setParticipa(String name){
+        getSortedList().stream().filter( user -> user.getName().equals(name)).findFirst().get().setParticipate(true);
+        return true;
     }
 
 //    public static String getUserCorreo(String name){

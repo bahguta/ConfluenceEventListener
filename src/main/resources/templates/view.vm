@@ -41,7 +41,7 @@
                         </div>
                         <div class="aui-page-panel-inner">
                             <h3>Cis Confluencer of the year</h3>
-                            <div id="toggle-form" onsubmit="return participa()">
+                            <div id="toggle-form">
                                 <p>
                                     Pulsando el boton estas deacuerdo que vamos a recoger informacion de la cantidad de las spaces/paginas/comentarios que ha creado (en numeros),
                                     NO de la informacion del contenido de estas ultimas. La informacion va a ser usada unicamente

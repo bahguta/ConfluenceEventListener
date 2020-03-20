@@ -22,26 +22,21 @@ public class ConfluencerREST {
     @GET
     @Path("participa")
     public Response getUser(@QueryParam("name") String name) {
-        return Response.ok( ConfluencerManager.participa(name)).build();
+        return Response.ok(ConfluencerManager.participa(name)).build();
     }
 
     @PUT
     @Path("/{name}/participa")
-    public Response setParticipate(@QueryParam("name") String name, @QueryParam("participa") boolean participa){
-        System.out.println("----------------->? " + name);
-        if (participa){
-
-            ConfluenceUser user  = AuthenticatedUserThreadLocal.get();
-            if (null != user) {
-                System.out.println("--------------->?? name :: " + user.getName() + " | fullName :: " +user.getFullName() + " participa :: " + participa);
-                ConfluencerManager.addUser(user.getEmail(), user.getName(), user.getFullName(), user.getKey().getStringValue(), getIcon());
-            }
+    public Response setParticipate(@QueryParam("name") String name) {
+        ConfluenceUser user = AuthenticatedUserThreadLocal.get();
+        if (null != user) {
+            ConfluencerManager.addUser(user.getEmail(), user.getName(), user.getFullName(), user.getKey().getStringValue(), getIcon());
         }
-        return Response.ok(ConfluencerManager.setParticipa(name, participa)).build();
+        return Response.ok(ConfluencerManager.setParticipa(name)).build();
     }
 
 
-    private Icon getIcon(){
+    private Icon getIcon() {
         if (null != AuthenticatedUserThreadLocal.get()) {
             UserAccessor userAccessor = (UserAccessor) ContainerManager.getComponent("userAccessor");
             ProfilePictureInfo icon = userAccessor.getUserProfilePicture(AuthenticatedUserThreadLocal.get());

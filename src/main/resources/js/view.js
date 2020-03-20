@@ -1,11 +1,12 @@
-function participa(){
-    new AJS.$.ajax({//http://localhost:1990/confluence/rest/Confluencer/1.0/participa
-        url: "http://localhost:1990/confluence/rest/Confluencer/1.0/participa?name=" + AJS.params.remoteUser,
+function getParticipa(){
+    new AJS.$.ajax({
+        url: "/confluence/rest/Confluencer/1.0/participa?name=" + AJS.params.remoteUser,
         type: "GET",
         dataType: "json",
         contentType: "application/json",
         async: "false",
         success: function (){
+
             alert("SUCCESS !!! " + AJS.params.remoteUser);
         },
         error: function(){
@@ -15,18 +16,20 @@ function participa(){
 }
 
 function setParticipa(){
-    new AJS.$.ajax({//http://localhost:1990/confluence/rest/Confluencer/1.0/{name}/{participa}name=admin&participa=true
-        url: "http://localhost:1990/confluence/rest/Confluencer/1.0/{name}/participa?name=" + AJS.params.remoteUser + "&participa=true",
+    new AJS.$.ajax({ // urlBase
+        url: "/confluence/rest/Confluencer/1.0/{name}/participa?name=" + AJS.params.remoteUser,
         type: "PUT",
         dataType: "json",
         contentType: "application/json",
         async: "false",
         success: function (){
-            window.location.href = href="/confluence/display/CON/Confluencer+Home";
-            //alert("SUCCESS !!! " + AJS.params.remoteUser);
+            window.location.href = "/confluence/display/CON/Confluencer";
         },
         error: function(){
-            alert("ERROR !!!!!!!!!!!!!!");
+            AJS.messages.error("#a-custom-context", {
+                title: 'Error',
+                body: '<p> You can`t participate at this moment !!!  </p>'
+            });
         }
     });
 }
