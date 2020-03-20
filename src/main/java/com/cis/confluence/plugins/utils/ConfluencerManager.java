@@ -48,6 +48,7 @@ public class ConfluencerManager {
     }
 
     public static boolean setParticipa(String name, boolean participa){
+        System.out.println("------------> participaaaa :: " + name + " :: " + participa );
         getSortedList().stream().filter( user -> user.getName().equals(name)).findFirst().get().setParticipate(participa);
         return participa;
     }
@@ -61,7 +62,9 @@ public class ConfluencerManager {
     }
 
     public static void addUser(String correo, String fullName, String key, Icon icon){
-        ConfluencerManager.list.put(correo, new EventUser(correo, fullName, key, icon));
+        EventUser eventUser = new EventUser(correo, fullName, key, icon);
+        ConfluencerManager.list.put(correo, eventUser);
+        EventSeekerManager.userParticipate(eventUser);
     }
 
     public static void addSpace(String correo){

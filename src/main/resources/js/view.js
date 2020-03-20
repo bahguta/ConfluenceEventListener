@@ -6,7 +6,6 @@ function participa(){
         contentType: "application/json",
         async: "false",
         success: function (){
-
             alert("SUCCESS !!! " + AJS.params.remoteUser);
         },
         error: function(){
@@ -17,13 +16,14 @@ function participa(){
 
 function setParticipa(){
     new AJS.$.ajax({//http://localhost:1990/confluence/rest/Confluencer/1.0/{name}/{participa}name=admin&participa=true
-        url: "http://localhost:1990/confluence/rest/Confluencer/1.0/{name}/{participa}/name=" + AJS.params.remoteUser + "&participa=true",
-        type: "SET",
-        dataType: "xml",
-        contentType: "application/xml",
+        url: "http://localhost:1990/confluence/rest/Confluencer/1.0/{name}/participa?name=" + AJS.params.remoteUser + "&participa=true",
+        type: "PUT",
+        dataType: "json",
+        contentType: "application/json",
         async: "false",
         success: function (){
-            alert("SUCCESS !!! " + AJS.params.remoteUser);
+            window.location.href = href="/confluence/display/CON/Confluencer+Home";
+            //alert("SUCCESS !!! " + AJS.params.remoteUser);
         },
         error: function(){
             alert("ERROR !!!!!!!!!!!!!!");

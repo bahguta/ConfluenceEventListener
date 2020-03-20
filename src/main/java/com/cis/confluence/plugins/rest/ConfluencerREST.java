@@ -26,13 +26,16 @@ public class ConfluencerREST {
     }
 
     @PUT
-    @Path("/{name}/{participa}")
+    @Path("/{name}/participa")
     public Response setParticipate(@QueryParam("name") String name, @QueryParam("participa") boolean participa){
         System.out.println("----------------->? " + name);
         if (participa){
+
             ConfluenceUser user  = AuthenticatedUserThreadLocal.get();
-            if (null != user)
-            ConfluencerManager.addUser(user.getEmail(), user.getFullName(), user.getKey().getStringValue(), getIcon());
+            if (null != user) {
+                System.out.println("--------------->?? name :: " + user.getName() + " | fullName :: " +user.getFullName() + " participa :: " + participa);
+                ConfluencerManager.addUser(user.getEmail(), user.getName(), user.getKey().getStringValue(), getIcon());
+            }
         }
         return Response.ok(ConfluencerManager.setParticipa(name, participa)).build();
     }

@@ -40,11 +40,11 @@ public class EventSeekerManager {
         // this.userAccessor.getClass()
     }
 
-    public void userParticipate(EventUser user) {
+    public static void userParticipate(EventUser user) {
         user.setParticipate(user.isParticipate());
         System.out.println("-------- participate :: " + user.toString());
 
-        ConfluencerManager.addUser(user.getEmail(), user.getFullName(), user.getKey().getStringValue(), user.getIcon());
+        //ConfluencerManager.addUser(user.getEmail(), user.getFullName(), user.getKey().getStringValue(), user.getIcon());
         EventSeekerManager.getNumSpacesForUser(user);
     }
 

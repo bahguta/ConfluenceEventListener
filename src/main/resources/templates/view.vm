@@ -16,6 +16,8 @@
         <meta content="system.profile.edit/confluencer-profile-section" name="system.profile.edit">
         $webResourceManager.requireResource("com.cis.confluence.plugins.confluencer-module:eventService-resources")
 
+        #set($name = $req.userPrincipal.name)
+
 	    <script>
             AJS.toInit(function () {
             ##alert("jquery :: " + jQuery("#checkBoxOne"));
@@ -66,7 +68,7 @@
                              ##       });
                             ##    </script>
                                 <div class="aui-page-panel-inner">
-                                    <button id="btnOK" class="aui-button aui-button-primary aui-style" type="submit" onclick="participa()" >
+                                    <button id="btnOK" class="aui-button aui-button-primary aui-style" type="submit" onclick="setParticipa()" >
                                         Voy a Participar
                                     </button>
                                     <button class="aui-button aui-button-link">Close</button>
@@ -86,8 +88,8 @@
 
         <form class="aui" action="/confluence/display/CON/Confluencer+Home" onsubmit="setParticipa()">
         <p>getCurrentUserData()</p>
-        #set($name = $req.userPrincipal.name)
-        <p>$name =  participa() </p>
+
+        <p>$name</p>
             <fieldset class="group">
                 <legend><span>Description of the set of checkboxes</span></legend>
                 <div class="checkbox">
