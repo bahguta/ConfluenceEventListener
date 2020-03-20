@@ -82,8 +82,9 @@ public class ConfluenceEventServiceImpl implements ConfluenceEventService, Event
         String key = event.getSpace().getCreator().getKey().getStringValue();
 
         if (!ConfluencerManager.containsUser(correo)) {
-            Icon icon = User.fromUserkey(event.getSpace().getCreator().getKey()).getProfilePicture();
-            ConfluencerManager.addUser(correo, fullName, key, new Icon(icon.getPath(), 40, 40, false));
+            return;
+            //Icon icon = User.fromUserkey(event.getSpace().getCreator().getKey()).getProfilePicture();
+            //ConfluencerManager.addUser(correo, fullName, key, new Icon(icon.getPath(), 40, 40, false));
         }
 
         ConfluencerManager.addSpace(correo);
@@ -99,8 +100,9 @@ public class ConfluenceEventServiceImpl implements ConfluenceEventService, Event
         String key = event.getPage().getCreator().getKey().getStringValue();
 
         if (!ConfluencerManager.containsUser(correo)) {
-            ProfilePictureInfo icon = userAccessor.getUserProfilePicture(event.getContent().getCreator());
-            ConfluencerManager.addUser(correo, fullName, key, new Icon(icon.getUriReference(), 40, 40, false));
+            return;
+            //ProfilePictureInfo icon = userAccessor.getUserProfilePicture(event.getContent().getCreator());
+            //ConfluencerManager.addUser(correo, fullName, key, new Icon(icon.getUriReference(), 40, 40, false));
         }
 
         ConfluencerManager.addPage(correo);
@@ -116,8 +118,9 @@ public class ConfluenceEventServiceImpl implements ConfluenceEventService, Event
         String key = event.getBlogPost().getCreator().getKey().getStringValue();
 
         if (!ConfluencerManager.containsUser(correo)) {
-            ProfilePictureInfo icon = userAccessor.getUserProfilePicture(event.getContent().getCreator());
-            ConfluencerManager.addUser(correo, fullName, key,  new Icon(icon.getUriReference(), 40, 40, false));
+            return;
+            //ProfilePictureInfo icon = userAccessor.getUserProfilePicture(event.getContent().getCreator());
+            //ConfluencerManager.addUser(correo, fullName, key,  new Icon(icon.getUriReference(), 40, 40, false));
         }
 
         ConfluencerManager.addBlog(correo);
@@ -133,8 +136,9 @@ public class ConfluenceEventServiceImpl implements ConfluenceEventService, Event
         String key = event.getComment().getCreator().getKey().getStringValue();
 
         if (!ConfluencerManager.containsUser(correo)) {
-            ProfilePictureInfo icon = userAccessor.getUserProfilePicture(event.getContent().getCreator());
-            ConfluencerManager.addUser(correo, fullName, key, new Icon(icon.getUriReference(), 40, 40, false));
+            return;
+            //ProfilePictureInfo icon = userAccessor.getUserProfilePicture(event.getContent().getCreator());
+            //ConfluencerManager.addUser(correo, fullName, key, new Icon(icon.getUriReference(), 40, 40, false));
         }
 
         ConfluencerManager.addComment(correo);
@@ -156,13 +160,15 @@ public class ConfluenceEventServiceImpl implements ConfluenceEventService, Event
 
 
         if (!ConfluencerManager.containsUser(correoLiked)){
-            ProfilePictureInfo icon = userAccessor.getUserProfilePicture(event.getContent().getCreator());
-            ConfluencerManager.addUser(correoLiked, fullNameLiked, keyLiked, new Icon(icon.getUriReference(), 40, 40, false));
+            return;
+            //ProfilePictureInfo icon = userAccessor.getUserProfilePicture(event.getContent().getCreator());
+           // ConfluencerManager.addUser(correoLiked, fullNameLiked, keyLiked, new Icon(icon.getUriReference(), 40, 40, false));
         }
 
         if (!ConfluencerManager.containsUser(correoLiker)){
-            ProfilePictureInfo icon = userAccessor.getUserProfilePicture(event.getOriginatingUser());
-            ConfluencerManager.addUser(correoLiker, fullNameLiker, keyLiker, new Icon(icon.getUriReference(), 40, 40, false));
+            return;
+            //ProfilePictureInfo icon = userAccessor.getUserProfilePicture(event.getOriginatingUser());
+            //ConfluencerManager.addUser(correoLiker, fullNameLiker, keyLiker, new Icon(icon.getUriReference(), 40, 40, false));
         }
 
         ConfluencerManager.addLike(correoLiked);

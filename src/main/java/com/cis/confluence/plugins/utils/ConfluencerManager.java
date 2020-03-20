@@ -61,8 +61,8 @@ public class ConfluencerManager {
         return ConfluencerManager.list.containsKey(correo);
     }
 
-    public static void addUser(String correo, String fullName, String key, Icon icon){
-        EventUser eventUser = new EventUser(correo, fullName, key, icon);
+    public static void addUser(String correo, String name, String fullName, String key, Icon icon){
+        EventUser eventUser = new EventUser(correo, name, fullName, key, icon);
         ConfluencerManager.list.put(correo, eventUser);
         EventSeekerManager.userParticipate(eventUser);
     }

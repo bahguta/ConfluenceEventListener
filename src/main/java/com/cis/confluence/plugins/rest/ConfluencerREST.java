@@ -34,7 +34,7 @@ public class ConfluencerREST {
             ConfluenceUser user  = AuthenticatedUserThreadLocal.get();
             if (null != user) {
                 System.out.println("--------------->?? name :: " + user.getName() + " | fullName :: " +user.getFullName() + " participa :: " + participa);
-                ConfluencerManager.addUser(user.getEmail(), user.getName(), user.getKey().getStringValue(), getIcon());
+                ConfluencerManager.addUser(user.getEmail(), user.getName(), user.getFullName(), user.getKey().getStringValue(), getIcon());
             }
         }
         return Response.ok(ConfluencerManager.setParticipa(name, participa)).build();

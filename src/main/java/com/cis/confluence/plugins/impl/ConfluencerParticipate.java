@@ -83,7 +83,7 @@ public class ConfluencerParticipate extends ConfluenceActionSupport implements P
         //System.out.println("-------------------------------- " + authenticationContext.getUser().getName());
         //if (AuthenticatedUserThreadLocal.isAnonymousUser()){
         ConfluenceUser confluenceUser = getCurrentUser();
-        this.user = new EventUser(confluenceUser.getEmail(), confluenceUser.getFullName(), confluenceUser.getKey().getStringValue(), getIcon());
+        this.user = new EventUser(confluenceUser.getEmail(), confluenceUser.getName(), confluenceUser.getFullName(), confluenceUser.getKey().getStringValue(), getIcon());
         System.out.println("--------------------------11111111111 "  + user.toString());
 
 
@@ -190,8 +190,8 @@ public class ConfluencerParticipate extends ConfluenceActionSupport implements P
         assert currentUser != null;
 
         System.out.println(currentUser.getEmail() + " " + currentUser.getFullName() + " " + getIcon());
-        EventUser eventUser = new EventUser(currentUser.getEmail(), currentUser.getFullName(), currentUser.getKey().getStringValue(), getIcon());
-        ConfluencerManager.addUser(currentUser.getEmail(), currentUser.getFullName(), currentUser.getKey().getStringValue(),  getIcon());
+        EventUser eventUser = new EventUser(currentUser.getEmail(), currentUser.getName(), currentUser.getFullName(), currentUser.getKey().getStringValue(), getIcon());
+        ConfluencerManager.addUser(currentUser.getEmail(), currentUser.getName(), currentUser.getFullName(), currentUser.getKey().getStringValue(),  getIcon());
 
         //eventUser.setSpaces(EventSeekerManager.getNumSpacesForUser(eventUser));
         //eventUser.setPages(EventSeekerManager.getNumPagesForUser(eventUser));

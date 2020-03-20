@@ -14,6 +14,7 @@ public class EventUser extends ConfluenceUserImpl implements Serializable, User,
     private Icon icon;
     private String email;
     private String name;
+    private String fullName;
     private UserKey key;
     private int space;
     private int page;
@@ -22,10 +23,11 @@ public class EventUser extends ConfluenceUserImpl implements Serializable, User,
     private int like;
     private boolean participate;
 
-    public EventUser(String email, String name, String key, Icon icon) {
+    public EventUser(String email, String name, String fullName, String key, Icon icon) {
         this.key = new UserKey(key);
         this.email = email;
         this.name = name;
+        this.fullName = fullName;
         this.icon = icon;
         this.space = 0;
         this.blog = 0;
@@ -55,7 +57,7 @@ public class EventUser extends ConfluenceUserImpl implements Serializable, User,
 
     @Override
     public String getFullName() {
-        return name;
+        return fullName;
     }
 
     public String getEmail() {
