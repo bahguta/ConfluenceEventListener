@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class ConfluencerMacroPage implements Macro {
 
-    private static Logger logger = Logger.getLogger(ConfluencerManager.class);
+    private static Logger logger = Logger.getLogger(ConfluencerMacroPage.class);
 
     @Override
     public String execute(Map<String, String> map, String s, ConversionContext conversionContext) throws MacroExecutionException {

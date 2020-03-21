@@ -1,7 +1,6 @@
 package com.cis.confluence.plugins.dto;
 
 import com.atlassian.confluence.api.model.web.Icon;
-import com.atlassian.confluence.user.ConfluenceUser;
 import com.atlassian.confluence.user.ConfluenceUserImpl;
 import com.atlassian.sal.api.user.UserKey;
 import com.atlassian.user.User;

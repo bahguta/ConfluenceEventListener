@@ -1,7 +1,6 @@
 package com.cis.confluence.plugins.utils;
 
 import com.atlassian.confluence.api.model.web.Icon;
-import com.atlassian.sal.api.user.UserKey;
 import com.cis.confluence.plugins.dto.EventUser;
 import org.apache.log4j.Logger;
 

@@ -10,12 +10,15 @@ import com.atlassian.confluence.spaces.SpaceManager;
 import com.atlassian.confluence.user.ConfluenceUser;
 import com.atlassian.spring.container.ContainerManager;
 import com.cis.confluence.plugins.dto.EventUser;
+import org.apache.log4j.Logger;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class EventSeekerManager {
+
+    private static final Logger logger = Logger.getLogger(EventSeekerManager.class);
 
     private static SpaceManager spaceManager;
     private static PageManager pageManager;

@@ -49,12 +49,10 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
         String correo = event.getSpace().getCreator().getEmail();
         String fullName = event.getSpace().getCreator().getFullName();
 
-        if (!ConfluencerManager.containsUser(correo)) {
-            return;
+        if (ConfluencerManager.containsUser(correo)) {
+            ConfluencerManager.addSpace(correo);
+            logger.debug("---=== Space add to " + fullName + " ===---");
         }
-
-        ConfluencerManager.addSpace(correo);
-        logger.debug("---=== Space add to " + fullName + " ===---");
     }
 
     @EventListener
@@ -62,12 +60,10 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
         String correo = event.getPage().getCreator().getEmail();
         String fullName = event.getPage().getCreator().getFullName();
 
-        if (!ConfluencerManager.containsUser(correo)) {
-            return;
+        if (ConfluencerManager.containsUser(correo)) {
+            ConfluencerManager.addPage(correo);
+            logger.debug("---=== Page add to " + fullName + " ===---");
         }
-
-        ConfluencerManager.addPage(correo);
-        logger.debug("---=== Page add to " + fullName + " ===---");
     }
 
     @EventListener
@@ -75,12 +71,10 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
         String correo = event.getBlogPost().getCreator().getEmail();
         String fullName = event.getBlogPost().getCreator().getFullName();
 
-        if (!ConfluencerManager.containsUser(correo)) {
-            return;
+        if (ConfluencerManager.containsUser(correo)) {
+            ConfluencerManager.addBlog(correo);
+            logger.debug("---=== Blog add to " + fullName + " ===---");
         }
-
-        ConfluencerManager.addBlog(correo);
-        logger.debug("---=== Blog add to " + fullName + " ===---");
     }
 
     @EventListener
@@ -88,12 +82,10 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
         String correo = event.getComment().getCreator().getEmail();
         String fullName = event.getComment().getCreator().getFullName();
 
-        if (!ConfluencerManager.containsUser(correo)) {
-            return;
+        if (ConfluencerManager.containsUser(correo)) {
+            ConfluencerManager.addComment(correo);
+            logger.debug("---=== Comment add to " + fullName + " ===---");
         }
-
-        ConfluencerManager.addComment(correo);
-        logger.debug("---=== Comment add to " + fullName + " ===---");
     }
 
     @EventListener
@@ -104,7 +96,6 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
         String correoLiker = Objects.requireNonNull(event.getOriginatingUser()).getEmail();
         String fullNameLiker = event.getOriginatingUser().getFullName();
-
 
         if (ConfluencerManager.containsUser(correoLiked)){
             ConfluencerManager.addLike(correoLiked);
