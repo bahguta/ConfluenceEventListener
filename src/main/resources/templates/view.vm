@@ -1,10 +1,6 @@
-##* @vtlvariable name="action" type="com.atlassian.confluence.user.actions.UserPopupAction" *#
-##$helper.renderConfluenceMacro("{profile:user=%s|mode=hover|groups=$!{action.profileGroups}}", $action.username)
-
 #requireResource("com.cis.confluence.plugins.confluencer-module:eventService-resources")
 #requireResource("confluence.web.resources:aui-forms")
-#requireResource("com.atlassian.auiplugin:aui-inline-dialog2")
-#requireResource("com.atlassian.auiplugin:aui-toggle")
+
 #requireResource("com.atlassian.auiplugin:aui-buttons")
 #requireResource("confluence.web.resources:jquery")
 #requireResource("confluence.web.resources:ajs")
@@ -15,98 +11,57 @@
         <meta name="decorator" content="atl.userprofile" />
         <meta content="system.profile.edit/confluencer-profile-section" name="system.profile.edit">
         $webResourceManager.requireResource("com.cis.confluence.plugins.confluencer-module:eventService-resources")
-
-        #set($name = $req.userPrincipal.name)
-
-	    <script>
-            AJS.toInit(function () {
-            ##alert("jquery :: " + jQuery("#checkBoxOne"));
-            ##el: jQuery("#checkBoxOne");
-
-               ## function participa(){
-                    ##alert(el);
-
-               ## }
-            });
-        </script>
+        $webResourceManager.requireResource("eventService")
+        #set($baseUrl = "/download/resources/com.cis.confluence.plugins.confluencer-module")
 	</head>
 
-    <body>
-        <section id="content" role="main">
-            <div class="field-group form-buttons compact-form-buttons">
-                <div class="aui-page-panel">
-                    <div class="aui-page-panel-inner">
-                        <div class="aui-page-panel-inner">
-                            <h1>Confluencer</h1>
-                        </div>
-                        <div class="aui-page-panel-inner">
-                            <h3>Cis Confluencer of the year</h3>
-                            <div id="toggle-form">
-                                <p>
-                                    Pulsando el boton estas deacuerdo que vamos a recoger informacion de la cantidad de las spaces/paginas/comentarios que ha creado (en numeros),
-                                    NO de la informacion del contenido de estas ultimas. La informacion va a ser usada unicamente
-                                    para celebrar el evento de <b>"IECISA | Informatica El Corte Ingles" - Confluencer del año !!!</b>
-                                </p>
-                                <aui-toggle id="toggle" data-aui-trigger  label="Participaaaa !!!!!" >
-                                    Paaaaaaarticipaaaa !!!!!
-                                </aui-toggle>
-                                </br>
-                                ##<script>
-                                ##    AJS.$(document).ready(function(){
-                                ##        AJS.$("#btnOK").click(function(){
-                                 ##       var trigger = document.querySelector('[data-aui-trigger]');
-                                  ##      var toggle = document.getElementById('toggle');
-                                   ##     var isChecked = toggle.checked;
-
-                                     ##       if (isChecked){
-                                       ##         alert("I WAS CLICKED   " + isChecked);
-                                         ##       $eventSeekerManager.userParticipate($user);
-                                           ##     alert("I WAS CLICKED   " + isChecked);
-                                      ##          window.location.href = href="/confluence/display/CON/Confluencer+Home";
-                                   ##         }
-                               ##         });
-                             ##       });
-                            ##    </script>
-                                <div class="aui-page-panel-inner">
-                                    <button id="btnOK" class="aui-button aui-button-primary aui-style" type="submit" onclick="setParticipa()" >
-                                        Voy a Participar
-                                    </button>
-                                    <button class="aui-button aui-button-link">Close</button>
-                                </div>
-                            </div>
-
-
-
-
-
+    <body class="aui-page-focused aui-page-size-medium">
+        <div class="page">
+            <header class="aui-page-header" style="background: lightgrey; margin-bottom: 30px;">
+                <div class="aui-page-header-inner">
+                    <div class="aui-page-header-image" style="width: 200px;">
+                        <span style="margin: 30px; width: 200px; height: 60px;" >
+                            <span >
+                                <img alt="cis" style="width: 150px;  margin: 20px;" src="$req.contextPath/$baseUrl:eventService-resources/images/cis.png"/>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="aui-page-header-main" >
+                        <ol class="aui-nav aui-nav-breadcrumbs" >
+                            <li><b>CiS</b></li>
+                            <li class="aui-nav-selected"><b>Centro de Ingeniería de Software</b></li>
+                        </ol>
+                    </div>
+                    <div class="aui-page-header-actions" >
+                        <div class="aui-buttons">
+                            <button style="margin: 30px;" id="btnGO" class="aui-button aui-button-dark" onclick="GO()">Confluencer Page</button>
                         </div>
                     </div>
                 </div>
+            </header>
 
-            </div>
-        </section>
-
-        <form class="aui" action="/confluence/display/CON/Confluencer+Home" onsubmit="setParticipa()">
-        <p>getCurrentUserData()</p>
-
-        <p>$name</p>
-            <fieldset class="group">
-                <legend><span>Description of the set of checkboxes</span></legend>
-                <div class="checkbox">
-                    <input class="checkbox" type="checkbox" name="checkBoxOne" id="checkBoxOne">
-                    <label for="checkBoxOne">Participa</label>
+            <div class="aui-page-panel">
+                <div class="aui-page-panel-nav">
+                    <h1 style="margin: 30px; text-align: center;">Confluencer<br><br>Module</h1>
                 </div>
-            </fieldset>
-            <div class="buttons-container">
-                <div class="buttons">
-                    <input class="button submit" type="submit" value="Save" id="btnParticipa" >
-                    <a class="cancel" href="#">Cancel</a>
+                <div class="aui-page-panel-content">
+                    <h3 style="margin: 30px;">CiS - Confluencer of the year 2020</h3>
+                    <p style="margin-left: 50px; margin-right: 50px;">
+                        Pulsando el boton estas deacuerdo que vamos a recoger informacion de la cantidad de las spaces/paginas/comentarios que ha creado (en numeros),
+                        NO de la informacion del contenido de estas ultimas. La informacion va a ser usada unicamente
+                        para celebrar el evento de <b>"IECISA | Informatica El Corte Ingles" - Confluencer del año !!!</b>
+                    </p>
+                    <div class="aui-page-panel-inner" style="margin-left: 50px; margin-top: 30px;">
+                        #if (!$participate)
+                            <button id="btnOK" class="aui-button aui-button-primary aui-style" type="submit" onclick="setParticipa()" >
+                                Voy a Participar
+                            </button>
+                        #else
+                            <p><b>Usted ya participa en este evento !!!</b></p>
+                        #end
+                    </div>
                 </div>
             </div>
-        </form>
-
-
-<table id="project-config-versions-table"></table>
-
+        </div>
     </body>
 </html>

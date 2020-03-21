@@ -23,7 +23,7 @@ function setParticipa(){
         contentType: "application/json",
         async: "false",
         success: function (){
-            window.location.href = "/confluence/display/CON/Confluencer";
+            window.location.href = "/confluence/display/CON/Confluencer+Home";
         },
         error: function(){
             AJS.messages.error("#a-custom-context", {
@@ -32,6 +32,10 @@ function setParticipa(){
             });
         }
     });
+}
+
+function GO(){
+    window.location.href = "/confluence/display/CON/Confluencer+Home";
 }
 
 

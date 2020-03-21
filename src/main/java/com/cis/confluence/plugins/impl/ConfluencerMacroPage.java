@@ -34,23 +34,25 @@ public class ConfluencerMacroPage implements Macro {
         sb.append("<br><br>");
         sb.append("<h1 style=\"color: #50394c; font-size: 40px; text-align: center; margin-bottom: 50px;\">").append("¡¡¡ CiS :: Confluencer 2020 !!!").append("</h1>");
 
-        sb.append("<table class=\"aui aui-table-sortable\">");
-        sb.append("<tbody>");
-        sb.append(getHeader());
-        sb.append(getFirst());
-        sb.append("</tbody>");
-        sb.append("</table>");
+        if (null != ConfluencerManager.getFirst()) {
+            sb.append("<table class=\"aui aui-table-sortable\">");
+            sb.append(getHeader());
+            sb.append("<tbody>");
+            sb.append(getFirst());
+            sb.append("</tbody>");
+            sb.append("</table>");
+        }
 
         sb.append("<u><h3 style=\"color: #50394c; text-align: center; margin-top: 50px; margin-bottom: 30px;\">").append("¡¡¡ Ranking List of Confluencers !!!").append("</h3></u>");
 
-        sb.append("<table class=\"aui aui-table-sortable\">");
-        sb.append("</br>");
-        sb.append("<tbody>");
-        sb.append(getHeader());
-        sb.append(getOthers());
-        sb.append("</tbody>").append("</table>");
-        sb.append("</div>");
-
+        if (ConfluencerManager.sortedListWithoutFirst().size() > 0) {
+            sb.append("<table class=\"aui aui-table-sortable\">");
+            sb.append(getHeader());
+            sb.append("<tbody>");
+            sb.append(getOthers());
+            sb.append("</tbody>");
+            sb.append("</table>");
+        }
         return sb.toString();
     }
 

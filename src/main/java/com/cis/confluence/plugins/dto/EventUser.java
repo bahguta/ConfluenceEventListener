@@ -52,7 +52,6 @@ public class EventUser extends ConfluenceUserImpl implements Serializable, User,
 
     public void setParticipate(boolean participate) {
         this.participate = participate;
-        System.out.println("-0------------------------- PARTICIPATE " + this.participate);
     }
 
     @Override

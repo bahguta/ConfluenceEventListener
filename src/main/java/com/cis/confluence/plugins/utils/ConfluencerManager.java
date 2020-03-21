@@ -52,10 +52,6 @@ public class ConfluencerManager {
         return true;
     }
 
-//    public static String getUserCorreo(String name){
-//        return getSortedList().stream().filter( user -> user.getName().equals(name)).findFirst().get().getEmail();
-//    }
-
     public static boolean containsUser(String correo){
         return ConfluencerManager.list.containsKey(correo);
     }

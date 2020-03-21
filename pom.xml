@@ -93,7 +93,7 @@
                     <instructions>
                         <Atlassian-Plugin-Key>${atlassian.plugin.key}</Atlassian-Plugin-Key>
                         <!-- Add package to export here -->
-                        <Export-Package>com.cis.confluence.plugins.api,</Export-Package>
+                        <Export-Package></Export-Package>
                         <!-- Add package import here -->
                         <Import-Package>
                             com.atlassian.confluence.user.*;resolution:="optional",
