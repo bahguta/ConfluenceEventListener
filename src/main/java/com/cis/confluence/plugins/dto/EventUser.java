@@ -8,7 +8,7 @@ import com.atlassian.user.User;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-public class EventUser extends ConfluenceUserImpl implements Serializable, User, Comparable<EventUser> {
+public class EventUser extends ConfluenceUserImpl implements Serializable, Comparable<EventUser> {
 
     private Icon icon;
     private String email;
