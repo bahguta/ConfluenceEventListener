@@ -1,14 +1,19 @@
 package com.cis.confluence.plugins.dto;
 
 import com.atlassian.confluence.api.model.web.Icon;
-import com.atlassian.confluence.user.ConfluenceUserImpl;
+import com.atlassian.confluence.user.ConfluenceUser;
 import com.atlassian.sal.api.user.UserKey;
-import com.atlassian.user.User;
+import net.java.ao.Entity;
+import net.java.ao.EntityManager;
+import net.java.ao.Preload;
+import net.java.ao.RawEntity;
 
 import javax.validation.constraints.NotNull;
+import java.beans.PropertyChangeListener;
 import java.io.Serializable;
 
-public class EventUser extends ConfluenceUserImpl implements Serializable, Comparable<EventUser> {
+@Preload
+public class EventUser implements ConfluenceUser, Entity, Serializable, Comparable<EventUser> {
 
     private Icon icon;
     private String email;
@@ -161,5 +166,40 @@ public class EventUser extends ConfluenceUserImpl implements Serializable, Compa
 
     public int totalScore(){
         return space+page+blog+comment+like;
+    }
+
+    @Override
+    public int getID() {
+        return 0;
+    }
+
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void save() {
+
+    }
+
+    @Override
+    public EntityManager getEntityManager() {
+        return null;
+    }
+
+    @Override
+    public <X extends RawEntity<Integer>> Class<X> getEntityType() {
+        return null;
+    }
+
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener propertyChangeListener) {
+
+    }
+
+    @Override
+    public void removePropertyChangeListener(PropertyChangeListener propertyChangeListener) {
+
     }
 }
