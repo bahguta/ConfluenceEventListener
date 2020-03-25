@@ -81,6 +81,27 @@ public class ConfluencerManager {
         ConfluencerManager.list.get(correo).addLike();
     }
 
+
+    public static void restSpace(String correo){
+        ConfluencerManager.list.get(correo).restSpace();
+    }
+
+    public static void restPage(String correo){ ConfluencerManager.list.get(correo).restPage(); }
+
+    public static void restBlog(String correo){
+        ConfluencerManager.list.get(correo).restBlog();
+    }
+
+    public static void restComment(String correo){
+        ConfluencerManager.list.get(correo).restComment();
+    }
+
+    public static void restLike(String correo){
+        ConfluencerManager.list.get(correo).restLike();
+    }
+
+
+
     public static void printResults(){
         System.out.println("====================================================================================");
         list.forEach((key, value) -> {

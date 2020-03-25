@@ -1,27 +1,16 @@
 package com.cis.confluence.plugins.utils;
 
 
-import com.atlassian.bonnie.search.SearchableAttachment;
-import com.atlassian.confluence.api.model.search.SearchContext;
-import com.atlassian.confluence.content.ContentEntityAdapter;
-import com.atlassian.confluence.core.ContentEntityObject;
-import com.atlassian.confluence.event.events.content.blogpost.BlogPostCreateEvent;
 import com.atlassian.confluence.like.Like;
 import com.atlassian.confluence.like.LikeManager;
 import com.atlassian.confluence.pages.*;
 import com.atlassian.confluence.spaces.Space;
 import com.atlassian.confluence.spaces.SpaceManager;
-import com.atlassian.confluence.user.ConfluenceUser;
-import com.atlassian.confluence.util.ContentEntityObjectTitleComparator;
 import com.atlassian.spring.container.ContainerManager;
 import com.cis.confluence.plugins.dto.EventUser;
 import org.apache.log4j.Logger;
-
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class EventSeekerManager {
 

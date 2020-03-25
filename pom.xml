@@ -76,6 +76,16 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.atlassian.activeobjects</groupId>
+            <artifactId>activeobjects-plugin</artifactId>
+            <version>${ao.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+
+
     </dependencies>
     <build>
         <plugins>
@@ -96,6 +106,7 @@
                         <Export-Package></Export-Package>
                         <!-- Add package import here -->
                         <Import-Package>
+                            com.atlassian.activeobjects.spi.*;resolution:="optional",
                             com.atlassian.confluence.user.*;resolution:="optional",
                             org.springframework.osgi.*;resolution:="optional",
                             org.eclipse.gemini.blueprint.*;resolution:="optional",
@@ -130,6 +141,7 @@
         </plugins>
     </build>
     <properties>
+        <ao.version>3.2.3</ao.version>
         <confluence.version>6.14.0</confluence.version>
         <confluence.data.version>6.14.0</confluence.data.version>
         <amps.version>8.0.2</amps.version>
