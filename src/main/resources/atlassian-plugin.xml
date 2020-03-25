@@ -65,6 +65,13 @@
         <description>Provides hello world services.</description>
     </rest>
 
+    <bean key="eventSeekerManager" class="com.cis.confluence.plugins.utils.EventSeekerManager" id="eventSeekerManager" />
+
+    <ao key="ao-module">
+        <description>The module configuring the Active Objects service used by this plugin</description>
+        <entity>com.cis.confluence.plugins.persistence.ConfluencerPersistence</entity>
+    </ao>
+
 </atlassian-plugin>
 
 

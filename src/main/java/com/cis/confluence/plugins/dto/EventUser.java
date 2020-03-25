@@ -126,46 +126,6 @@ public class EventUser extends ConfluenceUserImpl implements Serializable, Compa
         this.like = like;
     }
 
-    public void restSpace() {
-        if (space - 1 < 0) {
-            space = 0;
-        } else {
-            space--;
-        }
-    }
-
-    public void restPage() {
-        if (page - 1 < 0) {
-            page = 0;
-        } else {
-            page--;
-        }
-    }
-
-    public void restBlog() {
-        if (blog - 1 < 0) {
-            blog = 0;
-        } else {
-            blog--;
-        }
-    }
-
-    public void restComment() {
-        if (comment - 1 < 0) {
-            comment = 0;
-        } else {
-            comment--;
-        }
-    }
-
-    public void restLike() {
-        if (like - 1 < 0) {
-            like = 0;
-        } else {
-            like--;
-        }
-    }
-
     @Override
     public String toString() {
         return "EventUser{" +
@@ -201,6 +161,41 @@ public class EventUser extends ConfluenceUserImpl implements Serializable, Compa
 
     public int totalScore(){
         return space+page+blog+comment+like;
+    }
+
+    @Override
+    public int getID() {
+        return 0;
+    }
+
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void save() {
+
+    }
+
+    @Override
+    public EntityManager getEntityManager() {
+        return null;
+    }
+
+    @Override
+    public <X extends RawEntity<Integer>> Class<X> getEntityType() {
+        return null;
+    }
+
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener propertyChangeListener) {
+
+    }
+
+    @Override
+    public void removePropertyChangeListener(PropertyChangeListener propertyChangeListener) {
+
     }
 
 }

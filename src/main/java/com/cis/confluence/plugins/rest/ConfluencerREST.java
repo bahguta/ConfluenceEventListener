@@ -6,12 +6,8 @@ import com.atlassian.confluence.user.ConfluenceUser;
 import com.atlassian.confluence.user.UserAccessor;
 import com.atlassian.confluence.user.actions.ProfilePictureInfo;
 import com.atlassian.spring.container.ContainerManager;
-import com.cis.confluence.plugins.dto.EventUser;
-import com.cis.confluence.plugins.impl.ConfluencerParticipate;
 import com.cis.confluence.plugins.utils.ConfluencerManager;
-import com.opensymphony.xwork.util.TextParseUtil;
 import org.apache.log4j.Logger;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
