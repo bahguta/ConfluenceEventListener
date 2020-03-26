@@ -123,16 +123,18 @@ public class EventSeekerManager {
     private static List<Like> getLikes(EventUser user) {
         List<Like> list = new LinkedList<>();
         spaceManager.getAllSpaces().forEach(space -> {
+
             pageManager.getPages(space, true).forEach( page -> {
+
                 likeManager.getLikes(page.getEntity()).forEach( like -> {
-                    if (like.getUsername().equals(user.getName())){
+                    if (null != like && like.getUsername().equals(user.getName())){
                         list.add(like);
                     }
                 });
 
                 page.getComments().forEach(comment -> {
                     likeManager.getLikes(comment.getContentEntityObject()).forEach( like -> {
-                        if (like.getUsername().equals(user.getName())){
+                        if (null != like && like.getUsername().equals(user.getName())){
                             list.add(like);
                         }
                     });
@@ -140,7 +142,17 @@ public class EventSeekerManager {
             });
 
             pageManager.getBlogPosts(space, true).forEach( blogPost -> {
-                likeManager.getLikes(blogPost.getEntity()).forEach(list::add);
+                if (null != blogPost && blogPost.getCreator().getKey().equals(user.getKey())) {
+                    list.addAll(likeManager.getLikes(blogPost.getEntity()));
+                }
+
+                blogPost.getComments().forEach(comment -> {
+                    likeManager.getLikes(comment.getContentEntityObject()).forEach( like -> {
+                        if (null != like && like.getUsername().equals(user.getName())){
+                            list.add(like);
+                        }
+                    });
+                });
             });
         });
 

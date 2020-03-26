@@ -1,5 +1,7 @@
 package com.cis.confluence.plugins.impl;
 
+import com.atlassian.activeobjects.external.ActiveObjects;
+import com.atlassian.activeobjects.tx.Transactional;
 import com.atlassian.confluence.event.events.content.blogpost.BlogPostCreateEvent;
 import com.atlassian.confluence.event.events.content.blogpost.BlogPostRemoveEvent;
 import com.atlassian.confluence.event.events.content.comment.CommentEvent;
@@ -10,6 +12,7 @@ import com.atlassian.confluence.event.events.like.LikeCreatedEvent;
 import com.atlassian.confluence.event.events.like.LikeRemovedEvent;
 import com.atlassian.confluence.event.events.space.SpaceRemoveEvent;
 import com.atlassian.confluence.user.UserAccessor;
+import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.spring.container.ContainerManager;
 import com.atlassian.confluence.event.events.space.SpaceCreateEvent;
 import com.atlassian.event.api.EventListener;
@@ -67,7 +70,7 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
         if (ConfluencerManager.containsUser(correo)) {
             ConfluencerManager.restSpace(correo);
-            logger.debug("---=== Space remove to " + fullName + " ===---");
+            logger.debug("---=== Space removed to " + fullName + " ===---");
         }
     }
 
@@ -89,7 +92,7 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
         if (ConfluencerManager.containsUser(correo)) {
             ConfluencerManager.restPage(correo);
-            logger.debug("---=== Page remove to " + fullName + " ===---");
+            logger.debug("---=== Page removed to " + fullName + " ===---");
         }
     }
 
@@ -111,7 +114,7 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
         if (ConfluencerManager.containsUser(correo)) {
             ConfluencerManager.restBlog(correo);
-            logger.debug("---=== Blog remove to " + fullName + " ===---");
+            logger.debug("---=== Blog removed to " + fullName + " ===---");
         }
     }
 
@@ -133,7 +136,7 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
         if (ConfluencerManager.containsUser(correo)) {
             ConfluencerManager.restComment(correo);
-            logger.debug("---=== Comment remove to " + fullName + " ===---");
+            logger.debug("---=== Comment removed to " + fullName + " ===---");
         }
     }
 
@@ -159,6 +162,7 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
     @EventListener
     public void handleEventLikeRemove(LikeRemovedEvent event) {
+
         String correoLiked = event.getContent().getCreator().getEmail();
         String fullNameLiked = event.getContent().getCreator().getFullName();
 
@@ -167,16 +171,17 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
         if (ConfluencerManager.containsUser(correoLiked)){
             ConfluencerManager.restLike(correoLiked);
-            logger.debug("---=== Like remove to " + fullNameLiked + " ===---");
+            logger.debug("---=== Like removed to " + fullNameLiked + " ===---");
         }
 
         if (ConfluencerManager.containsUser(correoLiker)){
             ConfluencerManager.restLike(correoLiker);
-            logger.debug("---=== Like remove to " + fullNameLiker + " ===---");
+            logger.debug("---=== Like removed to " + fullNameLiker + " ===---");
         }
     }
 
-
     @Override
-    public void destroy() throws Exception {}
+    public void destroy() throws Exception {
+
+    }
 }

@@ -18,6 +18,10 @@ public class ConfluencerManager {
         return lista;
     }
 
+    public static void setList(List<EventUser> list){
+        list.forEach( u -> ConfluencerManager.list.put(u.getEmail(), u));
+    }
+
     public static List<EventUser> getSortedList(){
         List<EventUser> sortedList = getList();
         Collections.sort(sortedList);
@@ -81,26 +85,15 @@ public class ConfluencerManager {
         ConfluencerManager.list.get(correo).addLike();
     }
 
+    public static void restSpace(String correo) { ConfluencerManager.list.get(correo).restSpace(); }
 
-    public static void restSpace(String correo){
-        ConfluencerManager.list.get(correo).restSpace();
-    }
+    public static void restPage(String correo) { ConfluencerManager.list.get(correo).restPage(); }
 
-    public static void restPage(String correo){ ConfluencerManager.list.get(correo).restPage(); }
+    public static void restBlog(String correo) { ConfluencerManager.list.get(correo).restBlog(); }
 
-    public static void restBlog(String correo){
-        ConfluencerManager.list.get(correo).restBlog();
-    }
+    public static void restComment(String correo) { ConfluencerManager.list.get(correo).restComment(); }
 
-    public static void restComment(String correo){
-        ConfluencerManager.list.get(correo).restComment();
-    }
-
-    public static void restLike(String correo){
-        ConfluencerManager.list.get(correo).restLike();
-    }
-
-
+    public static void restLike(String correo) { ConfluencerManager.list.get(correo).restLike(); }
 
     public static void printResults(){
         System.out.println("====================================================================================");

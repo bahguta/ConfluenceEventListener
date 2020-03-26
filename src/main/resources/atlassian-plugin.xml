@@ -62,15 +62,21 @@
 
 
     <rest key="confluencer-rest" path="/Confluencer" version="1.0">
-        <description>Provides hello world services.</description>
+        <description>Provides rest services.</description>
     </rest>
 
-    <bean key="eventSeekerManager" class="com.cis.confluence.plugins.utils.EventSeekerManager" id="eventSeekerManager" />
+<!--    <bean key="eventSeekerManager" class="com.cis.confluence.plugins.utils.EventSeekerManager" id="eventSeekerManager" />-->
 
     <ao key="ao-module">
         <description>The module configuring the Active Objects service used by this plugin</description>
-        <entity>com.cis.confluence.plugins.persistence.ConfluencerPersistence</entity>
+        <entity>com.cis.confluence.plugins.services.EventUserServ</entity>
     </ao>
+
+    <servlet name="Confluencer Servlet" key="confluencer-servlet" class="com.cis.confluence.plugins.persistence.PersistenceServlet">
+        <description>Confluencer Servlet</description>
+        <url-pattern>/confluencer/users</url-pattern>
+    </servlet>
+
 
 </atlassian-plugin>
 
