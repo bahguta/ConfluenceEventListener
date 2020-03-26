@@ -162,40 +162,4 @@ public class EventUser extends ConfluenceUserImpl implements Serializable, Compa
     public int totalScore(){
         return space+page+blog+comment+like;
     }
-
-    @Override
-    public int getID() {
-        return 0;
-    }
-
-    @Override
-    public void init() {
-
-    }
-
-    @Override
-    public void save() {
-
-    }
-
-    @Override
-    public EntityManager getEntityManager() {
-        return null;
-    }
-
-    @Override
-    public <X extends RawEntity<Integer>> Class<X> getEntityType() {
-        return null;
-    }
-
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener propertyChangeListener) {
-
-    }
-
-    @Override
-    public void removePropertyChangeListener(PropertyChangeListener propertyChangeListener) {
-
-    }
-
 }
