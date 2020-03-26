@@ -1,19 +1,21 @@
 package com.cis.confluence.plugins.dto;
 
+import com.atlassian.activeobjects.tx.Transactional;
 import com.atlassian.confluence.api.model.web.Icon;
 import com.atlassian.confluence.user.ConfluenceUser;
 import com.atlassian.sal.api.user.UserKey;
-import net.java.ao.Entity;
+import com.cis.confluence.plugins.services.EventUserServ;
 import net.java.ao.EntityManager;
 import net.java.ao.Preload;
 import net.java.ao.RawEntity;
+import net.java.ao.schema.Table;
 
 import javax.validation.constraints.NotNull;
 import java.beans.PropertyChangeListener;
 import java.io.Serializable;
 
-@Preload
-public class EventUser implements ConfluenceUser, Entity, Serializable, Comparable<EventUser> {
+@Table("EventUser")
+public class EventUser implements ConfluenceUser, EventUserServ, Serializable, Comparable<EventUser> {
 
     private Icon icon;
     private String email;
@@ -131,6 +133,46 @@ public class EventUser implements ConfluenceUser, Entity, Serializable, Comparab
         this.like = like;
     }
 
+    public void restSpace() {
+        if (space - 1 < 0){
+            space = 0;
+        } else {
+            space--;
+        }
+    }
+
+    public void restPage() {
+        if (page - 1 < 0){
+            page = 0;
+        } else {
+            page--;
+        }
+    }
+
+    public void restBlog() {
+        if (blog - 1 < 0){
+            blog = 0;
+        } else {
+            blog--;
+        }
+    }
+
+    public void restComment() {
+        if (comment - 1 < 0){
+            comment = 0;
+        } else {
+            comment--;
+        }
+    }
+
+    public void restLike() {
+        if (like - 1 < 0){
+            like = 0;
+        } else {
+            like--;
+        }
+    }
+
     @Override
     public String toString() {
         return "EventUser{" +
@@ -175,12 +217,12 @@ public class EventUser implements ConfluenceUser, Entity, Serializable, Comparab
 
     @Override
     public void init() {
-
+        System.out.println("--------------------- INITT ");
     }
 
     @Override
     public void save() {
-
+        System.out.println("-0-0-0-0-0-0-0-0-0 ::::: SAVE");
     }
 
     @Override
