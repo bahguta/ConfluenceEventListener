@@ -4,7 +4,7 @@ import com.atlassian.confluence.content.render.xhtml.ConversionContext;
 import com.atlassian.confluence.macro.Macro;
 import com.atlassian.confluence.macro.MacroExecutionException;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
-import com.cis.confluence.plugins.persistence.PersistenceImpl;
+import com.cis.confluence.plugins.persistence.ConfluencerPersistenceImpl;
 import com.cis.confluence.plugins.utils.ConfluencerManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,20 +17,8 @@ public class ConfluencerMacroPage implements Macro {
 
     private final Logger logger = LoggerFactory.getLogger(ConfluencerMacroPage.class);
 
-    private PersistenceImpl persistence;
-
-    @Inject
-    public ConfluencerMacroPage(@ComponentImport PersistenceImpl persistence) {
-        this.persistence = persistence;
-    }
-
     @Override
     public String execute(Map<String, String> map, String s, ConversionContext conversionContext) throws MacroExecutionException {
-        if (persistence.getAll().size() <= 0){
-            System.out.println("------------------ getALL NULL");
-        } else {
-            System.out.println(Arrays.toString(persistence.getAll().toArray()));
-        }
         return getPage();
     }
 

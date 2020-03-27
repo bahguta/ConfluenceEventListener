@@ -1,21 +1,33 @@
 package com.cis.confluence.plugins.utils;
 
+import com.atlassian.activeobjects.tx.Transactional;
 import com.atlassian.confluence.api.model.web.Icon;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
-import com.atlassian.plugin.spring.scanner.annotation.imports.ConfluenceImport;
 import com.cis.confluence.plugins.dto.EventUser;
-import com.cis.confluence.plugins.persistence.PersistenceImpl;
+import com.cis.confluence.plugins.persistence.ConfluencerPersistence;
+import com.cis.confluence.plugins.persistence.ConfluencerPersistenceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.DisposableBean;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.*;
 
-public class ConfluencerManager {
+//@Named("ConfluencerManager")
+public class ConfluencerManager implements ConfluencerManagerServ {
 
     private static final Logger logger = LoggerFactory.getLogger(ConfluencerManager.class);
 
     private static Map<String, EventUser> list = new LinkedHashMap<>();
+
+//    @ComponentImport
+//    private static ConfluencerPersistenceImpl persistence;
+//
+//    @Inject
+//    public ConfluencerManager(ConfluencerPersistenceImpl persistence) {
+//        ConfluencerManager.persistence = persistence;
+//    }
 
     public static List<EventUser> getList(){
         List<EventUser> lista = new LinkedList<>();
@@ -68,6 +80,9 @@ public class ConfluencerManager {
         EventUser eventUser = new EventUser(correo, name, fullName, key, icon);
         ConfluencerManager.list.put(correo, eventUser);
         EventSeekerManager.userParticipate(eventUser);
+//        List<EventUser> l = new LinkedList<>();
+//        l.add(eventUser);
+//        persistence.saveAll(l);
     }
 
     public static void addSpace(String correo){
@@ -108,4 +123,5 @@ public class ConfluencerManager {
         });
         System.out.println("====================================================================================");
     }
+
 }

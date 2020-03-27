@@ -1,6 +1,5 @@
 package com.cis.confluence.plugins.impl;
 
-import com.atlassian.activeobjects.external.ActiveObjects;
 import com.atlassian.confluence.event.events.content.blogpost.BlogPostCreateEvent;
 import com.atlassian.confluence.event.events.content.blogpost.BlogPostRemoveEvent;
 import com.atlassian.confluence.event.events.content.comment.CommentEvent;
@@ -11,17 +10,12 @@ import com.atlassian.confluence.event.events.like.LikeCreatedEvent;
 import com.atlassian.confluence.event.events.like.LikeRemovedEvent;
 import com.atlassian.confluence.event.events.space.SpaceRemoveEvent;
 import com.atlassian.confluence.user.UserAccessor;
-import com.atlassian.plugin.spring.scanner.annotation.component.ClasspathComponent;
-import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
-import com.atlassian.plugin.spring.scanner.annotation.imports.ConfluenceImport;
 import com.atlassian.spring.container.ContainerManager;
 import com.atlassian.confluence.event.events.space.SpaceCreateEvent;
 import com.atlassian.event.api.EventListener;
 import com.atlassian.plugin.spring.scanner.annotation.component.ConfluenceComponent;
 import com.atlassian.plugin.spring.scanner.annotation.export.ExportAsService;
-import com.cis.confluence.plugins.persistence.Persistence;
-import com.cis.confluence.plugins.persistence.PersistenceImpl;
 import com.cis.confluence.plugins.utils.ConfluencerManager;
 import com.cis.confluence.plugins.utils.EventSeekerManager;
 import org.slf4j.Logger;
@@ -31,23 +25,24 @@ import org.springframework.beans.factory.DisposableBean;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.lang.annotation.Annotation;
-import java.util.Arrays;
 import java.util.Objects;
 
 
 @ConfluenceComponent
 @ExportAsService({ConfluenceEventServiceImpl.class})
 @Named("ConfluenceEventServiceImpl")
-@Scanned
 public class ConfluenceEventServiceImpl implements EventListener, DisposableBean {
 
     private final Logger logger = LoggerFactory.getLogger(ConfluenceEventServiceImpl.class);
-    private final ConfluencerManager confluencerManager = new ConfluencerManager();
+    //@ComponentImport
+    private final ConfluencerManager confluencerManager;
     private final EventSeekerManager eventSeekerManager = new EventSeekerManager();
     private final UserAccessor userAccessor;
 
+    //@Inject
     public ConfluenceEventServiceImpl() {
         userAccessor = (UserAccessor) ContainerManager.getComponent("userAccessor");
+        this.confluencerManager = new ConfluencerManager();
         //ActiveObjects activeObjects = (ActiveObjects) ContainerManager.getComponent("activeObjects");
         //System.out.println("--------------- AO :: " + activeObjects.toString());
         //System.out.println("-------------- :: " + Arrays.toString(persistence.getAll().toArray()));

@@ -29,14 +29,14 @@
             <groupId>com.atlassian.plugin</groupId>
             <artifactId>atlassian-spring-scanner-annotation</artifactId>
             <version>${atlassian.spring.scanner.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.atlassian.plugin</groupId>
-            <artifactId>atlassian-spring-scanner-runtime</artifactId>
-            <version>${atlassian.spring.scanner.version}</version>
-            <scope>runtime</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.atlassian.plugin</groupId>-->
+<!--            <artifactId>atlassian-spring-scanner-runtime</artifactId>-->
+<!--            <version>${atlassian.spring.scanner.version}</version>-->
+<!--            <scope>runtime</scope>-->
+<!--        </dependency>-->
 
 
         <dependency>
@@ -112,7 +112,16 @@
             <version>1.8.0.10</version>
             <scope>test</scope>
         </dependency>
-<!--        <dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.2.4.RELEASE</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--        <dependency>-->
 <!--            <groupId>org.slf4j</groupId>-->
 <!--            <artifactId>slf4j-simple</artifactId>-->
 <!--            <version>1.6.2</version>-->
@@ -124,12 +133,12 @@
 <!--            <version>1.6.2</version>-->
 <!--            <scope>test</scope>-->
 <!--        </dependency>-->
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.16</version>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>log4j</groupId>-->
+<!--            <artifactId>log4j</artifactId>-->
+<!--            <version>1.2.16</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
 
 
 
@@ -153,7 +162,7 @@
                         <Export-Package/>
                         <!-- Add package import here -->
                         <Import-Package>
-                            org.springframework.stereotype,
+                            org.springframework.stereotype;resolution:="optional",
                             javax.inject,
                             org.springframework.beans.factory.annotation,
                             com.atlassian.activeobjects.spi.*;resolution:="optional",
@@ -199,7 +208,7 @@
         <amps.version>8.0.2</amps.version>
         <plugin.testrunner.version>2.0.1</plugin.testrunner.version>
 <!--        <atlassian.spring.scanner.version>1.2.13</atlassian.spring.scanner.version>-->
-        <atlassian.spring.scanner.version>1.2.13</atlassian.spring.scanner.version>
+        <atlassian.spring.scanner.version>2.0.0</atlassian.spring.scanner.version>
         <!-- This property ensures consistency between the key in atlassian-plugin.xml and the OSGi bundle's key. -->
         <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

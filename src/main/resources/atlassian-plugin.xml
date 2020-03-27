@@ -72,7 +72,7 @@
         <entity>com.cis.confluence.plugins.persistence.EventUserServ</entity>
     </ao>
 
-<!--    <servlet name="Confluencer Servlet" key="confluencer-servlet" class="com.cis.confluence.plugins.persistence.PersistenceServlet">-->
+<!--    <servlet name="Confluencer Servlet" key="confluencer-servlet" class="com.cis.confluence.plugins.confluencerPersistence.PersistenceServlet">-->
 <!--        <description>Confluencer Servlet</description>-->
 <!--        <url-pattern>/confluencer/users</url-pattern>-->
 <!--    </servlet>-->

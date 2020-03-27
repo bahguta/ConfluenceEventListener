@@ -1,9 +1,7 @@
 package com.cis.confluence.plugins.persistence;
 
-import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
 import com.cis.confluence.plugins.dto.EventUser;
 import com.cis.confluence.plugins.utils.ConfluencerManager;
-import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,21 +9,20 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@Scanned
 public class PersistenceServlet extends HttpServlet {
 
 
-    private final Persistence persistence;
+    private final ConfluencerPersistence confluencerPersistence;
 
-    public PersistenceServlet(Persistence persistence) {
-        this.persistence = persistence;
+    public PersistenceServlet(ConfluencerPersistence confluencerPersistence) {
+        this.confluencerPersistence = confluencerPersistence;
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final PrintWriter w = resp.getWriter();
 
-        for (EventUser user: persistence.getAll()) {
+        for (EventUser user: confluencerPersistence.getAll()) {
             w.printf("<li><%2$s> %s </%2$s></li>", user.toString());
             System.out.println("----------------eventuserService :::: " + user.toString());
             ConfluencerManager.addUser(user.getEmail(),user.getName(), user.getFullName(), user.getKey().getStringValue(), user.getIcon());
@@ -72,12 +69,11 @@ public class PersistenceServlet extends HttpServlet {
 //        resp.getWriter().close();
         System.out.println("-------------------- DO POST :::::");
         ConfluencerManager.getList().forEach(user ->{
-            persistence.saveAll(ConfluencerManager.getList());
+            confluencerPersistence.saveAll(ConfluencerManager.getList());
         });
 
         resp.sendRedirect(req.getContextPath() + "/plugins/servlet/confluencer/users");
 
-        //super.doPost(req, resp);
     }
 
 
