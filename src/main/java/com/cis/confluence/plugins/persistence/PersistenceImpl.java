@@ -2,16 +2,14 @@ package com.cis.confluence.plugins.persistence;
 
 
 import com.atlassian.activeobjects.tx.Transactional;
+import com.atlassian.plugin.spring.scanner.annotation.component.ConfluenceComponent;
 import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.cis.confluence.plugins.dto.EventUser;
 import com.atlassian.activeobjects.external.ActiveObjects;
-import com.cis.confluence.plugins.services.EventUserServ;
-import com.cis.confluence.plugins.utils.ConfluencerManager;
 import net.java.ao.DBParam;
 import net.java.ao.Query;
 import org.springframework.beans.factory.DisposableBean;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.*;
@@ -44,9 +42,10 @@ public class PersistenceImpl implements Persistence, DisposableBean {
     @Override
     public void saveAll(List<EventUser> list) {
 
-        System.out.println("-------------------- GET ALL ::: ");
-        ConfluencerManager.getList().forEach(user ->{
-            EventUser eventUser = ao.create(EventUser.class, new DBParam("user", user));
+        System.out.println("-------------------- SAVE ALL ::: ");
+        list.forEach(user ->{
+            EventUserServ eventUser = ao.create(EventUserServ.class, new DBParam("user", user));
+            eventUser.addEventUser(user);
             eventUser.save();
         });
     }
@@ -54,13 +53,16 @@ public class PersistenceImpl implements Persistence, DisposableBean {
     @Override
     public List<EventUser> getAll() {
 
-//        Map <String, List<EventUser>> map = new HashMap<>();
-//        map.put("users", list);
-//        ao.create(EventUser.class, (List<Map<String, Object>>) map);
+        System.out.println("-------------------- GET ALL ::: ");
+        EventUserServ [] arr = ao.find(EventUserServ.class);
+        System.out.println("--------------------- AFTER AO.FIND");
+        List<EventUser> list = new LinkedList<>();
+        for (EventUserServ user: arr) {
+            System.out.println("-------------------user :: " + user.toString());
+            list.add(user.getEventUser());
+        }
 
-        EventUser [] arr = ao.find(EventUser.class, Query.select());
-
-        return Arrays.asList(arr);
+        return list;
     }
 
 //    @Override

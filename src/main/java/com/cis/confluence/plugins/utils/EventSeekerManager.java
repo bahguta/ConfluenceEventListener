@@ -1,6 +1,5 @@
 package com.cis.confluence.plugins.utils;
 
-
 import com.atlassian.confluence.like.Like;
 import com.atlassian.confluence.like.LikeManager;
 import com.atlassian.confluence.pages.*;
@@ -8,13 +7,14 @@ import com.atlassian.confluence.spaces.Space;
 import com.atlassian.confluence.spaces.SpaceManager;
 import com.atlassian.spring.container.ContainerManager;
 import com.cis.confluence.plugins.dto.EventUser;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.LinkedList;
 import java.util.List;
 
 public class EventSeekerManager {
 
-    private static final Logger logger = Logger.getLogger(EventSeekerManager.class);
+    private final Logger logger = LoggerFactory.getLogger(EventSeekerManager.class);
 
     private static SpaceManager spaceManager;
     private static PageManager pageManager;

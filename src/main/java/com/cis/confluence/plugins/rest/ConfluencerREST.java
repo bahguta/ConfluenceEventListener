@@ -7,7 +7,8 @@ import com.atlassian.confluence.user.UserAccessor;
 import com.atlassian.confluence.user.actions.ProfilePictureInfo;
 import com.atlassian.spring.container.ContainerManager;
 import com.cis.confluence.plugins.utils.ConfluencerManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -17,7 +18,7 @@ import javax.ws.rs.core.Response;
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 public class ConfluencerREST {
 
-    private static Logger logger = Logger.getLogger(ConfluencerREST.class);
+    private final Logger logger = LoggerFactory.getLogger(ConfluencerREST.class);
 
     @GET
     @Path("participa")

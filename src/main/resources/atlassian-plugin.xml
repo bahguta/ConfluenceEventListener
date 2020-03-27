@@ -69,13 +69,13 @@
 
     <ao key="ao-module">
         <description>The module configuring the Active Objects service used by this plugin</description>
-        <entity>com.cis.confluence.plugins.services.EventUserServ</entity>
+        <entity>com.cis.confluence.plugins.persistence.EventUserServ</entity>
     </ao>
 
-    <servlet name="Confluencer Servlet" key="confluencer-servlet" class="com.cis.confluence.plugins.persistence.PersistenceServlet">
-        <description>Confluencer Servlet</description>
-        <url-pattern>/confluencer/users</url-pattern>
-    </servlet>
+<!--    <servlet name="Confluencer Servlet" key="confluencer-servlet" class="com.cis.confluence.plugins.persistence.PersistenceServlet">-->
+<!--        <description>Confluencer Servlet</description>-->
+<!--        <url-pattern>/confluencer/users</url-pattern>-->
+<!--    </servlet>-->
 
 
 </atlassian-plugin>

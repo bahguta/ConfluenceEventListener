@@ -1,18 +1,8 @@
 package com.cis.confluence.plugins.persistence;
 
-import com.atlassian.activeobjects.external.ActiveObjects;
 import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
-import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
-import com.atlassian.plugin.spring.scanner.annotation.imports.ConfluenceImport;
-import com.atlassian.spring.container.ContainerManager;
 import com.cis.confluence.plugins.dto.EventUser;
 import com.cis.confluence.plugins.utils.ConfluencerManager;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.support.AbstractBeanDefinition;
-import org.springframework.beans.factory.support.AbstractBeanFactory;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,15 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@Named("PersistenceServlet")
 @Scanned
 public class PersistenceServlet extends HttpServlet {
 
 
     private final Persistence persistence;
 
-    @Autowired
-    public PersistenceServlet(@ComponentImport Persistence persistence) {
+    public PersistenceServlet(Persistence persistence) {
         this.persistence = persistence;
     }
 
@@ -40,11 +28,8 @@ public class PersistenceServlet extends HttpServlet {
         for (EventUser user: persistence.getAll()) {
             w.printf("<li><%2$s> %s </%2$s></li>", user.toString());
             System.out.println("----------------eventuserService :::: " + user.toString());
+            ConfluencerManager.addUser(user.getEmail(),user.getName(), user.getFullName(), user.getKey().getStringValue(), user.getIcon());
         }
-
-        ConfluencerManager.getList().addAll(persistence.getAll());
-
-
 
         w.write("</ol>");
         w.write("<script language='javascript'>document.forms[0].elements[0].focus();</script>");
@@ -86,7 +71,10 @@ public class PersistenceServlet extends HttpServlet {
 //        resp.getWriter().write("Todo servlet, doPost");
 //        resp.getWriter().close();
         System.out.println("-------------------- DO POST :::::");
-        persistence.saveAll(ConfluencerManager.getList());
+        ConfluencerManager.getList().forEach(user ->{
+            persistence.saveAll(ConfluencerManager.getList());
+        });
+
         resp.sendRedirect(req.getContextPath() + "/plugins/servlet/confluencer/users");
 
         //super.doPost(req, resp);

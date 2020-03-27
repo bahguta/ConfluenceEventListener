@@ -1,14 +1,19 @@
 package com.cis.confluence.plugins.utils;
 
 import com.atlassian.confluence.api.model.web.Icon;
+import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
+import com.atlassian.plugin.spring.scanner.annotation.imports.ConfluenceImport;
 import com.cis.confluence.plugins.dto.EventUser;
-import org.apache.log4j.Logger;
+import com.cis.confluence.plugins.persistence.PersistenceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.util.*;
 
 public class ConfluencerManager {
 
-    private static final Logger logger = Logger.getLogger(ConfluencerManager.class);
+    private static final Logger logger = LoggerFactory.getLogger(ConfluencerManager.class);
 
     private static Map<String, EventUser> list = new LinkedHashMap<>();
 

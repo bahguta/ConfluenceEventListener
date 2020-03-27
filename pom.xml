@@ -29,14 +29,16 @@
             <groupId>com.atlassian.plugin</groupId>
             <artifactId>atlassian-spring-scanner-annotation</artifactId>
             <version>${atlassian.spring.scanner.version}</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.atlassian.plugin</groupId>-->
-<!--            <artifactId>atlassian-spring-scanner-runtime</artifactId>-->
-<!--            <version>${atlassian.spring.scanner.version}</version>-->
-<!--            <scope>runtime</scope>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.atlassian.plugin</groupId>
+            <artifactId>atlassian-spring-scanner-runtime</artifactId>
+            <version>${atlassian.spring.scanner.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
@@ -122,12 +124,12 @@
 <!--            <version>1.6.2</version>-->
 <!--            <scope>test</scope>-->
 <!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>log4j</groupId>-->
-<!--            <artifactId>log4j</artifactId>-->
-<!--            <version>1.2.16</version>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.16</version>
+            <scope>test</scope>
+        </dependency>
 
 
 
@@ -151,11 +153,15 @@
                         <Export-Package/>
                         <!-- Add package import here -->
                         <Import-Package>
-                            org.springframework.stereotype, javax.inject, org.springframework.beans.factory.annotation,
+                            org.springframework.stereotype,
+                            javax.inject,
+                            org.springframework.beans.factory.annotation,
                             com.atlassian.activeobjects.spi.*;resolution:="optional",
+                            com.atlassian.activeobjects.external.*,
                             com.atlassian.confluence.user.*;resolution:="optional",
                             org.springframework.osgi.*;resolution:="optional",
                             org.eclipse.gemini.blueprint.*;resolution:="optional",
+                            com.atlassian.plugin.osgi.bridge.external,
                             *</Import-Package>
                         <!-- Ensure plugin is spring powered -->
                         <Spring-Context>*</Spring-Context>

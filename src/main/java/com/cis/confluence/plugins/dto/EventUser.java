@@ -1,21 +1,14 @@
 package com.cis.confluence.plugins.dto;
 
-import com.atlassian.activeobjects.tx.Transactional;
 import com.atlassian.confluence.api.model.web.Icon;
 import com.atlassian.confluence.user.ConfluenceUser;
 import com.atlassian.sal.api.user.UserKey;
-import com.cis.confluence.plugins.services.EventUserServ;
-import net.java.ao.EntityManager;
-import net.java.ao.Preload;
-import net.java.ao.RawEntity;
 import net.java.ao.schema.Table;
-
 import javax.validation.constraints.NotNull;
-import java.beans.PropertyChangeListener;
 import java.io.Serializable;
 
 @Table("EventUser")
-public class EventUser implements ConfluenceUser, EventUserServ, Serializable, Comparable<EventUser> {
+public class EventUser implements ConfluenceUser, Serializable, Comparable<EventUser> {
 
     private Icon icon;
     private String email;
@@ -210,38 +203,38 @@ public class EventUser implements ConfluenceUser, EventUserServ, Serializable, C
         return space+page+blog+comment+like;
     }
 
-    @Override
-    public int getID() {
-        return 0;
-    }
-
-    @Override
-    public void init() {
-        System.out.println("--------------------- INITT ");
-    }
-
-    @Override
-    public void save() {
-        System.out.println("-0-0-0-0-0-0-0-0-0 ::::: SAVE");
-    }
-
-    @Override
-    public EntityManager getEntityManager() {
-        return null;
-    }
-
-    @Override
-    public <X extends RawEntity<Integer>> Class<X> getEntityType() {
-        return null;
-    }
-
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener propertyChangeListener) {
-
-    }
-
-    @Override
-    public void removePropertyChangeListener(PropertyChangeListener propertyChangeListener) {
-
-    }
+//    @Override
+//    public int getID() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public void init() {
+//        System.out.println("--------------------- INITT ");
+//    }
+//
+//    @Override
+//    public void save() {
+//        System.out.println("-0-0-0-0-0-0-0-0-0 ::::: SAVE");
+//    }
+//
+//    @Override
+//    public EntityManager getEntityManager() {
+//        return null;
+//    }
+//
+//    @Override
+//    public <X extends RawEntity<Integer>> Class<X> getEntityType() {
+//        return null;
+//    }
+//
+//    @Override
+//    public void addPropertyChangeListener(PropertyChangeListener propertyChangeListener) {
+//
+//    }
+//
+//    @Override
+//    public void removePropertyChangeListener(PropertyChangeListener propertyChangeListener) {
+//
+//    }
 }
