@@ -12,9 +12,14 @@ import org.springframework.beans.factory.DisposableBean;
 public class ConfluencerParticipate extends ConfluenceActionSupport implements PageAware, DisposableBean {
 
     private final Logger logger = LoggerFactory.getLogger(ConfluencerParticipate.class);
+    private ConfluencerManager confluencerManager;
 
     private AbstractPage page;
     private boolean participate;
+
+    public void setConfluencerManager(ConfluencerManager confluencerManager) {
+        this.confluencerManager = confluencerManager;
+    }
 
     public ConfluencerParticipate() {
         this.participate = false;
@@ -31,8 +36,8 @@ public class ConfluencerParticipate extends ConfluenceActionSupport implements P
     }
 
     public boolean isParticipate() {
-        if (ConfluencerManager.containsUser(AuthenticatedUserThreadLocal.get().getEmail())){
-            return ConfluencerManager.participa(AuthenticatedUserThreadLocal.get().getName());
+        if (confluencerManager.containsUser(AuthenticatedUserThreadLocal.get().getEmail())){
+            return confluencerManager.participa(AuthenticatedUserThreadLocal.get().getName());
         } else {
             return false;
         }

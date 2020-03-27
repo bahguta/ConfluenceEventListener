@@ -21,13 +21,16 @@ public class ConfluencerManager implements ConfluencerManagerServ {
 
     private static Map<String, EventUser> list = new LinkedHashMap<>();
 
-//    @ComponentImport
-//    private static ConfluencerPersistenceImpl persistence;
-//
-//    @Inject
-//    public ConfluencerManager(ConfluencerPersistenceImpl persistence) {
-//        ConfluencerManager.persistence = persistence;
-//    }
+    private ConfluencerPersistenceImpl persistence;
+    private EventSeekerManager eventSeekerManager;
+
+    public void setEventSeekerManager(EventSeekerManager eventSeekerManager) {
+        this.eventSeekerManager = eventSeekerManager;
+    }
+
+    public void setPersistence(ConfluencerPersistenceImpl persistence) {
+        this.persistence = persistence;
+    }
 
     public static List<EventUser> getList(){
         List<EventUser> lista = new LinkedList<>();
@@ -63,57 +66,57 @@ public class ConfluencerManager implements ConfluencerManagerServ {
         return lista;
     }
 
-    public static boolean participa(String name){
+    public boolean participa(String name){
         return getSortedList().stream().filter( user -> user.getName().equals(name)).findFirst().get().isParticipate();
     }
 
-    public static boolean setParticipa(String name){
+    public boolean setParticipa(String name){
         getSortedList().stream().filter( user -> user.getName().equals(name)).findFirst().get().setParticipate(true);
         return true;
     }
 
-    public static boolean containsUser(String correo){
-        return ConfluencerManager.list.containsKey(correo);
+    public  boolean containsUser(String correo){
+        return list.containsKey(correo);
     }
 
-    public static void addUser(String correo, String name, String fullName, String key, Icon icon){
+    public void addUser(String correo, String name, String fullName, String key, Icon icon){
         EventUser eventUser = new EventUser(correo, name, fullName, key, icon);
-        ConfluencerManager.list.put(correo, eventUser);
-        EventSeekerManager.userParticipate(eventUser);
+        list.put(correo, eventUser);
+        eventSeekerManager.userParticipate(eventUser);
 //        List<EventUser> l = new LinkedList<>();
 //        l.add(eventUser);
 //        persistence.saveAll(l);
     }
 
-    public static void addSpace(String correo){
+    public void addSpace(String correo){
         ConfluencerManager.list.get(correo).addSpace();
     }
 
-    public static void addPage(String correo){
+    public void addPage(String correo){
         ConfluencerManager.list.get(correo).addPage();
     }
 
-    public static void addBlog(String correo){
+    public void addBlog(String correo){
         ConfluencerManager.list.get(correo).addBlog();
     }
 
-    public static void addComment(String correo){
+    public void addComment(String correo){
         ConfluencerManager.list.get(correo).addComment();
     }
 
-    public static void addLike(String correo){
+    public void addLike(String correo){
         ConfluencerManager.list.get(correo).addLike();
     }
 
-    public static void restSpace(String correo) { ConfluencerManager.list.get(correo).restSpace(); }
+    public void restSpace(String correo) { ConfluencerManager.list.get(correo).restSpace(); }
 
-    public static void restPage(String correo) { ConfluencerManager.list.get(correo).restPage(); }
+    public void restPage(String correo) { ConfluencerManager.list.get(correo).restPage(); }
 
-    public static void restBlog(String correo) { ConfluencerManager.list.get(correo).restBlog(); }
+    public void restBlog(String correo) { ConfluencerManager.list.get(correo).restBlog(); }
 
-    public static void restComment(String correo) { ConfluencerManager.list.get(correo).restComment(); }
+    public void restComment(String correo) { ConfluencerManager.list.get(correo).restComment(); }
 
-    public static void restLike(String correo) { ConfluencerManager.list.get(correo).restLike(); }
+    public void restLike(String correo) { ConfluencerManager.list.get(correo).restLike(); }
 
     public static void printResults(){
         System.out.println("====================================================================================");

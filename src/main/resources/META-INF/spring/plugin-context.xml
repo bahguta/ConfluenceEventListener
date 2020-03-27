@@ -7,6 +7,6 @@
         http://www.atlassian.com/schema/atlassian-scanner/2
         http://www.atlassian.com/schema/atlassian-scanner/2/atlassian-scanner.xsd">
     <atlassian-scanner:scan-indexes/>
-<!--    <bean id="confluencerPersistence" class="com.cis.confluence.plugins.confluencerPersistence.ConfluencerPersistenceImplistenceImpl">-->
-<!--    </bean>-->
+    <bean id="confluencerManager" class="com.cis.confluence.plugins.utils.ConfluencerManager" autowire="byName">
+    </bean>
 </beans>

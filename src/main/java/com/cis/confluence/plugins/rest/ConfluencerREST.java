@@ -19,11 +19,16 @@ import javax.ws.rs.core.Response;
 public class ConfluencerREST {
 
     private final Logger logger = LoggerFactory.getLogger(ConfluencerREST.class);
+    private ConfluencerManager confluencerManager;
+
+    public void setConfluencerManager(ConfluencerManager confluencerManager) {
+        this.confluencerManager = confluencerManager;
+    }
 
     @GET
     @Path("participa")
     public Response getUser(@QueryParam("name") String name) {
-        return Response.ok(ConfluencerManager.participa(name)).build();
+        return Response.ok(confluencerManager.participa(name)).build();
     }
 
     @PUT
@@ -31,9 +36,9 @@ public class ConfluencerREST {
     public Response setParticipate(@QueryParam("name") String name) {
         ConfluenceUser user = AuthenticatedUserThreadLocal.get();
         if (null != user) {
-            ConfluencerManager.addUser(user.getEmail(), user.getName(), user.getFullName(), user.getKey().getStringValue(), getIcon());
+            confluencerManager.addUser(user.getEmail(), user.getName(), user.getFullName(), user.getKey().getStringValue(), getIcon());
         }
-        return Response.ok(ConfluencerManager.setParticipa(name)).build();
+        return Response.ok(confluencerManager.setParticipa(name)).build();
     }
 
 
