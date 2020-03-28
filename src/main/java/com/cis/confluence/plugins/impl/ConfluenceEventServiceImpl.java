@@ -17,7 +17,6 @@ import com.atlassian.event.api.EventListener;
 import com.atlassian.plugin.spring.scanner.annotation.component.ConfluenceComponent;
 import com.atlassian.plugin.spring.scanner.annotation.export.ExportAsService;
 import com.cis.confluence.plugins.utils.ConfluencerManager;
-import com.cis.confluence.plugins.utils.EventSeekerManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -34,27 +33,20 @@ import java.util.Objects;
 public class ConfluenceEventServiceImpl implements EventListener, DisposableBean {
 
     private final Logger logger = LoggerFactory.getLogger(ConfluenceEventServiceImpl.class);
-    //@ComponentImport
+
     private ConfluencerManager confluencerManager;
-   // private EventSeekerManager eventSeekerManager;
-    private final UserAccessor userAccessor;
+
+    //private final UserAccessor userAccessor;
 
     public void setConfluencerManager(ConfluencerManager confluencerManager) {
         this.confluencerManager = confluencerManager;
     }
 
-//    public void setEventSeekerManager(EventSeekerManager eventSeekerManager) {
-//        this.eventSeekerManager = eventSeekerManager;
-//    }
 
     //@Inject
-    public ConfluenceEventServiceImpl() {
-        userAccessor = (UserAccessor) ContainerManager.getComponent("userAccessor");
-       // this.confluencerManager = new ConfluencerManager();
-        //ActiveObjects activeObjects = (ActiveObjects) ContainerManager.getComponent("activeObjects");
-        //System.out.println("--------------- AO :: " + activeObjects.toString());
-        //System.out.println("-------------- :: " + Arrays.toString(persistence.getAll().toArray()));
-    }
+//    public ConfluenceEventServiceImpl() {
+//        userAccessor = (UserAccessor) ContainerManager.getComponent("userAccessor");
+//    }
 
 
     @Override

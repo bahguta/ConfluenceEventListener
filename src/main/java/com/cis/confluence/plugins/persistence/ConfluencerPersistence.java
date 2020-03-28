@@ -11,4 +11,6 @@ public interface ConfluencerPersistence {
 
     List<EventUser> getAll();
 
+    void save(EventUser user);
+
 }

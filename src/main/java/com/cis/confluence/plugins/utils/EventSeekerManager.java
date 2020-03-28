@@ -43,55 +43,156 @@ public class EventSeekerManager {
 
 
 
-    public void userParticipate(EventUser user) {
-        addNumSpacesForUser(user);
-        addNumPagesForUser(user);
-        addNumBlogsForUser(user);
-        addNumCommentsForUser(user);
-        addNumLikesForUser(user);
-    }
+//    public void userParticipate(EventUser user) {
+//        addNumSpacesForUser(user);
+//        addNumPagesForUser(user);
+//        addNumBlogsForUser(user);
+//        addNumCommentsForUser(user);
+//        addNumLikesForUser(user);
+//    }
 
 
-    public void addNumSpacesForUser(EventUser user) {
-        if (null == confluencerManager){
-            System.out.println("---=-==-==- :: confluencerManager null ");
-        }
-        if ( null == confluencerManager.getList()) {
-            System.out.println("-=-=-=-=-=-== :: getList() nullll");
-        }
-        confluencerManager.getList().forEach( u -> System.out.println("-------u :: " + u.toString()));
+
+    public int addNumSpacesForUser(EventUser user) {
+        int cont = 0;
+//        if (null == confluencerManager){
+//            System.out.println("---=-==-==- :: confluencerManager null ");
+//        }
+//        if ( null == confluencerManager.getList()) {
+//            System.out.println("-=-=-=-=-=-== :: getList() nullll");
+//        }
+//        confluencerManager.getList().forEach( u -> System.out.println("-------u :: " + u.toString()));
 
         for (Space space : spaceManager.getAllSpaces()) {
-            if (space.getCreator().getKey().equals(user.getKey())) {
-                System.out.println("------------------user ::: " + user.toString());
-                confluencerManager.addSpace(user.getEmail());
+            System.out.println("---------- space :: " + space.getCreator());
+            System.out.println(" ---------- user spaec ::: " + user.toString());
+            if (null != space.getCreator() && space.getCreator().getKey().equals(user.getKey())) {
+                //System.out.println("------------------user ::: " + user.toString());
+                //confluencerManager.addSpace(user.getEmail());
+                cont++;
             }
         }
+        return cont;
     }
 
-    public void addNumPagesForUser(EventUser user) {
+    public int addNumPagesForUser(EventUser user) {
+        int cont = 0;
         for (Page page: getPagesForUser(user)) {
-            confluencerManager.addPage(user.getEmail());
+            //confluencerManager.addPage(user.getEmail());
+            cont++;
         }
+        return cont;
     }
 
-    public void addNumBlogsForUser(EventUser user) {
+    public int addNumBlogsForUser(EventUser user) {
+        int cont = 0;
         for (BlogPost blog: getBlogs(user)) {
-            confluencerManager.addBlog(user.getEmail());
+           // confluencerManager.addBlog(user.getEmail());
+            cont++;
         }
+        return cont;
     }
 
-    public void addNumCommentsForUser(EventUser user){
+    public int addNumCommentsForUser(EventUser user){
+        int cont = 0;
         for (Comment comment: getComments(user)) {
-            confluencerManager.addComment(user.getEmail());
+            //confluencerManager.addComment(user.getEmail());
+            cont++;
         }
+        return cont;
     }
 
-    public void addNumLikesForUser(EventUser user){
+    public int addNumLikesForUser(EventUser user){
+        int cont = 0;
         for (Like like: getLikes(user)) {
-            confluencerManager.addLike(user.getEmail());
+            //confluencerManager.addLike(user.getEmail());
+            cont++;
         }
+        return cont;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    public void addNumSpacesForUser(EventUser user) {
+//        if (null == confluencerManager){
+//            System.out.println("---=-==-==- :: confluencerManager null ");
+//        }
+//        if ( null == confluencerManager.getList()) {
+//            System.out.println("-=-=-=-=-=-== :: getList() nullll");
+//        }
+//        confluencerManager.getList().forEach( u -> System.out.println("-------u :: " + u.toString()));
+//
+//        for (Space space : spaceManager.getAllSpaces()) {
+//            if (space.getCreator().getKey().equals(user.getKey())) {
+//                System.out.println("------------------user ::: " + user.toString());
+//                confluencerManager.addSpace(user.getEmail());
+//            }
+//        }
+//    }
+//
+//    public void addNumPagesForUser(EventUser user) {
+//        for (Page page: getPagesForUser(user)) {
+//            confluencerManager.addPage(user.getEmail());
+//        }
+//    }
+//
+//    public void addNumBlogsForUser(EventUser user) {
+//        for (BlogPost blog: getBlogs(user)) {
+//            confluencerManager.addBlog(user.getEmail());
+//        }
+//    }
+//
+//    public void addNumCommentsForUser(EventUser user){
+//        for (Comment comment: getComments(user)) {
+//            confluencerManager.addComment(user.getEmail());
+//        }
+//    }
+//
+//    public void addNumLikesForUser(EventUser user){
+//        for (Like like: getLikes(user)) {
+//            confluencerManager.addLike(user.getEmail());
+//        }
+//    }
 
 
 
@@ -121,9 +222,9 @@ public class EventSeekerManager {
 
     private List<BlogPost> getBlogs(EventUser user){
         List<BlogPost> list = new LinkedList<>();
-        getSpacesForUser(user).forEach( s -> {
+        spaceManager.getAllSpaces().forEach( s -> {
             pageManager.getBlogPosts(s, true).forEach(blogPost -> {
-                if (null != blogPost && blogPost.getCreator().getKey().equals(user.getKey())){
+                if (null != blogPost && blogPost.getCreator().getName().equals(user.getName())){
                     list.add(blogPost);
                 }
             });
