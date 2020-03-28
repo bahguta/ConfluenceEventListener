@@ -36,16 +36,16 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
     private final Logger logger = LoggerFactory.getLogger(ConfluenceEventServiceImpl.class);
     //@ComponentImport
     private ConfluencerManager confluencerManager;
-    private EventSeekerManager eventSeekerManager;
+   // private EventSeekerManager eventSeekerManager;
     private final UserAccessor userAccessor;
 
     public void setConfluencerManager(ConfluencerManager confluencerManager) {
         this.confluencerManager = confluencerManager;
     }
 
-    public void setEventSeekerManager(EventSeekerManager eventSeekerManager) {
-        this.eventSeekerManager = eventSeekerManager;
-    }
+//    public void setEventSeekerManager(EventSeekerManager eventSeekerManager) {
+//        this.eventSeekerManager = eventSeekerManager;
+//    }
 
     //@Inject
     public ConfluenceEventServiceImpl() {

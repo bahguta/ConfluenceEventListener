@@ -65,7 +65,6 @@
         <description>Provides rest services.</description>
     </rest>
 
-<!--    <bean key="eventSeekerManager" class="com.cis.confluence.plugins.utils.EventSeekerManager" id="eventSeekerManager" />-->
 
     <ao key="ao-module">
         <description>The module configuring the Active Objects service used by this plugin</description>

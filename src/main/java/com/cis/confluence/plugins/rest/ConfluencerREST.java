@@ -5,13 +5,19 @@ import com.atlassian.confluence.user.AuthenticatedUserThreadLocal;
 import com.atlassian.confluence.user.ConfluenceUser;
 import com.atlassian.confluence.user.UserAccessor;
 import com.atlassian.confluence.user.actions.ProfilePictureInfo;
+import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.spring.container.ContainerManager;
 import com.cis.confluence.plugins.utils.ConfluencerManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.awt.*;
 
 @Path("/")
 @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -19,6 +25,7 @@ import javax.ws.rs.core.Response;
 public class ConfluencerREST {
 
     private final Logger logger = LoggerFactory.getLogger(ConfluencerREST.class);
+
     private ConfluencerManager confluencerManager;
 
     public void setConfluencerManager(ConfluencerManager confluencerManager) {
@@ -34,8 +41,15 @@ public class ConfluencerREST {
     @PUT
     @Path("/{name}/participa")
     public Response setParticipate(@QueryParam("name") String name) {
+        if (null == confluencerManager) {
+            System.out.println("--------------------------- confluencerManager NULLLL");
+            //confluencerManager = new ConfluencerManager();
+        } else {
+            System.out.println("------------------ TO STRING CONf :: " + confluencerManager.toString());
+        }
         ConfluenceUser user = AuthenticatedUserThreadLocal.get();
         if (null != user) {
+            System.out.println("---------- user :: " + user.getName() + " :: " + user.getKey() + " :: " + user.getFullName() + " :: " + user.getEmail());
             confluencerManager.addUser(user.getEmail(), user.getName(), user.getFullName(), user.getKey().getStringValue(), getIcon());
         }
         return Response.ok(confluencerManager.setParticipa(name)).build();

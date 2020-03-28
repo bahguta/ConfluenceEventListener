@@ -5,10 +5,16 @@ import com.atlassian.confluence.like.LikeManager;
 import com.atlassian.confluence.pages.*;
 import com.atlassian.confluence.spaces.Space;
 import com.atlassian.confluence.spaces.SpaceManager;
+import com.atlassian.plugin.osgi.util.OsgiPluginUtil;
+import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.spring.container.ContainerManager;
 import com.cis.confluence.plugins.dto.EventUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,6 +40,9 @@ public class EventSeekerManager {
         likeManager = (LikeManager) ContainerManager.getComponent("likeManager");
     }
 
+
+
+
     public void userParticipate(EventUser user) {
         addNumSpacesForUser(user);
         addNumPagesForUser(user);
@@ -44,8 +53,17 @@ public class EventSeekerManager {
 
 
     public void addNumSpacesForUser(EventUser user) {
+        if (null == confluencerManager){
+            System.out.println("---=-==-==- :: confluencerManager null ");
+        }
+        if ( null == confluencerManager.getList()) {
+            System.out.println("-=-=-=-=-=-== :: getList() nullll");
+        }
+        confluencerManager.getList().forEach( u -> System.out.println("-------u :: " + u.toString()));
+
         for (Space space : spaceManager.getAllSpaces()) {
             if (space.getCreator().getKey().equals(user.getKey())) {
+                System.out.println("------------------user ::: " + user.toString());
                 confluencerManager.addSpace(user.getEmail());
             }
         }
