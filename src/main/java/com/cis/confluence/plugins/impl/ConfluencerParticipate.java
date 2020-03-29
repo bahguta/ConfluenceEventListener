@@ -12,6 +12,7 @@ import org.springframework.beans.factory.DisposableBean;
 public class ConfluencerParticipate extends ConfluenceActionSupport implements PageAware, DisposableBean {
 
     private final Logger logger = LoggerFactory.getLogger(ConfluencerParticipate.class);
+
     private ConfluencerManager confluencerManager;
 
     private AbstractPage page;

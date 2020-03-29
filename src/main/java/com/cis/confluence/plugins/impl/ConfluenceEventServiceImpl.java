@@ -9,9 +9,6 @@ import com.atlassian.confluence.event.events.content.page.PageRemoveEvent;
 import com.atlassian.confluence.event.events.like.LikeCreatedEvent;
 import com.atlassian.confluence.event.events.like.LikeRemovedEvent;
 import com.atlassian.confluence.event.events.space.SpaceRemoveEvent;
-import com.atlassian.confluence.user.UserAccessor;
-import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
-import com.atlassian.spring.container.ContainerManager;
 import com.atlassian.confluence.event.events.space.SpaceCreateEvent;
 import com.atlassian.event.api.EventListener;
 import com.atlassian.plugin.spring.scanner.annotation.component.ConfluenceComponent;
@@ -20,8 +17,6 @@ import com.cis.confluence.plugins.utils.ConfluencerManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
-
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.lang.annotation.Annotation;
 import java.util.Objects;
@@ -36,18 +31,10 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
     private ConfluencerManager confluencerManager;
 
-    //private final UserAccessor userAccessor;
 
     public void setConfluencerManager(ConfluencerManager confluencerManager) {
         this.confluencerManager = confluencerManager;
     }
-
-
-    //@Inject
-//    public ConfluenceEventServiceImpl() {
-//        userAccessor = (UserAccessor) ContainerManager.getComponent("userAccessor");
-//    }
-
 
     @Override
     public String scope() {
@@ -189,6 +176,5 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
     @Override
     public void destroy() throws Exception {
-
     }
 }

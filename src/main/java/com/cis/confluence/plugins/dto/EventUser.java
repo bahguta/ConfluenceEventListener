@@ -5,16 +5,14 @@ import com.atlassian.confluence.user.ConfluenceUser;
 import com.atlassian.sal.api.user.UserKey;
 import com.cis.confluence.plugins.persistence.EventUserServ;
 import net.java.ao.EntityManager;
-import net.java.ao.OneToMany;
+import net.java.ao.Implementation;
 import net.java.ao.RawEntity;
 import net.java.ao.schema.Table;
-import net.java.ao.types.TypeManager;
-
 import javax.validation.constraints.NotNull;
 import java.beans.PropertyChangeListener;
 import java.io.Serializable;
 
-@net.java.ao.Implementation(EventUser.class)
+@Implementation(EventUser.class)
 @Table("EventUser")
 public class EventUser  implements ConfluenceUser, EventUserServ, Serializable, Comparable<EventUser> {
 
@@ -48,6 +46,25 @@ public class EventUser  implements ConfluenceUser, EventUserServ, Serializable, 
         return icon;
     }
 
+    public void setIcon(Icon icon) {
+        this.icon = icon;
+    }
+
+    @Override
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    @Override
+    public String getKeyString() {
+        return null;
+    }
+
+    @Override
+    public void setKeyString(String key) {
+
+    }
+
     @Override
     public UserKey getKey() {
         return key;
@@ -59,6 +76,16 @@ public class EventUser  implements ConfluenceUser, EventUserServ, Serializable, 
 
     public void setParticipate(boolean participate) {
         this.participate = participate;
+    }
+
+    @Override
+    public String getIconPath() {
+        return icon.getPath();
+    }
+
+    @Override
+    public void setIconPath(String iconPath) {
+        this.icon = new Icon(iconPath, 40, 40, true);
     }
 
     @Override
@@ -124,23 +151,23 @@ public class EventUser  implements ConfluenceUser, EventUserServ, Serializable, 
         like += 1;
     }
 
-    public void setSpaces(int space) {
+    public void setSpace(int space) {
         this.space = space;
     }
 
-    public void setPages(int page) {
+    public void setPage(int page) {
         this.page = page;
     }
 
-    public void setBlogs(int blog) {
+    public void setBlog(int blog) {
         this.blog = blog;
     }
 
-    public void setComments(int comment) {
+    public void setComment(int comment) {
         this.comment = comment;
     }
 
-    public void setLikes(int like) {
+    public void setLike(int like) {
         this.like = like;
     }
 
@@ -224,19 +251,15 @@ public class EventUser  implements ConfluenceUser, EventUserServ, Serializable, 
     @net.java.ao.schema.PrimaryKey
     @Override
     public int getID() {
-        System.out.println(" ------- IDD ::" );
         return 1;
     }
 
     @Override
     public void init() {
-        System.out.println("--------------------- INITT ");
     }
 
     @Override
     public void save() {
-        System.out.println("-0-0-0-0-0-0-0-0-0 ::::: SAVE");
-
     }
 
     @Override
@@ -246,37 +269,15 @@ public class EventUser  implements ConfluenceUser, EventUserServ, Serializable, 
 
     @Override
     public <X extends RawEntity<Integer>> Class<X> getEntityType() {
-        System.out.println("---------------- TYPE ENTITY :::");
-        return (Class<X>) this.getClass();
+        return null;
     }
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener propertyChangeListener) {
-
     }
 
     @Override
     public void removePropertyChangeListener(PropertyChangeListener propertyChangeListener) {
-
     }
 
-//    @Override
-//    public void setUser(EventUser user) {
-//       // this. = user;
-//    }
-//
-//    @Override
-//    public EventUser getUser() {
-//        return this;
-//    }
-
-//    @Override
-//    public EventUser getEventUser() {
-//        return null;
-//    }
-//
-//    @Override
-//    public void addEventUser(EventUser user) {
-//
-//    }
 }

@@ -1,22 +1,26 @@
 package com.cis.confluence.plugins.persistence;
 
 import com.atlassian.activeobjects.tx.Transactional;
-import com.atlassian.plugin.spring.scanner.annotation.export.ExportAsService;
+import com.atlassian.confluence.api.model.web.Icon;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.cis.confluence.plugins.dto.EventUser;
 import com.atlassian.activeobjects.external.ActiveObjects;
 import com.google.common.collect.ImmutableMap;
-import net.java.ao.*;
-import net.java.ao.builder.DataSourceFactory;
-import net.java.ao.types.TypeManager;
+import net.java.ao.DBParam;
+import net.java.ao.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 
 @Named("ConfluencerPersistenceImpl")
 @Transactional
 public class ConfluencerPersistenceImpl implements ConfluencerPersistence, DisposableBean {
+
+    private final Logger logger = LoggerFactory.getLogger(ConfluencerPersistenceImpl.class);
 
     @ComponentImport
     private ActiveObjects ao;
@@ -24,68 +28,84 @@ public class ConfluencerPersistenceImpl implements ConfluencerPersistence, Dispo
     @Inject
     public ConfluencerPersistenceImpl(ActiveObjects ao) {
         this.ao = ao;
-        System.out.println("-------------------------- Constructor ");
     }
 
     @Override
     public void saveAll(List<EventUser> list) {
-
-        System.out.println("-------------------- SAVE ALL ::: ");
         list.forEach(user ->{
             EventUserServ eventUser = ao.create(EventUserServ.class, new DBParam("user", user));
-            //eventUser.addEventUser(user);
             eventUser.save();
         });
     }
 
     @Override
     public List<EventUser> getAll() {
-
-        System.out.println("-------------------- GET ALL ::: ");
-        EventUserServ [] arr = ao.find(EventUserServ.class, Query.select("user"));
-        System.out.println("--------------------- AFTER AO.FIND");
         List<EventUser> list = new LinkedList<>();
-        for (EventUserServ user: arr) {
-            System.out.println("-------------------user :: " + user.toString());
-            //list.add(user.getEventUser());
-            //list.add(user.getUser());
+        try {
+            EventUserServ[] arr = ao.find(EventUserServ.class);
+            if (arr.length > 0) {
+                for (EventUserServ user : arr) {
+                    EventUser eventUser = new EventUser(user.getEmail(), user.getName(), user.getFullName(), user.getKeyString(), new Icon(user.getIconPath(), 40, 40, true));
+                    eventUser.setParticipate(user.isParticipate());
+                    eventUser.setSpace(user.getSpace());
+                    eventUser.setPage(user.getPage());
+                    eventUser.setBlog(user.getBlog());
+                    eventUser.setComment(user.getComment());
+                    eventUser.setLike(user.getLike());
+                    list.add(eventUser);
+                }
+            }
+        }catch (Exception e){
+            logger.error("{}", e.getMessage());
         }
-
         return list;
     }
 
     @Override
     public void save(EventUser user) {
-        System.out.println("-------------------- SAVE ::: " + user.toString());
-        //EntityManager entityManager = new EntityManager(new DatabaseProvider(net.java.ao.db., TypeManager.h2()), new EntityManagerConfiguration())
-        //EventUserServ eventUser = ao.create(EventUser.class, new DBParam("user", user));
-        //System.out.println("-------------- au.create :: " + ao.create(EventUserServ.class, new DBParam("NAME", user.getName())).toString());
         EventUserServ[] u = ao.find(EventUserServ.class, Query.select().where("NAME = ?", user.getName()));
-
         if ( u.length > 0){
-            for (int i = 0; i < u.length; i++) {
-                System.out.println("----------u[] :: " + u[i].toString());
-            }
-            System.out.println("------------dentro de if :::");
-            u[0].setName(user.getName());
+            u[0].setParticipate(user.isParticipate());
+            u[0].setIconPath(user.getIcon().getPath());
             u[0].setEmail(user.getEmail());
-            System.out.println("---------------u[0].toString() :: " + u[0].toString());
+            u[0].setName(user.getName());
+            u[0].setFullName(user.getFullName());
+            u[0].setKeyString(user.getKey().getStringValue());
+            u[0].setSpace(user.getSpace());
+            u[0].setPage(user.getPage());
+            u[0].setBlog(user.getBlog());
+            u[0].setComment(user.getComment());
+            u[0].setLike(user.getLike());
+            u[0].save();
         } else {
-            System.out.println("------------- DIDNT FINT ANYTHING -> creando usuario");
             EventUserServ eventUser = ao.create(EventUserServ.class, ImmutableMap.<String, Object>of("NAME", user.getName()));
+            eventUser.setParticipate(user.isParticipate());
+            eventUser.setIconPath(user.getIcon().getPath());
             eventUser.setEmail(user.getEmail());
             eventUser.setName(user.getName());
+            eventUser.setFullName(user.getFullName());
+            eventUser.setKeyString(user.getKey().getStringValue());
+            eventUser.setSpace(user.getSpace());
+            eventUser.setPage(user.getPage());
+            eventUser.setBlog(user.getBlog());
+            eventUser.setComment(user.getComment());
+            eventUser.setLike(user.getLike());
             eventUser.save();
         }
-        //EventUserServ eventUser = ao.create(EventUserServ.class, ImmutableMap.<String, Object>of("user", user));
-        //ImmutableMap.<String, Object>of("USER_ID", currentUser())
+    }
 
+    @Override
+    public void remove(EventUser user) {
+        ao.delete(user);
+    }
+
+    @Override
+    public void removeAll(List<EventUser> list) {
+        list.forEach( eventUser -> ao.delete(eventUser));
     }
 
 
     @Override
     public void destroy() throws Exception {
-
-
     }
 }

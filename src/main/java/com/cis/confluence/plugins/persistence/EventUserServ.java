@@ -1,29 +1,43 @@
 package com.cis.confluence.plugins.persistence;
 
-import com.cis.confluence.plugins.dto.EventUser;
 import net.java.ao.Entity;
-import net.java.ao.OneToOne;
 import net.java.ao.Preload;
-import net.java.ao.schema.NotNull;
 
 @Preload
 public interface EventUserServ extends Entity {
 
-//    @NotNull
-//    void setUser(EventUser user);
-//
-//    @NotNull
-//    @OneToOne
-//    EventUser getUser();
+    boolean isParticipate();
+    void setParticipate(boolean participate);
 
-//    EventUser getEventUser();
-//    void addEventUser(EventUser user);
+    String getIconPath();
+    void setIconPath(String icon);
 
     String getName();
     void setName(String name);
 
+    String getFullName();
+    void setFullName(String Fullname);
+
+    String getKeyString();
+    void setKeyString(String key);
+
     String getEmail();
     void setEmail(String email);
+
+    int getSpace();
+    void setSpace(int space);
+
+    int getPage();
+    void setPage(int page);
+
+    int getBlog();
+    void setBlog(int blog);
+
+    int getComment();
+    void setComment(int comment);
+
+    int getLike();
+    void setLike(int like);
 
 
 }

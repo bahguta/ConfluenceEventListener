@@ -1,19 +1,12 @@
 package com.cis.confluence.plugins.utils;
 
-import com.atlassian.activeobjects.tx.Transactional;
 import com.atlassian.confluence.api.model.web.Icon;
-import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.cis.confluence.plugins.dto.EventUser;
 import com.cis.confluence.plugins.persistence.ConfluencerPersistence;
-import com.cis.confluence.plugins.persistence.ConfluencerPersistenceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.inject.Inject;
 import javax.inject.Named;
-import javax.inject.Scope;
 import java.util.*;
 
 @Named("confluencerManager")
@@ -34,7 +27,18 @@ public class ConfluencerManager {
         this.persistence = persistence;
     }
 
+    public void removeAll(){
+        list.forEach((key, value) -> persistence.remove(value));
+    }
 
+    public void findUsers(){
+        if (persistence.getAll().size() > 0){
+            list.clear();
+            for (EventUser user : persistence.getAll() ) {
+                list.put(user.getEmail(), user);
+            }
+        }
+    }
 
 
     public List<EventUser> getList(){
@@ -94,7 +98,7 @@ public class ConfluencerManager {
         }
         list.put(correo, eventUser);
         EventSeekerManager eventSeekerManager = new EventSeekerManager();
-       // eventSeekerManager.userParticipate(eventUser);
+
         for (int i = 0; i < eventSeekerManager.addNumSpacesForUser(eventUser); i++) {
             addSpace(eventUser.getEmail());
         }
@@ -102,7 +106,7 @@ public class ConfluencerManager {
         for (int i = 0; i < eventSeekerManager.addNumPagesForUser(eventUser); i++) {
             addPage(eventUser.getEmail());
         }
-        System.out.println("--------- blogs :: " + eventSeekerManager.addNumBlogsForUser(eventUser));
+
         for (int i = 0; i < eventSeekerManager.addNumBlogsForUser(eventUser); i++) {
             addBlog(eventUser.getEmail());
         }
@@ -115,12 +119,7 @@ public class ConfluencerManager {
             addLike(eventUser.getEmail());
         }
 
-        //persistence.getAll().forEach( user -> System.out.println("----------- uuuu :: " + user.toString()));
-
         persistence.save(eventUser);
-//        List<EventUser> l = new LinkedList<>();
-//        l.add(eventUser);
-//        persistence.saveAll(l);
     }
 
     public void addSpace(String correo){
@@ -152,12 +151,11 @@ public class ConfluencerManager {
     public void restLike(String correo) { list.get(correo).restLike(); }
 
     public void printResults(){
-        System.out.println("====================================================================================");
+        logger.debug("====================================================================================");
         list.forEach((key, value) -> {
-            System.out.println(" ----- ====== " + value.toString() + " ====== ------");
             logger.debug(" ----- ====== " + value.toString() + " ====== ------");
         });
-        System.out.println("====================================================================================");
+        logger.debug("====================================================================================");
     }
 
 }

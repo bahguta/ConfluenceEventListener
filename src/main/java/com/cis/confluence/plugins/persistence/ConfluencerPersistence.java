@@ -13,4 +13,8 @@ public interface ConfluencerPersistence {
 
     void save(EventUser user);
 
+    void remove(EventUser user);
+
+    void removeAll(List<EventUser> list);
+
 }

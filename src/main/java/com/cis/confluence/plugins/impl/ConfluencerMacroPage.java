@@ -3,14 +3,9 @@ package com.cis.confluence.plugins.impl;
 import com.atlassian.confluence.content.render.xhtml.ConversionContext;
 import com.atlassian.confluence.macro.Macro;
 import com.atlassian.confluence.macro.MacroExecutionException;
-import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
-import com.cis.confluence.plugins.persistence.ConfluencerPersistenceImpl;
 import com.cis.confluence.plugins.utils.ConfluencerManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.inject.Inject;
-import java.util.Arrays;
 import java.util.Map;
 
 public class ConfluencerMacroPage implements Macro {
@@ -39,6 +34,9 @@ public class ConfluencerMacroPage implements Macro {
     }
 
     public String getPage() {
+        if (confluencerManager.getList().size() == 0){
+            confluencerManager.findUsers();
+        }
         final StringBuilder sb = new StringBuilder();
 
         sb.append("<h1 style=\"color: #50394c; text-align: left;\">").append("CiS :: Confluencer Module").append("</h1>");
