@@ -35,7 +35,6 @@ public class ConfluencerManager {
         if (persistence.getAll().size() > 0){
             list.clear();
             for (EventUser user : persistence.getAll() ) {
-                System.out.println("-------------- user find :: " + user.toString());
                 list.put(user.getEmail(), user);
             }
         }

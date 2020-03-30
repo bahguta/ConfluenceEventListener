@@ -163,15 +163,15 @@
                         <Export-Package/>
                         <!-- Add package import here -->
                         <Import-Package>
-                            org.springframework.stereotype;resolution:="optional",
-                            javax.inject,
-                            org.springframework.beans.factory.annotation,
-                            com.atlassian.activeobjects.spi.*;resolution:="optional",
-                            com.atlassian.activeobjects.external.*,
-                            com.atlassian.confluence.user.*;resolution:="optional",
+<!--                            org.springframework.stereotype;resolution:="optional",-->
+<!--                            javax.inject,-->
+<!--                            org.springframework.beans.factory.annotation,-->
+<!--                            com.atlassian.activeobjects.spi.*;resolution:="optional",-->
+<!--                            com.atlassian.activeobjects.external.*,-->
+<!--                            com.atlassian.confluence.user.*;resolution:="optional",-->
                             org.springframework.osgi.*;resolution:="optional",
                             org.eclipse.gemini.blueprint.*;resolution:="optional",
-                            com.atlassian.plugin.osgi.bridge.external,
+<!--                            com.atlassian.plugin.osgi.bridge.external,-->
                             *</Import-Package>
                         <!-- Ensure plugin is spring powered -->
                         <Spring-Context>*</Spring-Context>
