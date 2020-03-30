@@ -37,6 +37,8 @@
 <!--            <version>${atlassian.spring.scanner.version}</version>-->
 <!--            <scope>runtime</scope>-->
 <!--        </dependency>-->
+
+
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
@@ -60,6 +62,7 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.2.2-atlassian-1</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
@@ -75,6 +78,70 @@
             <version>1.8-atlassian-13</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.activeobjects</groupId>
+            <artifactId>activeobjects-spi</artifactId>
+            <version>1.5.2</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.collections</groupId>
+            <artifactId>google-collections</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.activeobjects</groupId>
+            <artifactId>activeobjects-plugin</artifactId>
+            <version>${ao.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>3.0-alpha-1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>1.8.0.10</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.2.4.RELEASE</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--        <dependency>-->
+<!--            <groupId>org.slf4j</groupId>-->
+<!--            <artifactId>slf4j-simple</artifactId>-->
+<!--            <version>1.6.2</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.slf4j</groupId>-->
+<!--            <artifactId>slf4j-log4j12</artifactId>-->
+<!--            <version>1.6.2</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>log4j</groupId>-->
+<!--            <artifactId>log4j</artifactId>-->
+<!--            <version>1.2.16</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+
+
 
     </dependencies>
     <build>
@@ -93,12 +160,18 @@
                     <instructions>
                         <Atlassian-Plugin-Key>${atlassian.plugin.key}</Atlassian-Plugin-Key>
                         <!-- Add package to export here -->
-                        <Export-Package></Export-Package>
+                        <Export-Package/>
                         <!-- Add package import here -->
                         <Import-Package>
-                            com.atlassian.confluence.user.*;resolution:="optional",
+<!--                            org.springframework.stereotype;resolution:="optional",-->
+<!--                            javax.inject,-->
+<!--                            org.springframework.beans.factory.annotation,-->
+<!--                            com.atlassian.activeobjects.spi.*;resolution:="optional",-->
+<!--                            com.atlassian.activeobjects.external.*,-->
+<!--                            com.atlassian.confluence.user.*;resolution:="optional",-->
                             org.springframework.osgi.*;resolution:="optional",
                             org.eclipse.gemini.blueprint.*;resolution:="optional",
+<!--                            com.atlassian.plugin.osgi.bridge.external,-->
                             *</Import-Package>
                         <!-- Ensure plugin is spring powered -->
                         <Spring-Context>*</Spring-Context>
@@ -130,11 +203,13 @@
         </plugins>
     </build>
     <properties>
+        <ao.version>3.2.3</ao.version>
         <confluence.version>6.14.0</confluence.version>
         <confluence.data.version>6.14.0</confluence.data.version>
         <amps.version>8.0.2</amps.version>
         <plugin.testrunner.version>2.0.1</plugin.testrunner.version>
-        <atlassian.spring.scanner.version>1.2.13</atlassian.spring.scanner.version>
+<!--        <atlassian.spring.scanner.version>1.2.13</atlassian.spring.scanner.version>-->
+        <atlassian.spring.scanner.version>2.0.0</atlassian.spring.scanner.version>
         <!-- This property ensures consistency between the key in atlassian-plugin.xml and the OSGi bundle's key. -->
         <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

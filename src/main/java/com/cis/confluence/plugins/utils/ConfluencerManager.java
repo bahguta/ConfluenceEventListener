@@ -2,29 +2,65 @@ package com.cis.confluence.plugins.utils;
 
 import com.atlassian.confluence.api.model.web.Icon;
 import com.cis.confluence.plugins.dto.EventUser;
-import org.apache.log4j.Logger;
-
+import com.cis.confluence.plugins.persistence.ConfluencerPersistence;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Named;
 import java.util.*;
 
+@Named("confluencerManager")
 public class ConfluencerManager {
 
-    private static final Logger logger = Logger.getLogger(ConfluencerManager.class);
+    private final Logger logger = LoggerFactory.getLogger(ConfluencerManager.class);
 
-    private static Map<String, EventUser> list = new LinkedHashMap<>();
+    private Map<String, EventUser> list = new LinkedHashMap<>();
 
-    public static List<EventUser> getList(){
+    @Autowired
+    private ConfluencerPersistence persistence;
+
+    public ConfluencerPersistence getPersistence() {
+        return persistence;
+    }
+
+    public void setPersistence(ConfluencerPersistence persistence) {
+        this.persistence = persistence;
+    }
+
+    public void removeAll(){
+        list.forEach((key, value) -> persistence.remove(value));
+    }
+
+    public void findUsers(){
+        if (persistence.getAll().size() > 0){
+            list.clear();
+            for (EventUser user : persistence.getAll() ) {
+                list.put(user.getEmail(), user);
+            }
+        }
+    }
+
+
+    public List<EventUser> getList(){
+        if (null == list){
+            list = new LinkedHashMap<>();
+        }
         List<EventUser> lista = new LinkedList<>();
-        ConfluencerManager.list.forEach((key, value) -> lista.add(value));
+        list.forEach((key, value) -> lista.add(value));
         return lista;
     }
 
-    public static List<EventUser> getSortedList(){
+    public void setList(List<EventUser> lista){
+        lista.forEach( u -> list.put(u.getEmail(), u));
+    }
+
+    public List<EventUser> getSortedList(){
         List<EventUser> sortedList = getList();
         Collections.sort(sortedList);
         return sortedList;
     }
 
-    public static EventUser getFirst(){
+    public EventUser getFirst(){
         List<EventUser> sortedList = getSortedList();
         if (sortedList.size() > 0) {
             return sortedList.get(0);
@@ -33,7 +69,7 @@ public class ConfluencerManager {
         }
     }
 
-    public static List<EventUser> sortedListWithoutFirst(){
+    public List<EventUser> sortedListWithoutFirst(){
         List<EventUser> lista = new LinkedList<>();
         List<EventUser> sortedList = getSortedList();
         for (int i = 1; i < sortedList.size(); i++) {
@@ -42,51 +78,88 @@ public class ConfluencerManager {
         return lista;
     }
 
-    public static boolean participa(String name){
+    public boolean participa(String name){
         return getSortedList().stream().filter( user -> user.getName().equals(name)).findFirst().get().isParticipate();
     }
 
-    public static boolean setParticipa(String name){
+    public boolean setParticipa(String name){
         getSortedList().stream().filter( user -> user.getName().equals(name)).findFirst().get().setParticipate(true);
         return true;
     }
 
-    public static boolean containsUser(String correo){
-        return ConfluencerManager.list.containsKey(correo);
+    public  boolean containsUser(String correo){
+        return list.containsKey(correo);
     }
 
-    public static void addUser(String correo, String name, String fullName, String key, Icon icon){
+    public void addUser(String correo, String name, String fullName, String key, Icon icon){
         EventUser eventUser = new EventUser(correo, name, fullName, key, icon);
-        ConfluencerManager.list.put(correo, eventUser);
-        EventSeekerManager.userParticipate(eventUser);
+
+        if (null == list){
+            list = new LinkedHashMap<>();
+        }
+        list.put(correo, eventUser);
+
+        setParticipa(eventUser.getName());
+
+        EventSeekerManager eventSeekerManager = new EventSeekerManager();
+
+        for (int i = 0; i < eventSeekerManager.addNumSpacesForUser(eventUser); i++) {
+            addSpace(eventUser.getEmail());
+        }
+
+        for (int i = 0; i < eventSeekerManager.addNumPagesForUser(eventUser); i++) {
+            addPage(eventUser.getEmail());
+        }
+
+        for (int i = 0; i < eventSeekerManager.addNumBlogsForUser(eventUser); i++) {
+            addBlog(eventUser.getEmail());
+        }
+
+        for (int i = 0; i < eventSeekerManager.addNumCommentsForUser(eventUser); i++) {
+            addComment(eventUser.getEmail());
+        }
+
+        for (int i = 0; i < eventSeekerManager.addNumLikesForUser(eventUser); i++) {
+            addLike(eventUser.getEmail());
+        }
+
+        persistence.save(eventUser);
     }
 
-    public static void addSpace(String correo){
-        ConfluencerManager.list.get(correo).addSpace();
+    public void addSpace(String correo){
+        list.get(correo).addSpace();
     }
 
-    public static void addPage(String correo){
-        ConfluencerManager.list.get(correo).addPage();
+    public void addPage(String correo){ list.get(correo).addPage(); }
+
+    public void addBlog(String correo){
+        list.get(correo).addBlog();
     }
 
-    public static void addBlog(String correo){
-        ConfluencerManager.list.get(correo).addBlog();
+    public void addComment(String correo){
+        list.get(correo).addComment();
     }
 
-    public static void addComment(String correo){
-        ConfluencerManager.list.get(correo).addComment();
+    public void addLike(String correo){
+        list.get(correo).addLike();
     }
 
-    public static void addLike(String correo){
-        ConfluencerManager.list.get(correo).addLike();
-    }
+    public void restSpace(String correo) { list.get(correo).restSpace(); }
 
-    public static void printResults(){
-        System.out.println("====================================================================================");
+    public void restPage(String correo) { list.get(correo).restPage(); }
+
+    public void restBlog(String correo) { list.get(correo).restBlog(); }
+
+    public void restComment(String correo) { list.get(correo).restComment(); }
+
+    public void restLike(String correo) { list.get(correo).restLike(); }
+
+    public void printResults(){
+        logger.debug("====================================================================================");
         list.forEach((key, value) -> {
-            System.out.println(" ----- ====== " + value.toString() + " ====== ------");
             logger.debug(" ----- ====== " + value.toString() + " ====== ------");
         });
-        System.out.println("====================================================================================");
+        logger.debug("====================================================================================");
     }
+
 }

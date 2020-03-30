@@ -1,9 +1,8 @@
 <html>
 	<head>
-            <meta name="decorator" content="atl.userprofile" />
-            <meta content="system.profile.edit/confluencer-profile-section" name="system.profile.edit">
-    	</head>
-
+        <meta name="decorator" content="atl.userprofile" />
+        <meta content="system.profile.edit/confluencer-profile-section" name="system.profile.edit">
+    </head>
 
     <body>
         <p>ERRRRORRRR </p>

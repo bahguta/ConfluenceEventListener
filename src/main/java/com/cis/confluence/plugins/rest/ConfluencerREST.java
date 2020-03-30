@@ -6,12 +6,9 @@ import com.atlassian.confluence.user.ConfluenceUser;
 import com.atlassian.confluence.user.UserAccessor;
 import com.atlassian.confluence.user.actions.ProfilePictureInfo;
 import com.atlassian.spring.container.ContainerManager;
-import com.cis.confluence.plugins.dto.EventUser;
-import com.cis.confluence.plugins.impl.ConfluencerParticipate;
 import com.cis.confluence.plugins.utils.ConfluencerManager;
-import com.opensymphony.xwork.util.TextParseUtil;
-import org.apache.log4j.Logger;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -21,12 +18,18 @@ import javax.ws.rs.core.Response;
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 public class ConfluencerREST {
 
-    private static Logger logger = Logger.getLogger(ConfluencerREST.class);
+    private final Logger logger = LoggerFactory.getLogger(ConfluencerREST.class);
+
+    private ConfluencerManager confluencerManager;
+
+    public void setConfluencerManager(ConfluencerManager confluencerManager) {
+        this.confluencerManager = confluencerManager;
+    }
 
     @GET
     @Path("participa")
     public Response getUser(@QueryParam("name") String name) {
-        return Response.ok(ConfluencerManager.participa(name)).build();
+        return Response.ok(confluencerManager.participa(name)).build();
     }
 
     @PUT
@@ -34,11 +37,10 @@ public class ConfluencerREST {
     public Response setParticipate(@QueryParam("name") String name) {
         ConfluenceUser user = AuthenticatedUserThreadLocal.get();
         if (null != user) {
-            ConfluencerManager.addUser(user.getEmail(), user.getName(), user.getFullName(), user.getKey().getStringValue(), getIcon());
+            confluencerManager.addUser(user.getEmail(), user.getName(), user.getFullName(), user.getKey().getStringValue(), getIcon());
         }
-        return Response.ok(ConfluencerManager.setParticipa(name)).build();
+        return Response.ok(true).build();
     }
-
 
     private Icon getIcon() {
         if (null != AuthenticatedUserThreadLocal.get()) {

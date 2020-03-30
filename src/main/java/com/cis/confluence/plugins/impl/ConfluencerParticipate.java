@@ -1,24 +1,30 @@
 package com.cis.confluence.plugins.impl;
 
-
 import com.atlassian.confluence.core.ConfluenceActionSupport;
 import com.atlassian.confluence.pages.AbstractPage;
 import com.atlassian.confluence.pages.actions.PageAware;
 import com.atlassian.confluence.user.*;
 import com.cis.confluence.plugins.utils.ConfluencerManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 
 public class ConfluencerParticipate extends ConfluenceActionSupport implements PageAware, DisposableBean {
 
-    private static Logger logger = Logger.getLogger(ConfluencerParticipate.class);
+    private final Logger logger = LoggerFactory.getLogger(ConfluencerParticipate.class);
+
+    private ConfluencerManager confluencerManager;
 
     private AbstractPage page;
     private boolean participate;
 
-    public ConfluencerParticipate() {
-        this.participate = false;
+    public void setConfluencerManager(ConfluencerManager confluencerManager) {
+        this.confluencerManager = confluencerManager;
     }
+
+    //public ConfluencerParticipate() {
+       // this.participate = false;
+   // }
 
     @Override
     public String doDefault() {
@@ -31,8 +37,8 @@ public class ConfluencerParticipate extends ConfluenceActionSupport implements P
     }
 
     public boolean isParticipate() {
-        if (ConfluencerManager.containsUser(AuthenticatedUserThreadLocal.get().getEmail())){
-            return ConfluencerManager.participa(AuthenticatedUserThreadLocal.get().getName());
+        if (confluencerManager.containsUser(AuthenticatedUserThreadLocal.get().getEmail())){
+            return confluencerManager.participa(AuthenticatedUserThreadLocal.get().getName());
         } else {
             return false;
         }

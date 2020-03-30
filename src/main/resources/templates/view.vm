@@ -42,22 +42,22 @@
 
             <div class="aui-page-panel">
                 <div class="aui-page-panel-nav">
-                    <h1 style="margin: 30px; text-align: center;">Confluencer<br><br>Module</h1>
+                    <h1 style="margin: 30px; text-align: center;">Confluencer<br>Module</h1>
                 </div>
                 <div class="aui-page-panel-content">
-                    <h3 style="margin: 30px;">CiS - Confluencer of the year 2020</h3>
+                    <h3 style="display: inline-block; margin: 30px;">CiS - Confluencer of the year 2020</h3>
                     <p style="margin-left: 50px; margin-right: 50px;">
-                        Pulsando el boton estas deacuerdo que vamos a recoger informacion de la cantidad de las spaces/paginas/comentarios que ha creado (en numeros),
-                        NO de la informacion del contenido de estas ultimas. La informacion va a ser usada unicamente
-                        para celebrar el evento de <b>"IECISA | Informatica El Corte Ingles" - Confluencer del año !!!</b>
+                        Al hacer click en el botón, acepta que recopilaremos la cantidad de los <b>espacios/paginas/blogs/comentarios/likes</b> que ha creado (en números),
+                        NO de la información del contenido de estas ultimas. La información solo será utilizada para celebrar el evento <b>Confluencer del año !!!</b>
                     </p>
+                    <p style="margin-left: 50px;"><b>IECISA | Informática El Corte Ingles</b></p>
                     <div class="aui-page-panel-inner" style="margin-left: 50px; margin-top: 30px;">
                         #if (!$participate)
                             <button id="btnOK" class="aui-button aui-button-primary aui-style" type="submit" onclick="setParticipa()" >
                                 Voy a Participar
                             </button>
                         #else
-                            <p><b>Usted ya participa en este evento !!!</b></p>
+                            <p><b>Ya estás participando en este evento !!!</b></p>
                         #end
                     </div>
                 </div>
