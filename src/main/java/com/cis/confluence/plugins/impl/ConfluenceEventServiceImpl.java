@@ -2,7 +2,7 @@ package com.cis.confluence.plugins.impl;
 
 import com.atlassian.confluence.event.events.content.blogpost.BlogPostCreateEvent;
 import com.atlassian.confluence.event.events.content.blogpost.BlogPostRemoveEvent;
-import com.atlassian.confluence.event.events.content.comment.CommentEvent;
+import com.atlassian.confluence.event.events.content.comment.CommentCreateEvent;
 import com.atlassian.confluence.event.events.content.comment.CommentRemoveEvent;
 import com.atlassian.confluence.event.events.content.page.PageCreateEvent;
 import com.atlassian.confluence.event.events.content.page.PageRemoveEvent;
@@ -113,7 +113,7 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
     }
 
     @EventListener
-    public void handleEventCommentCreate(CommentEvent event) {
+    public void handleEventCommentCreate(CommentCreateEvent event) {
         String correo = event.getComment().getCreator().getEmail();
         String fullName = event.getComment().getCreator().getFullName();
 
