@@ -39,7 +39,7 @@ public class ConfluencerREST {
         if (null != user) {
             confluencerManager.addUser(user.getEmail(), user.getName(), user.getFullName(), user.getKey().getStringValue(), getIcon());
         }
-        return Response.ok(confluencerManager.setParticipa(name)).build();
+        return Response.ok(true).build();
     }
 
     private Icon getIcon() {

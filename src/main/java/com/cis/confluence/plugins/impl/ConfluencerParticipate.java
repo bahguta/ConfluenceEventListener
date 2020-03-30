@@ -22,9 +22,9 @@ public class ConfluencerParticipate extends ConfluenceActionSupport implements P
         this.confluencerManager = confluencerManager;
     }
 
-    public ConfluencerParticipate() {
-        this.participate = false;
-    }
+    //public ConfluencerParticipate() {
+       // this.participate = false;
+   // }
 
     @Override
     public String doDefault() {

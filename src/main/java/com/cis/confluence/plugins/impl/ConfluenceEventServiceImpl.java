@@ -119,6 +119,7 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
         if (confluencerManager.containsUser(correo)) {
             confluencerManager.addComment(correo);
+            System.out.println("-------comment add");
             logger.debug("---=== Comment add to " + fullName + " ===---");
         }
     }
@@ -130,6 +131,9 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
         if (confluencerManager.containsUser(correo)) {
             confluencerManager.restComment(correo);
+            System.out.println("-------comment remove");
+            confluencerManager.restComment(correo);
+            System.out.println("-------comment remove");
             logger.debug("---=== Comment removed to " + fullName + " ===---");
         }
     }

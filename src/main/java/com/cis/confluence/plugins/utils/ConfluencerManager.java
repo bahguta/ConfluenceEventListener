@@ -35,6 +35,7 @@ public class ConfluencerManager {
         if (persistence.getAll().size() > 0){
             list.clear();
             for (EventUser user : persistence.getAll() ) {
+                System.out.println("-------------- user find :: " + user.toString());
                 list.put(user.getEmail(), user);
             }
         }
@@ -93,10 +94,14 @@ public class ConfluencerManager {
 
     public void addUser(String correo, String name, String fullName, String key, Icon icon){
         EventUser eventUser = new EventUser(correo, name, fullName, key, icon);
+
         if (null == list){
             list = new LinkedHashMap<>();
         }
         list.put(correo, eventUser);
+
+        setParticipa(eventUser.getName());
+
         EventSeekerManager eventSeekerManager = new EventSeekerManager();
 
         for (int i = 0; i < eventSeekerManager.addNumSpacesForUser(eventUser); i++) {
