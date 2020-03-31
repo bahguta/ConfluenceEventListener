@@ -7,14 +7,10 @@ import java.util.List;
 @Transactional
 public interface ConfluencerPersistence {
 
-    void saveAll(List<EventUser> list);
-
     List<EventUser> getAll();
 
     void save(EventUser user);
 
     void remove(EventUser user);
-
-    void removeAll(List<EventUser> list);
 
 }

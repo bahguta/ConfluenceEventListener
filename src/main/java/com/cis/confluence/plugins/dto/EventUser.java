@@ -1,8 +1,6 @@
 package com.cis.confluence.plugins.dto;
 
-import com.atlassian.confluence.api.model.web.Icon;
 import com.atlassian.confluence.user.ConfluenceUser;
-import com.atlassian.sal.api.user.UserKey;
 import com.cis.confluence.plugins.persistence.EventUserServ;
 import net.java.ao.EntityManager;
 import net.java.ao.Implementation;
@@ -14,13 +12,9 @@ import java.io.Serializable;
 
 @Implementation(EventUser.class)
 @Table("EventUser")
-public class EventUser  implements ConfluenceUser, EventUserServ, Serializable, Comparable<EventUser> {
+public class EventUser  implements EventUserServ, Serializable, Comparable<EventUser> {
 
-    private Icon icon;
-    private String email;
-    private String name;
-    private String fullName;
-    private UserKey key;
+    private ConfluenceUser user;
     private int space;
     private int page;
     private int blog;
@@ -28,46 +22,14 @@ public class EventUser  implements ConfluenceUser, EventUserServ, Serializable, 
     private int like;
     private boolean participate;
 
-    public EventUser(String email, String name, String fullName, String key, Icon icon) {
-        this.key = new UserKey(key);
-        this.email = email;
-        this.name = name;
-        this.fullName = fullName;
-        this.icon = icon;
+    public EventUser(ConfluenceUser user) {
+        this.user = user;
         this.space = 0;
         this.blog = 0;
         this.page = 0;
         this.comment = 0;
         this.like = 0;
         this.participate = false;
-    }
-
-    public Icon getIcon() {
-        return icon;
-    }
-
-    public void setIcon(Icon icon) {
-        this.icon = icon;
-    }
-
-    @Override
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    @Override
-    public String getKeyString() {
-        return null;
-    }
-
-    @Override
-    public void setKeyString(String key) {
-
-    }
-
-    @Override
-    public UserKey getKey() {
-        return key;
     }
 
     public boolean isParticipate() {
@@ -78,37 +40,10 @@ public class EventUser  implements ConfluenceUser, EventUserServ, Serializable, 
         this.participate = participate;
     }
 
-    @Override
-    public String getIconPath() {
-        return icon.getPath();
-    }
-
-    @Override
-    public void setIconPath(String iconPath) {
-        this.icon = new Icon(iconPath, 40, 40, true);
-    }
-
-    @Override
-    public String getFullName() {
-        return fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    @Override
-    public void setEmail(String email) {
-
-    }
+    public ConfluenceUser getUser() { return user; }
 
     public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
+        return user.getName();
     }
 
     public int getSpace() {
@@ -149,26 +84,6 @@ public class EventUser  implements ConfluenceUser, EventUserServ, Serializable, 
 
     public void addLike(){
         like += 1;
-    }
-
-    public void setSpace(int space) {
-        this.space = space;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    public void setBlog(int blog) {
-        this.blog = blog;
-    }
-
-    public void setComment(int comment) {
-        this.comment = comment;
-    }
-
-    public void setLike(int like) {
-        this.like = like;
     }
 
     public void restSpace() {
@@ -214,10 +129,9 @@ public class EventUser  implements ConfluenceUser, EventUserServ, Serializable, 
     @Override
     public String toString() {
         return "EventUser{" +
-                "icon=" + icon.getPath() +
-                ", email='" + email + '\'' +
-                ", name='" + name + '\'' +
-                ", key=" + key.getStringValue() +
+                ", email='" + user.getEmail() + '\'' +
+                ", name='" + user.getName() + '\'' +
+                ", fullName='" + user.getFullName() + '\'' +
                 ", space=" + space +
                 ", page=" + page +
                 ", blog=" + blog +

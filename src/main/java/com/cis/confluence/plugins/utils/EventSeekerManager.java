@@ -18,7 +18,6 @@ public class EventSeekerManager {
 
     private SpaceManager spaceManager;
     private PageManager pageManager;
-    private CommentManager commentManager;
     private LikeManager likeManager;
 
     private ConfluencerManager confluencerManager;
@@ -30,14 +29,13 @@ public class EventSeekerManager {
     public EventSeekerManager() {
         spaceManager = (SpaceManager) ContainerManager.getComponent("spaceManager");
         pageManager = (PageManager) ContainerManager.getComponent("pageManager");
-        commentManager = (CommentManager) ContainerManager.getComponent("commentManager");
         likeManager = (LikeManager) ContainerManager.getComponent("likeManager");
     }
 
     public int addNumSpacesForUser(EventUser user) {
         int cont = 0;
         for (Space space : spaceManager.getAllSpaces()) {
-            if (null != space.getCreator() && space.getCreator().getEmail().equals(user.getEmail())) {
+            if (null != space.getCreator() && space.getCreator().getEmail().equals(user.getUser().getEmail())) {
                 cont++;
             }
         }
@@ -79,7 +77,7 @@ public class EventSeekerManager {
     private List<Space> getSpacesForUser(EventUser user){
         List<Space> list = new LinkedList<>();
         spaceManager.getAllSpaces().forEach(s ->{
-            if (null != s && null != s.getKey() && null != s.getCreator() && s.getCreator().getEmail().equals(user.getEmail())){
+            if (null != s && null != s.getKey() && null != s.getCreator() && s.getCreator().getEmail().equals(user.getUser().getEmail())){
                 list.add(s);
             }
         });
@@ -91,7 +89,7 @@ public class EventSeekerManager {
         List<Page> lista = new LinkedList<>();
         for (Space space : spaceManager.getAllSpaces()) {
             pageManager.getPages(space, true).forEach( page -> {
-                if (null != page && null != page.getCreator() && page.getCreator().getEmail().equals(user.getEmail())){
+                if (null != page && null != page.getCreator() && page.getCreator().getEmail().equals(user.getUser().getEmail())){
                     lista.add(page);
                 }
             });
@@ -103,7 +101,7 @@ public class EventSeekerManager {
         List<BlogPost> list = new LinkedList<>();
         spaceManager.getAllSpaces().forEach( s -> {
             pageManager.getBlogPosts(s, true).forEach(blogPost -> {
-                if (null != blogPost && blogPost.getCreator().getEmail().equals(user.getEmail())){
+                if (null != blogPost && blogPost.getCreator().getEmail().equals(user.getUser().getEmail())){
                     list.add(blogPost);
                 }
             });
@@ -116,7 +114,7 @@ public class EventSeekerManager {
         spaceManager.getAllSpaces().forEach( space -> {
             pageManager.getPages(space, true).forEach( page -> {
                 page.getComments().forEach(comment -> {
-                    if (null != comment && comment.getCreator().getEmail().equals(user.getEmail())){
+                    if (null != comment && comment.getCreator().getEmail().equals(user.getUser().getEmail())){
                         list.add(comment);
                     }
                 });
@@ -147,7 +145,7 @@ public class EventSeekerManager {
             });
 
             pageManager.getBlogPosts(space, true).forEach( blogPost -> {
-                if (null != blogPost && blogPost.getCreator().getEmail().equals(user.getEmail())) {
+                if (null != blogPost && blogPost.getCreator().getEmail().equals(user.getUser().getEmail())) {
                     list.addAll(likeManager.getLikes(blogPost.getEntity()));
                 }
 

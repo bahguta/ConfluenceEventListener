@@ -1,11 +1,7 @@
 package com.cis.confluence.plugins.rest;
 
-import com.atlassian.confluence.api.model.web.Icon;
 import com.atlassian.confluence.user.AuthenticatedUserThreadLocal;
 import com.atlassian.confluence.user.ConfluenceUser;
-import com.atlassian.confluence.user.UserAccessor;
-import com.atlassian.confluence.user.actions.ProfilePictureInfo;
-import com.atlassian.spring.container.ContainerManager;
 import com.cis.confluence.plugins.utils.ConfluencerManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,22 +29,22 @@ public class ConfluencerREST {
     }
 
     @PUT
-    @Path("/{name}/participa")
-    public Response setParticipate(@QueryParam("name") String name) {
+    @Path("/name/participa")
+    public Response setParticipate() {
         ConfluenceUser user = AuthenticatedUserThreadLocal.get();
         if (null != user) {
-            confluencerManager.addUser(user.getEmail(), user.getName(), user.getFullName(), user.getKey().getStringValue(), getIcon());
+            confluencerManager.addUser(user.getEmail());
         }
         return Response.ok(true).build();
     }
 
-    private Icon getIcon() {
-        if (null != AuthenticatedUserThreadLocal.get()) {
-            UserAccessor userAccessor = (UserAccessor) ContainerManager.getComponent("userAccessor");
-            ProfilePictureInfo icon = userAccessor.getUserProfilePicture(AuthenticatedUserThreadLocal.get());
-            return new Icon(icon.getUriReference(), 40, 40, false);
-        } else {
-            return new Icon("", 40, 40, false);
+    @PUT
+    @Path("/name/cancelar")
+    public Response cancelarParticipate() {
+        ConfluenceUser user = AuthenticatedUserThreadLocal.get();
+        if (null != user) {
+            confluencerManager.cancelarParticipacion(user.getName());
         }
+        return Response.ok(true).build();
     }
 }
