@@ -9,6 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.inject.Named;
 import java.util.*;
 
+
+/**
+ * Clase para manejar la persistencia y la lista de los usuarios que estan participando en el evento Confluencer
+ */
 @Named("confluencerManager")
 public class ConfluencerManager {
 
@@ -27,10 +31,18 @@ public class ConfluencerManager {
         this.persistence = persistence;
     }
 
+    /**
+     * Metodo para borrar todos los usuarios de la base de datos que estan participando en el evento Confluencer
+     */
     public void removeAll(){
         list.forEach((key, value) -> persistence.remove(value));
     }
 
+    /**
+     * Metodo para recoger todos los usuarios de la base de datos que estan participando en el evento Confluencer
+     *
+     * Actualiza el mapa con los usuarios
+     */
     public void findUsers(){
         if (persistence.getAll().size() > 0){
             list.clear();
@@ -41,7 +53,10 @@ public class ConfluencerManager {
         }
     }
 
-
+    /**
+     * Metodo para obtener una lista de usuarios que participan en el evento Confluencer
+     * @return una lista con usuarios
+     */
     public List<EventUser> getList(){
         if (null == list){
             list = new LinkedHashMap<>();
@@ -55,12 +70,20 @@ public class ConfluencerManager {
         lista.forEach( u -> list.put(u.getUser().getEmail(), u));
     }
 
+    /**
+     * Metodo para sortear los usuarios
+     * @return una lista de usuarios
+     */
     public List<EventUser> getSortedList(){
         List<EventUser> sortedList = getList();
         Collections.sort(sortedList);
         return sortedList;
     }
 
+    /**
+     * Metodo para obtener el primer usuario de la lista
+     * @return el primer usuario
+     */
     public EventUser getFirst(){
         List<EventUser> sortedList = getSortedList();
         if (sortedList.size() > 0) {
@@ -70,6 +93,10 @@ public class ConfluencerManager {
         }
     }
 
+    /**
+     * Metodo para obtener una lista de usuarios que participan en el evento Confluencer
+     * @return una lista de usuarios SIN el primer usuario
+     */
     public List<EventUser> sortedListWithoutFirst(){
         List<EventUser> lista = new LinkedList<>();
         List<EventUser> sortedList = getSortedList();
@@ -79,16 +106,28 @@ public class ConfluencerManager {
         return lista;
     }
 
+    /**
+     * Metodo para comprobar si un usuario participa en el evento Confluencer
+     * @param name el nombre del usuario
+     * @return true si participa y false en caso contrario
+     */
     public boolean participa(String name){
         return getSortedList().stream().filter( user -> user.getName().equals(name)).findFirst().get().isParticipate();
     }
 
-    public boolean setParticipa(String name){
+    /**
+     * Metodo para que un usuario participe en el evento Confluencer
+     * @param name el nombre del usuario que va a participar
+     */
+    public void setParticipa(String name){
         getSortedList().stream().filter( user -> user.getName().equals(name)).findFirst().get().setParticipate(true);
-        return true;
     }
 
-    public boolean cancelarParticipacion(String name){
+    /**
+     * Metodo para cancelar la participacion de un usuario
+     * @param name el nombre del usuario que cancelara la participacion
+     */
+    public void cancelarParticipacion(String name){
         getSortedList().stream().forEach( user ->{
             if (user.getName().equals(name)){
                 user.setParticipate(false);
@@ -96,13 +135,16 @@ public class ConfluencerManager {
             }
         });
         findUsers();
-        return true;
     }
 
     public  boolean containsUser(String correo){
         return list.containsKey(correo);
     }
 
+    /**
+     * Metodo para añadir un usuario en el mapa y posteriormente agregado en la base de datos
+     * @param correo el correo del usuario
+     */
     public void addUser(String correo){
         EventUser eventUser =  new EventUser(AuthenticatedUserThreadLocal.get());
 
@@ -117,6 +159,10 @@ public class ConfluencerManager {
         searchEvents(eventUser);
     }
 
+    /**
+     * Metodo para buscar eventos que ha creado un usuario
+     * @param eventUser el usuario para hacer la busqueda
+     */
     private void searchEvents(EventUser eventUser){
         EventSeekerManager eventSeekerManager = new EventSeekerManager();
 
@@ -142,6 +188,10 @@ public class ConfluencerManager {
 
         persistence.save(eventUser);
     }
+
+    /**
+     * Metodos para añadir / restar eventos de un usuario
+     */
 
     public void addSpace(String correo){ list.get(correo).addSpace(); }
 

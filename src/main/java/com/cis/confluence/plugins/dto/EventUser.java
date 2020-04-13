@@ -5,6 +5,7 @@ import com.cis.confluence.plugins.persistence.EventUserServ;
 import net.java.ao.EntityManager;
 import net.java.ao.Implementation;
 import net.java.ao.RawEntity;
+import net.java.ao.schema.PrimaryKey;
 import net.java.ao.schema.Table;
 import javax.validation.constraints.NotNull;
 import java.beans.PropertyChangeListener;
@@ -148,7 +149,7 @@ public class EventUser  implements EventUserServ, Serializable, Comparable<Event
             return -1;
         }
 
-        int thisScore = space+page+blog+comment+like;
+        int thisScore = totalScore();
         int userScore = user.getSpace()+user.getPage()+user.getBlog()+user.getComment()+user.getLike();
 
         if (userScore == thisScore){
@@ -158,11 +159,16 @@ public class EventUser  implements EventUserServ, Serializable, Comparable<Event
         return thisScore < userScore ? 1 : -1;
     }
 
+
+    /**
+     * Algoritmo complicado para calcular el total de los puntos :)
+     * @return el total de los puntos
+     */
     public int totalScore(){
         return space+page+blog+comment+like;
     }
 
-    @net.java.ao.schema.PrimaryKey
+    @PrimaryKey
     @Override
     public int getID() {
         return 1;

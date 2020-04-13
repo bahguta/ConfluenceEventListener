@@ -22,6 +22,10 @@ import java.lang.annotation.Annotation;
 import java.util.Objects;
 
 
+/**
+ * Clase para manejar los eventos producidos por Confluence y
+ * capturar solo los que se producen de los participantes de Confluencer
+ */
 @ConfluenceComponent
 @ExportAsService({ConfluenceEventServiceImpl.class})
 @Named("ConfluenceEventServiceImpl")
@@ -46,6 +50,12 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
         return null;
     }
 
+
+    /**
+     * Metodos para capturar los eventos creados solo por usuarios
+     * que estan participando
+     */
+
     @EventListener
     public void handleEventSpaceCreate(SpaceCreateEvent event) {
         String correo = event.getSpace().getCreator().getEmail();
@@ -53,7 +63,6 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
         if (confluencerManager.containsUser(correo)) {
             confluencerManager.addSpace(correo);
-            logger.debug("---=== Space add to " + fullName + " ===---");
         }
     }
 
@@ -64,7 +73,6 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
         if (confluencerManager.containsUser(correo)) {
             confluencerManager.restSpace(correo);
-            logger.debug("---=== Space removed to " + fullName + " ===---");
         }
     }
 
@@ -75,7 +83,6 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
         if (confluencerManager.containsUser(correo)) {
             confluencerManager.addPage(correo);
-            logger.debug("---=== Page add to " + fullName + " ===---");
         }
     }
 
@@ -86,7 +93,6 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
         if (confluencerManager.containsUser(correo)) {
             confluencerManager.restPage(correo);
-            logger.debug("---=== Page removed to " + fullName + " ===---");
         }
     }
 
@@ -97,7 +103,6 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
         if (confluencerManager.containsUser(correo)) {
             confluencerManager.addBlog(correo);
-            logger.debug("---=== Blog add to " + fullName + " ===---");
         }
     }
 
@@ -108,7 +113,6 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
         if (confluencerManager.containsUser(correo)) {
             confluencerManager.restBlog(correo);
-            logger.debug("---=== Blog removed to " + fullName + " ===---");
         }
     }
 
@@ -119,7 +123,6 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
         if (confluencerManager.containsUser(correo)) {
             confluencerManager.addComment(correo);
-            logger.debug("---=== Comment add to " + fullName + " ===---");
         }
     }
 
@@ -130,7 +133,6 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
         if (confluencerManager.containsUser(correo)) {
             confluencerManager.restComment(correo);
-            logger.debug("---=== Comment removed to " + fullName + " ===---");
         }
     }
 
@@ -145,12 +147,10 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
         if (confluencerManager.containsUser(correoLiked)){
             confluencerManager.addLike(correoLiked);
-            logger.debug("---=== Like add to " + fullNameLiked + " ===---");
         }
 
         if (confluencerManager.containsUser(correoLiker)){
             confluencerManager.addLike(correoLiker);
-            logger.debug("---=== Like add to " + fullNameLiker + " ===---");
         }
     }
 
@@ -165,12 +165,10 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
 
         if (confluencerManager.containsUser(correoLiked)){
             confluencerManager.restLike(correoLiked);
-            logger.debug("---=== Like removed to " + fullNameLiked + " ===---");
         }
 
         if (confluencerManager.containsUser(correoLiker)){
             confluencerManager.restLike(correoLiker);
-            logger.debug("---=== Like removed to " + fullNameLiker + " ===---");
         }
     }
 

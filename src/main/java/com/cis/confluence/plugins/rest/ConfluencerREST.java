@@ -9,6 +9,10 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+/**
+ * Clase para llamadas REST
+ */
+
 @Path("/")
 @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -22,12 +26,21 @@ public class ConfluencerREST {
         this.confluencerManager = confluencerManager;
     }
 
+    /**
+     * Metodo GET para obtener si un usuario participa en el evento o no
+     * @param name el nombre del usuario para hacer la busqueda
+     * @return retorna la respuesta participa o no
+     */
     @GET
     @Path("participa")
     public Response getUser(@QueryParam("name") String name) {
         return Response.ok(confluencerManager.participa(name)).build();
     }
 
+    /**
+     * Metodo PUT para que el usuario participa en el evento Confluencer
+     * @return retorna la respuesta
+     */
     @PUT
     @Path("/name/participa")
     public Response setParticipate() {
@@ -38,6 +51,10 @@ public class ConfluencerREST {
         return Response.ok(true).build();
     }
 
+    /**
+     * Metodo PUT que cancela la participacion del usuario
+     * @return retorna la respuesta
+     */
     @PUT
     @Path("/name/cancelar")
     public Response cancelarParticipate() {

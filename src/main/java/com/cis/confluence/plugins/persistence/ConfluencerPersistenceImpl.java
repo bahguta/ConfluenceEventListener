@@ -16,6 +16,10 @@ import javax.inject.Named;
 import java.util.LinkedList;
 import java.util.List;
 
+
+/**
+ * Clase que maneja la persistencia con Active Objects
+ */
 @Named("ConfluencerPersistenceImpl")
 @Transactional
 public class ConfluencerPersistenceImpl implements ConfluencerPersistence, DisposableBean {
@@ -30,6 +34,10 @@ public class ConfluencerPersistenceImpl implements ConfluencerPersistence, Dispo
         this.ao = ao;
     }
 
+    /**
+     * Metodo para obtener todos los registros de la base de datos
+     * @return retorna una lista con los usuarios encontrados
+     */
     @Override
     public List<EventUser> getAll() {
         UserAccessor userAccessor = (UserAccessor) ContainerManager.getComponent("userAccessor");
@@ -49,6 +57,10 @@ public class ConfluencerPersistenceImpl implements ConfluencerPersistence, Dispo
         return list;
     }
 
+    /**
+     * Metodo para guardar un registro en la base de datos
+     * @param user el usuario que se va a guardar
+     */
     @Override
     public void save(EventUser user) {
         EventUserServ[] u = ao.find(EventUserServ.class, Query.select().where("NAME = ?", user.getName()));
@@ -59,12 +71,16 @@ public class ConfluencerPersistenceImpl implements ConfluencerPersistence, Dispo
         }
     }
 
+    /**
+     * Metodo para borrar un registro de la base de datos
+     * @param user el usuario que se va a borrar
+     */
     @Override
     public void remove(EventUser user) {
         ao.deleteWithSQL(EventUserServ.class, "NAME = ?", user.getName());
     }
 
     @Override
-    public void destroy() {
+    public void destroy() throws Exception {
     }
 }

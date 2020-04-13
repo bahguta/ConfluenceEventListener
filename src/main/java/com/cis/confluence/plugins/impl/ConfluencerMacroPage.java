@@ -13,6 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Map;
 
+/**
+ * Clase que construye el macro de Confluencer y muestra los participantes ordenados por puntos
+ */
 public class ConfluencerMacroPage implements Macro {
 
     private final Logger logger = LoggerFactory.getLogger(ConfluencerMacroPage.class);
@@ -24,7 +27,7 @@ public class ConfluencerMacroPage implements Macro {
     }
 
     @Override
-    public String execute(Map<String, String> map, String s, ConversionContext conversionContext) {
+    public String execute(Map<String, String> map, String s, ConversionContext conversionContext) throws MacroExecutionException {
         return getPage();
     }
 
@@ -133,7 +136,6 @@ public class ConfluencerMacroPage implements Macro {
         ConfluenceUser user = userAccessor.getUserByName(name);
         if (null != user) {
             ProfilePictureInfo icon = userAccessor.getUserProfilePicture(user);
-            System.out.println("----------- icon :: " + icon.getUriReference() + " :: " + icon.getFileName());
             return new Icon(icon.getUriReference(), 40, 40, false);
         } else {
             return new Icon("", 40, 40, false);

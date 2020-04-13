@@ -3,12 +3,15 @@ package com.cis.confluence.plugins.impl;
 import com.atlassian.confluence.core.ConfluenceActionSupport;
 import com.atlassian.confluence.pages.AbstractPage;
 import com.atlassian.confluence.pages.actions.PageAware;
-import com.atlassian.confluence.user.*;
+import com.atlassian.confluence.user.AuthenticatedUserThreadLocal;
 import com.cis.confluence.plugins.utils.ConfluencerManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 
+/**
+ * Clase para manejar la pagina de Confluencer
+ */
 public class ConfluencerParticipate extends ConfluenceActionSupport implements PageAware, DisposableBean {
 
     private final Logger logger = LoggerFactory.getLogger(ConfluencerParticipate.class);
@@ -21,10 +24,6 @@ public class ConfluencerParticipate extends ConfluenceActionSupport implements P
     public void setConfluencerManager(ConfluencerManager confluencerManager) {
         this.confluencerManager = confluencerManager;
     }
-
-    //public ConfluencerParticipate() {
-       // this.participate = false;
-   // }
 
     @Override
     public String doDefault() {
