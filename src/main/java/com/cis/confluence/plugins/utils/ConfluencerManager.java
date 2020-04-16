@@ -19,6 +19,11 @@ public class ConfluencerManager {
     private final Logger logger = LoggerFactory.getLogger(ConfluencerManager.class);
 
     private Map<String, EventUser> list = new LinkedHashMap<>();
+    private EventSeekerManager eventSeekerManager;
+
+    public ConfluencerManager(EventSeekerManager eventSeekerManager) {
+        this.eventSeekerManager = eventSeekerManager;
+    }
 
     @Autowired
     private ConfluencerPersistence persistence;
@@ -68,6 +73,10 @@ public class ConfluencerManager {
 
     public void setList(List<EventUser> lista){
         lista.forEach( u -> list.put(u.getUser().getEmail(), u));
+    }
+
+    public void setList(Map<String, EventUser> list) {
+        this.list = list;
     }
 
     /**
@@ -143,16 +152,16 @@ public class ConfluencerManager {
 
     /**
      * Metodo para añadir un usuario en el mapa y posteriormente agregado en la base de datos
-     * @param correo el correo del usuario
+     * @param eventUser el usuario
      */
-    public void addUser(String correo){
-        EventUser eventUser =  new EventUser(AuthenticatedUserThreadLocal.get());
+    public void addUser(EventUser eventUser){
+        //EventUser eventUser =  new EventUser(AuthenticatedUserThreadLocal.get());
 
         if (null == list){
             list = new LinkedHashMap<>();
         }
 
-        list.put(correo, eventUser);
+        list.put(eventUser.getUser().getEmail(), eventUser);
 
         setParticipa(eventUser.getName());
 
@@ -164,7 +173,7 @@ public class ConfluencerManager {
      * @param eventUser el usuario para hacer la busqueda
      */
     private void searchEvents(EventUser eventUser){
-        EventSeekerManager eventSeekerManager = new EventSeekerManager();
+
 
         for (int i = 0; i < eventSeekerManager.addNumSpacesForUser(eventUser); i++) {
             addSpace(eventUser.getUser().getEmail());
