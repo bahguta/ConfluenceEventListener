@@ -2,6 +2,7 @@ package com.cis.confluence.plugins.rest;
 
 import com.atlassian.confluence.user.AuthenticatedUserThreadLocal;
 import com.atlassian.confluence.user.ConfluenceUser;
+import com.cis.confluence.plugins.dto.EventUser;
 import com.cis.confluence.plugins.utils.ConfluencerManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,8 +46,9 @@ public class ConfluencerREST {
     @Path("/name/participa")
     public Response setParticipate() {
         ConfluenceUser user = AuthenticatedUserThreadLocal.get();
+        EventUser eventUser =  new EventUser(user);
         if (null != user) {
-            confluencerManager.addUser(user.getEmail());
+            confluencerManager.addUser(eventUser);
         }
         return Response.ok(true).build();
     }
