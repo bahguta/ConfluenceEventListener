@@ -1,13 +1,21 @@
 package com.cis.confluence.plugins.impl;
 
+import com.atlassian.confluence.api.model.web.Icon;
 import com.atlassian.confluence.content.render.xhtml.ConversionContext;
 import com.atlassian.confluence.macro.Macro;
 import com.atlassian.confluence.macro.MacroExecutionException;
+import com.atlassian.confluence.user.ConfluenceUser;
+import com.atlassian.confluence.user.UserAccessor;
+import com.atlassian.confluence.user.actions.ProfilePictureInfo;
+import com.atlassian.spring.container.ContainerManager;
 import com.cis.confluence.plugins.utils.ConfluencerManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Map;
 
+/**
+ * Clase que construye el macro de Confluencer y muestra los participantes ordenados por puntos
+ */
 public class ConfluencerMacroPage implements Macro {
 
     private final Logger logger = LoggerFactory.getLogger(ConfluencerMacroPage.class);
@@ -90,8 +98,8 @@ public class ConfluencerMacroPage implements Macro {
         if (null != confluencerManager.getFirst()) {
             sb.append("<tr class=\"aui-page-panel-inline\" style=\"text-align: center; \">").
                     append("<td class=\"aui-page-panel-nav\" style=\"text-align: center; padding-top: 30px;\">").append("<p>").append(1).append("</p>").append("</td>").
-                    append("<td class=\"aui-page-panel-content user-hover user-avatar jprt_user-hover-new jprt_user-hover\">").append("<img  style=\"border-radius: 25%; border: 1px solid black; margin: 10px;\" src=\"" + confluencerManager.getFirst().getIcon().getPath() + "\"   width=\"50\" height=\"50\" />").append("</td>").
-                    append("<td class=\"aui-page-panel-content\" >").append("<p style=\"text-align: left; padding-top: 30px;\">").append(confluencerManager.getFirst().getFullName()).append("</p>").append("</td>").
+                    append("<td class=\"aui-page-panel-content user-hover user-avatar jprt_user-hover-new jprt_user-hover\">").append("<img  style=\"border-radius: 25%; border: 1px solid black; margin: 10px;\" src=\"" +  getIcon(confluencerManager.getFirst().getName()).getPath() + "\"   width=\"50\" height=\"50\" />").append("</td>").
+                    append("<td class=\"aui-page-panel-content\" >").append("<p style=\"text-align: left; padding-top: 30px;\">").append(confluencerManager.getFirst().getUser().getFullName()).append("</p>").append("</td>").
                     append("<td class=\"aui-page-panel-content\" style=\"text-align: center; padding-top: 30px;\">").append("<p>").append(confluencerManager.getFirst().getSpace()).append("</p>").append("</td>").
                     append("<td class=\"aui-page-panel-content\" style=\"text-align: center; padding-top: 30px;\">").append("<p>").append(confluencerManager.getFirst().getPage()).append("</p>").append("</td>").
                     append("<td class=\"aui-page-panel-content\" style=\"text-align: center; padding-top: 30px;\">").append("<p>").append(confluencerManager.getFirst().getBlog()).append("</p>").append("</td>").
@@ -110,8 +118,8 @@ public class ConfluencerMacroPage implements Macro {
             cont[0]++;
             sb.append("<tr class=\"aui-page-panel-inline\" >").
                     append("<td class=\"aui-page-panel-nav\" style=\"text-align: center; padding-top: 30px;\">").append("<p>").append(cont[0]).append("</p>").append("</td>").
-                    append("<td class=\"aui-page-panel-content\">").append("<img  style=\"border-radius: 25%; border: 1px solid black; margin: 10px;\" src=\"" + u.getIcon().getPath() + "\" width=\"50\" height=\"50\" />").append("</td>").
-                    append("<td class=\"aui-page-panel-content\">").append("<p style=\"color: #bc5a45; text-align: left; padding-top: 30px;\">").append(u.getFullName()).append("</p>").append("</td>").
+                    append("<td class=\"aui-page-panel-content\">").append("<img  style=\"border-radius: 25%; border: 1px solid black; margin: 10px;\" src=\"" + getIcon(u.getName()).getPath() + "\" width=\"50\" height=\"50\" />").append("</td>").
+                    append("<td class=\"aui-page-panel-content\">").append("<p style=\"color: #bc5a45; text-align: left; padding-top: 30px;\">").append(u.getUser().getFullName()).append("</p>").append("</td>").
                     append("<td class=\"aui-page-panel-content\" style=\"text-align: center; padding-top: 30px;\">").append("<p>").append(u.getSpace()).append("</p>").append("</td>").
                     append("<td class=\"aui-page-panel-content\" style=\"text-align: center; padding-top: 30px;\">").append("<p>").append(u.getPage()).append("</p>").append("</td>").
                     append("<td class=\"aui-page-panel-content\" style=\"text-align: center; padding-top: 30px;\">").append("<p>").append(u.getBlog()).append("</p>").append("</td>").
@@ -121,6 +129,17 @@ public class ConfluencerMacroPage implements Macro {
                     append("</tr>");
         });
         return sb.toString();
+    }
+
+    private Icon getIcon(String name) {
+        UserAccessor userAccessor = (UserAccessor) ContainerManager.getComponent("userAccessor");
+        ConfluenceUser user = userAccessor.getUserByName(name);
+        if (null != user) {
+            ProfilePictureInfo icon = userAccessor.getUserProfilePicture(user);
+            return new Icon(icon.getUriReference(), 40, 40, false);
+        } else {
+            return new Icon("", 40, 40, false);
+        }
     }
 
 }

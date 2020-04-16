@@ -15,9 +15,28 @@ function getParticipa(){
     });
 }
 
+function cancelarParticipa(){
+    new AJS.$.ajax({ // urlBase
+        url: "/confluence/rest/Confluencer/1.0/name/cancelar",
+        type: "PUT",
+        dataType: "json",
+        contentType: "application/json",
+        async: "false",
+        success: function (){
+            window.location.href = "/confluence";
+        },
+        error: function(){
+            AJS.messages.error("#a-custom-context", {
+                title: 'Error',
+                body: '<p> You can`t cancel at this moment !!!  </p>'
+            });
+        }
+    });
+}
+
 function setParticipa(){
     new AJS.$.ajax({ // urlBase
-        url: "/confluence/rest/Confluencer/1.0/{name}/participa?name=" + AJS.params.remoteUser,
+        url: "/confluence/rest/Confluencer/1.0/name/participa",
         type: "PUT",
         dataType: "json",
         contentType: "application/json",
@@ -33,6 +52,25 @@ function setParticipa(){
         }
     });
 }
+
+//function setParticipa(){
+//    new AJS.$.ajax({ // urlBase
+//        url: "/confluence/rest/Confluencer/1.0/{name}/participa?name=" + AJS.params.remoteUser,
+//        type: "PUT",
+//        dataType: "json",
+//        contentType: "application/json",
+//        async: "false",
+//        success: function (){
+//            window.location.href = "/confluence/display/CON/Confluencer";
+//        },
+//        error: function(){
+//            AJS.messages.error("#a-custom-context", {
+//                title: 'Error',
+//                body: '<p> You can`t participate at this moment !!!  </p>'
+//            });
+//        }
+//    });
+//}
 
 function GO(){
     window.location.href = "/confluence/display/CON/Confluencer";

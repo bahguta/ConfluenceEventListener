@@ -1,6 +1,6 @@
 package com.cis.confluence.plugins.utils;
 
-import com.atlassian.confluence.api.model.web.Icon;
+import com.atlassian.confluence.user.AuthenticatedUserThreadLocal;
 import com.cis.confluence.plugins.dto.EventUser;
 import com.cis.confluence.plugins.persistence.ConfluencerPersistence;
 import org.slf4j.Logger;
@@ -9,6 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.inject.Named;
 import java.util.*;
 
+
+/**
+ * Clase para manejar la persistencia y la lista de los usuarios que estan participando en el evento Confluencer
+ */
 @Named("confluencerManager")
 public class ConfluencerManager {
 
@@ -27,20 +31,32 @@ public class ConfluencerManager {
         this.persistence = persistence;
     }
 
+    /**
+     * Metodo para borrar todos los usuarios de la base de datos que estan participando en el evento Confluencer
+     */
     public void removeAll(){
         list.forEach((key, value) -> persistence.remove(value));
     }
 
+    /**
+     * Metodo para recoger todos los usuarios de la base de datos que estan participando en el evento Confluencer
+     *
+     * Actualiza el mapa con los usuarios
+     */
     public void findUsers(){
         if (persistence.getAll().size() > 0){
             list.clear();
             for (EventUser user : persistence.getAll() ) {
-                list.put(user.getEmail(), user);
+                list.put(user.getUser().getEmail(), user);
+                searchEvents(user);
             }
         }
     }
 
-
+    /**
+     * Metodo para obtener una lista de usuarios que participan en el evento Confluencer
+     * @return una lista con usuarios
+     */
     public List<EventUser> getList(){
         if (null == list){
             list = new LinkedHashMap<>();
@@ -51,15 +67,23 @@ public class ConfluencerManager {
     }
 
     public void setList(List<EventUser> lista){
-        lista.forEach( u -> list.put(u.getEmail(), u));
+        lista.forEach( u -> list.put(u.getUser().getEmail(), u));
     }
 
+    /**
+     * Metodo para sortear los usuarios
+     * @return una lista de usuarios
+     */
     public List<EventUser> getSortedList(){
         List<EventUser> sortedList = getList();
         Collections.sort(sortedList);
         return sortedList;
     }
 
+    /**
+     * Metodo para obtener el primer usuario de la lista
+     * @return el primer usuario
+     */
     public EventUser getFirst(){
         List<EventUser> sortedList = getSortedList();
         if (sortedList.size() > 0) {
@@ -69,6 +93,10 @@ public class ConfluencerManager {
         }
     }
 
+    /**
+     * Metodo para obtener una lista de usuarios que participan en el evento Confluencer
+     * @return una lista de usuarios SIN el primer usuario
+     */
     public List<EventUser> sortedListWithoutFirst(){
         List<EventUser> lista = new LinkedList<>();
         List<EventUser> sortedList = getSortedList();
@@ -78,57 +106,94 @@ public class ConfluencerManager {
         return lista;
     }
 
+    /**
+     * Metodo para comprobar si un usuario participa en el evento Confluencer
+     * @param name el nombre del usuario
+     * @return true si participa y false en caso contrario
+     */
     public boolean participa(String name){
         return getSortedList().stream().filter( user -> user.getName().equals(name)).findFirst().get().isParticipate();
     }
 
-    public boolean setParticipa(String name){
+    /**
+     * Metodo para que un usuario participe en el evento Confluencer
+     * @param name el nombre del usuario que va a participar
+     */
+    public void setParticipa(String name){
         getSortedList().stream().filter( user -> user.getName().equals(name)).findFirst().get().setParticipate(true);
-        return true;
+    }
+
+    /**
+     * Metodo para cancelar la participacion de un usuario
+     * @param name el nombre del usuario que cancelara la participacion
+     */
+    public void cancelarParticipacion(String name){
+        getSortedList().stream().forEach( user ->{
+            if (user.getName().equals(name)){
+                user.setParticipate(false);
+                persistence.remove(user);
+            }
+        });
+        findUsers();
     }
 
     public  boolean containsUser(String correo){
         return list.containsKey(correo);
     }
 
-    public void addUser(String correo, String name, String fullName, String key, Icon icon){
-        EventUser eventUser = new EventUser(correo, name, fullName, key, icon);
+    /**
+     * Metodo para añadir un usuario en el mapa y posteriormente agregado en la base de datos
+     * @param correo el correo del usuario
+     */
+    public void addUser(String correo){
+        EventUser eventUser =  new EventUser(AuthenticatedUserThreadLocal.get());
 
         if (null == list){
             list = new LinkedHashMap<>();
         }
+
         list.put(correo, eventUser);
 
         setParticipa(eventUser.getName());
 
+        searchEvents(eventUser);
+    }
+
+    /**
+     * Metodo para buscar eventos que ha creado un usuario
+     * @param eventUser el usuario para hacer la busqueda
+     */
+    private void searchEvents(EventUser eventUser){
         EventSeekerManager eventSeekerManager = new EventSeekerManager();
 
         for (int i = 0; i < eventSeekerManager.addNumSpacesForUser(eventUser); i++) {
-            addSpace(eventUser.getEmail());
+            addSpace(eventUser.getUser().getEmail());
         }
 
         for (int i = 0; i < eventSeekerManager.addNumPagesForUser(eventUser); i++) {
-            addPage(eventUser.getEmail());
+            addPage(eventUser.getUser().getEmail());
         }
 
         for (int i = 0; i < eventSeekerManager.addNumBlogsForUser(eventUser); i++) {
-            addBlog(eventUser.getEmail());
+            addBlog(eventUser.getUser().getEmail());
         }
 
         for (int i = 0; i < eventSeekerManager.addNumCommentsForUser(eventUser); i++) {
-            addComment(eventUser.getEmail());
+            addComment(eventUser.getUser().getEmail());
         }
 
         for (int i = 0; i < eventSeekerManager.addNumLikesForUser(eventUser); i++) {
-            addLike(eventUser.getEmail());
+            addLike(eventUser.getUser().getEmail());
         }
 
         persistence.save(eventUser);
     }
 
-    public void addSpace(String correo){
-        list.get(correo).addSpace();
-    }
+    /**
+     * Metodos para añadir / restar eventos de un usuario
+     */
+
+    public void addSpace(String correo){ list.get(correo).addSpace(); }
 
     public void addPage(String correo){ list.get(correo).addPage(); }
 

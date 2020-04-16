@@ -58,6 +58,10 @@
                             </button>
                         #else
                             <p><b>Ya estás participando en este evento !!!</b></p>
+                            </br>
+                            <button id="btnCancelar" class="aui-button  aui-style" type="submit" onclick="cancelarParticipa()" >
+                                Cancelar Participación
+                            </button>
                         #end
                     </div>
                 </div>
