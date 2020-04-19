@@ -34,7 +34,6 @@ public class ConfluencerPersistenceImpl implements ConfluencerPersistence, Dispo
     @Inject
     public ConfluencerPersistenceImpl(ActiveObjects ao) {
         this.ao = ao;
-        userAccessor = (UserAccessor) ContainerManager.getComponent("userAccessor");
     }
 
     /**
@@ -46,6 +45,7 @@ public class ConfluencerPersistenceImpl implements ConfluencerPersistence, Dispo
         List<EventUser> list = new LinkedList<>();
         try {
             EventUserServ[] arr = ao.find(EventUserServ.class);
+            userAccessor = (UserAccessor) ContainerManager.getComponent("userAccessor");
             if (arr.length > 0) {
                 for (EventUserServ user : arr) {
                     EventUser eventUser = new EventUser(userAccessor.getUserByName(user.getName()));

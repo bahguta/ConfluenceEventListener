@@ -21,9 +21,9 @@ public class EventSeekerManager {
 
     private final Logger logger = LoggerFactory.getLogger(EventSeekerManager.class);
 
-    private SpaceManager spaceManager;
-    private PageManager pageManager;
-    private LikeManager likeManager;
+    private SpaceManager spaceManager = (SpaceManager) ContainerManager.getComponent("spaceManager");
+    private PageManager pageManager = (PageManager) ContainerManager.getComponent("pageManager");
+    private LikeManager likeManager = (LikeManager) ContainerManager.getComponent("likeManager");
 
     private ConfluencerManager confluencerManager;
 
@@ -32,11 +32,34 @@ public class EventSeekerManager {
     }
 
     public EventSeekerManager() {
-        spaceManager = (SpaceManager) ContainerManager.getComponent("spaceManager");
-        pageManager = (PageManager) ContainerManager.getComponent("pageManager");
-        likeManager = (LikeManager) ContainerManager.getComponent("likeManager");
+//        spaceManager = (SpaceManager) ContainerManager.getComponent("spaceManager");
+//        pageManager = (PageManager) ContainerManager.getComponent("pageManager");
+//        likeManager = (LikeManager) ContainerManager.getComponent("likeManager");
     }
 
+    public void setSpaceManager(SpaceManager spaceManager) {
+        this.spaceManager = spaceManager;
+    }
+
+    public void setPageManager(PageManager pageManager) {
+        this.pageManager = pageManager;
+    }
+
+    public void setLikeManager(LikeManager likeManager) {
+        this.likeManager = likeManager;
+    }
+
+    public SpaceManager getSpaceManager() {
+        return spaceManager;
+    }
+
+    public PageManager getPageManager() {
+        return pageManager;
+    }
+
+    public LikeManager getLikeManager() {
+        return likeManager;
+    }
 
     /**
      * Metodo para buscar cuantos espacios ha creado un usuario
@@ -202,7 +225,7 @@ public class EventSeekerManager {
 
                 //recorro todos los comentarios de una pagina
                 page.getComments().forEach(comment -> {
-                    //recorro todos los likes de un blog
+                    //recorro todos los likes de un comentario
                     likeManager.getLikes(comment.getContentEntityObject()).forEach( like -> {
                         if (null != like && like.getUsername().equals(user.getName())){
                             list.add(like);

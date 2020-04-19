@@ -134,7 +134,7 @@ public class EventUser  implements EventUserServ, Serializable, Comparable<Event
     @Override
     public String toString() {
         return "EventUser{" +
-                ", email='" + user.getEmail() + '\'' +
+                "  email='" + user.getEmail() + '\'' +
                 ", name='" + user.getName() + '\'' +
                 ", fullName='" + user.getFullName() + '\'' +
                 ", space=" + space +

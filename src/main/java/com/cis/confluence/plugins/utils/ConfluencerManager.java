@@ -21,7 +21,15 @@ public class ConfluencerManager {
     private Map<String, EventUser> list = new LinkedHashMap<>();
     private EventSeekerManager eventSeekerManager;
 
-    public ConfluencerManager(EventSeekerManager eventSeekerManager) {
+    public ConfluencerManager() {
+        this.eventSeekerManager = new EventSeekerManager();
+    }
+
+    public EventSeekerManager getEventSeekerManager() {
+        return eventSeekerManager;
+    }
+
+    public void setEventSeekerManager(EventSeekerManager eventSeekerManager) {
         this.eventSeekerManager = eventSeekerManager;
     }
 
@@ -146,7 +154,7 @@ public class ConfluencerManager {
         findUsers();
     }
 
-    public  boolean containsUser(String correo){
+    public boolean containsUser(String correo){
         return list.containsKey(correo);
     }
 

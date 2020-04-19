@@ -27,6 +27,10 @@ public class ConfluencerREST {
         this.confluencerManager = confluencerManager;
     }
 
+    public ConfluencerManager getConfluencerManager() {
+        return confluencerManager;
+    }
+
     /**
      * Metodo GET para obtener si un usuario participa en el evento o no
      * @param name el nombre del usuario para hacer la busqueda
