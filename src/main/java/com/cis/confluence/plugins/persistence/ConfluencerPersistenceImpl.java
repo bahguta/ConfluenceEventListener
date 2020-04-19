@@ -29,6 +29,8 @@ public class ConfluencerPersistenceImpl implements ConfluencerPersistence, Dispo
     @ComponentImport
     private ActiveObjects ao;
 
+    private UserAccessor userAccessor;
+
     @Inject
     public ConfluencerPersistenceImpl(ActiveObjects ao) {
         this.ao = ao;
@@ -40,10 +42,10 @@ public class ConfluencerPersistenceImpl implements ConfluencerPersistence, Dispo
      */
     @Override
     public List<EventUser> getAll() {
-        UserAccessor userAccessor = (UserAccessor) ContainerManager.getComponent("userAccessor");
         List<EventUser> list = new LinkedList<>();
         try {
             EventUserServ[] arr = ao.find(EventUserServ.class);
+            userAccessor = (UserAccessor) ContainerManager.getComponent("userAccessor");
             if (arr.length > 0) {
                 for (EventUserServ user : arr) {
                     EventUser eventUser = new EventUser(userAccessor.getUserByName(user.getName()));
@@ -83,4 +85,12 @@ public class ConfluencerPersistenceImpl implements ConfluencerPersistence, Dispo
     @Override
     public void destroy() throws Exception {
     }
+
+    @Override
+    public String toString() {
+        return "ConfluencerPersistenceImpl{" +
+                "ao=" + ao.toString() +
+                '}';
+    }
+
 }

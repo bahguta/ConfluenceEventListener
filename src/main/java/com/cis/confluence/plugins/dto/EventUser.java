@@ -1,12 +1,16 @@
 package com.cis.confluence.plugins.dto;
 
+import com.atlassian.confluence.persistence.EntityManagerProvider;
 import com.atlassian.confluence.user.ConfluenceUser;
 import com.cis.confluence.plugins.persistence.EventUserServ;
 import net.java.ao.EntityManager;
+import net.java.ao.EntityManagerConfiguration;
 import net.java.ao.Implementation;
 import net.java.ao.RawEntity;
 import net.java.ao.schema.PrimaryKey;
 import net.java.ao.schema.Table;
+
+import javax.persistence.EntityManagerFactory;
 import javax.validation.constraints.NotNull;
 import java.beans.PropertyChangeListener;
 import java.io.Serializable;
@@ -130,7 +134,7 @@ public class EventUser  implements EventUserServ, Serializable, Comparable<Event
     @Override
     public String toString() {
         return "EventUser{" +
-                ", email='" + user.getEmail() + '\'' +
+                "  email='" + user.getEmail() + '\'' +
                 ", name='" + user.getName() + '\'' +
                 ", fullName='" + user.getFullName() + '\'' +
                 ", space=" + space +
