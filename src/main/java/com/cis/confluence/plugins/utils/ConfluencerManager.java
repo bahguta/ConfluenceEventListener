@@ -60,6 +60,7 @@ public class ConfluencerManager {
         if (persistence.getAll().size() > 0){
             list.clear();
             for (EventUser user : persistence.getAll() ) {
+                logger.debug("findUsers :: " + user.toString());
                 list.put(user.getUser().getEmail(), user);
                 searchEvents(user);
             }
@@ -71,6 +72,7 @@ public class ConfluencerManager {
      * @return una lista con usuarios
      */
     public List<EventUser> getList(){
+        findUsers();
         if (null == list){
             list = new LinkedHashMap<>();
         }

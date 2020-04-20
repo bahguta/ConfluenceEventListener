@@ -39,13 +39,13 @@ class EventSeekerManagerTest {
 
     @Test
     void addNumSpacesForUser() {
-        Space space = new Space("someKey");
-        space.setCreator(eventUser.getUser());
+        Space space = mock(Space.class);
 
         List<Space> list = new LinkedList<>();
         list.add(space);
 
         when(objectToTest.getSpaceManager().getAllSpaces()).thenReturn(list);
+        when(space.getCreator()).thenReturn(eventUser.getUser());
 
         confluencerManager.addUser(eventUser);
 
@@ -54,7 +54,7 @@ class EventSeekerManagerTest {
 
     @Test
     void addNumPagesForUser() {
-        Space space = new Space("someKey");
+        Space space = mock(Space.class);
 
         List<Space> list = new LinkedList<>();
         list.add(space);
@@ -75,8 +75,7 @@ class EventSeekerManagerTest {
 
     @Test
     void addNumBlogsForUser() {
-        Space space = new Space("someKey");
-
+        Space space = mock(Space.class);
         List<Space> list = new LinkedList<>();
         list.add(space);
 
@@ -89,7 +88,9 @@ class EventSeekerManagerTest {
         when(objectToTest.getSpaceManager().getAllSpaces()).thenReturn(list);
         when(objectToTest.getPageManager().getBlogPosts(space, true)).thenReturn(listBlogs);
 
+        System.out.println(eventUser.toString());
         confluencerManager.addUser(eventUser);
+        System.out.println(eventUser.toString());
 
         assertEquals(1, eventUser.getBlog());
 
@@ -97,7 +98,7 @@ class EventSeekerManagerTest {
 
     @Test
     void addNumCommentsForUser() {
-        Space space = new Space("someKey");
+        Space space = mock(Space.class);
 
         List<Space> list = new LinkedList<>();
         list.add(space);
@@ -121,7 +122,7 @@ class EventSeekerManagerTest {
 
     @Test
     void addNumLikesForUser() {
-        Space space = new Space("someKey");
+        Space space = mock(Space.class);
 
         List<Space> list = new LinkedList<>();
         list.add(space);
@@ -150,8 +151,10 @@ class EventSeekerManagerTest {
     @BeforeEach
     public void setUp() {
         objectToTest = new EventSeekerManager();
+        //objectToTest = mock(EventSeekerManager.class);
 
         confluencerManager = new ConfluencerManager();
+        //confluencerManager = mock(ConfluencerManager.class);
         confluencerManager.setPersistence(mock(ConfluencerPersistence.class));
         confluencerManager.setEventSeekerManager(objectToTest);
 
