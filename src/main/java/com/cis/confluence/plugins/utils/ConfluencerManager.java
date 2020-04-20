@@ -60,7 +60,6 @@ public class ConfluencerManager {
         if (persistence.getAll().size() > 0){
             list.clear();
             for (EventUser user : persistence.getAll() ) {
-                logger.debug("findUsers :: " + user.toString());
                 list.put(user.getUser().getEmail(), user);
                 searchEvents(user);
             }
@@ -151,6 +150,7 @@ public class ConfluencerManager {
             if (user.getName().equals(name)){
                 user.setParticipate(false);
                 persistence.remove(user);
+                list.remove(user.getUser().getEmail());
             }
         });
         findUsers();

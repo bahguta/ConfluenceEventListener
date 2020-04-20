@@ -81,7 +81,6 @@ public class ConfluencerPersistenceImpl implements ConfluencerPersistence, Dispo
     public void remove(EventUser user) {
         int result = ao.deleteWithSQL(EventUserServ.class, "NAME = ?", user.getName());
         user.setParticipate(false);
-        logger.debug(" filas borradas :: " + result);
     }
 
     @Override
