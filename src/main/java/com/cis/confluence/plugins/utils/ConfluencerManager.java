@@ -71,6 +71,7 @@ public class ConfluencerManager {
      * @return una lista con usuarios
      */
     public List<EventUser> getList(){
+        findUsers();
         if (null == list){
             list = new LinkedHashMap<>();
         }
@@ -149,6 +150,7 @@ public class ConfluencerManager {
             if (user.getName().equals(name)){
                 user.setParticipate(false);
                 persistence.remove(user);
+                list.remove(user.getUser().getEmail());
             }
         });
         findUsers();

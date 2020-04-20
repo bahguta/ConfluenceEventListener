@@ -21,9 +21,9 @@ public class EventSeekerManager {
 
     private final Logger logger = LoggerFactory.getLogger(EventSeekerManager.class);
 
-    private SpaceManager spaceManager = (SpaceManager) ContainerManager.getComponent("spaceManager");
-    private PageManager pageManager = (PageManager) ContainerManager.getComponent("pageManager");
-    private LikeManager likeManager = (LikeManager) ContainerManager.getComponent("likeManager");
+    private SpaceManager spaceManager ;
+    private PageManager pageManager ;
+    private LikeManager likeManager ;
 
     private ConfluencerManager confluencerManager;
 
@@ -35,6 +35,12 @@ public class EventSeekerManager {
 //        spaceManager = (SpaceManager) ContainerManager.getComponent("spaceManager");
 //        pageManager = (PageManager) ContainerManager.getComponent("pageManager");
 //        likeManager = (LikeManager) ContainerManager.getComponent("likeManager");
+    }
+
+    public void initializeManagers(){
+        spaceManager = (SpaceManager) ContainerManager.getComponent("spaceManager");
+        pageManager = (PageManager) ContainerManager.getComponent("pageManager");
+        likeManager = (LikeManager) ContainerManager.getComponent("likeManager");
     }
 
     public void setSpaceManager(SpaceManager spaceManager) {
@@ -67,6 +73,9 @@ public class EventSeekerManager {
      * @return el numero de espacios
      */
     public int addNumSpacesForUser(EventUser user) {
+        if (null == spaceManager){
+            initializeManagers();
+        }
         int cont = 0;
         for (Space space : spaceManager.getAllSpaces()) {
             if (null != space.getCreator() && space.getCreator().getEmail().equals(user.getUser().getEmail())) {
@@ -134,6 +143,9 @@ public class EventSeekerManager {
      * @return una lista de espacios
      */
     private List<Space> getSpacesForUser(EventUser user){
+        if (null == spaceManager){
+            initializeManagers();
+        }
         List<Space> list = new LinkedList<>();
         spaceManager.getAllSpaces().forEach(s ->{
             if (null != s && null != s.getKey() && null != s.getCreator() && s.getCreator().getEmail().equals(user.getUser().getEmail())){
@@ -149,6 +161,9 @@ public class EventSeekerManager {
      * @return una lista de paginas
      */
     private List<Page> getPagesForUser(EventUser user) {
+        if (null == spaceManager || null == pageManager){
+            initializeManagers();
+        }
         List<Page> lista = new LinkedList<>();
         for (Space space : spaceManager.getAllSpaces()) {
             pageManager.getPages(space, true).forEach( page -> {
@@ -166,6 +181,9 @@ public class EventSeekerManager {
      * @return una lista de blogs
      */
     private List<BlogPost> getBlogs(EventUser user){
+        if (null == spaceManager || null == pageManager){
+            initializeManagers();
+        }
         List<BlogPost> list = new LinkedList<>();
         spaceManager.getAllSpaces().forEach( s -> {
             pageManager.getBlogPosts(s, true).forEach(blogPost -> {
@@ -183,6 +201,9 @@ public class EventSeekerManager {
      * @return una lista de comentarios
      */
     private List<Comment> getComments(EventUser user){
+        if (null == spaceManager || null == pageManager){
+            initializeManagers();
+        }
         List<Comment> list = new LinkedList<>();
         spaceManager.getAllSpaces().forEach( space -> {
             pageManager.getPages(space, true).forEach( page -> {
@@ -210,6 +231,9 @@ public class EventSeekerManager {
      * @return una lista de likes
      */
     private List<Like> getLikes(EventUser user) {
+        if (null == spaceManager || null == pageManager || null == likeManager){
+            initializeManagers();
+        }
         List<Like> list = new LinkedList<>();
 
         //recorro todos los espacios

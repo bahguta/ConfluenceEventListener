@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/confluencer-module.iml" filepath="$PROJECT_DIR$/confluencer-module.iml" />
-      <module fileurl="file://$PROJECT_DIR$/eventService.iml" filepath="$PROJECT_DIR$/eventService.iml" />
     </modules>
   </component>
 </project>

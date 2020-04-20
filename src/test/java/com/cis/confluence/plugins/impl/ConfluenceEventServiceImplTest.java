@@ -40,8 +40,9 @@ class ConfluenceEventServiceImplTest {
 
     @Test
     void handleEventSpaceCreate() {
-        Space space = new Space("someKey");
-        space.setCreator(eventUser.getUser());
+        Space space = mock(Space.class);
+
+        when(space.getCreator()).thenReturn(eventUser.getUser());
 
         confluencerManager.addUser(eventUser);
 
@@ -53,8 +54,9 @@ class ConfluenceEventServiceImplTest {
 
     @Test
     void handleEventSpaceRemove() {
-        Space space = new Space("someKey");
-        space.setCreator(eventUser.getUser());
+        Space space = mock(Space.class);
+
+        when(space.getCreator()).thenReturn(eventUser.getUser());
 
         confluencerManager.addUser(eventUser);
 
@@ -69,8 +71,9 @@ class ConfluenceEventServiceImplTest {
 
     @Test
     void handleEventPageCreate() {
-        Page page = new Page();
-        page.setCreator(eventUser.getUser());
+        Page page = mock(Page.class);
+
+        when(page.getCreator()).thenReturn(eventUser.getUser());
 
         confluencerManager.addUser(eventUser);
 
@@ -81,8 +84,9 @@ class ConfluenceEventServiceImplTest {
 
     @Test
     void handleEventPageRemove() {
-        Page page = new Page();
-        page.setCreator(eventUser.getUser());
+        Page page = mock(Page.class);
+
+        when(page.getCreator()).thenReturn(eventUser.getUser());
 
         confluencerManager.addUser(eventUser);
 
@@ -97,8 +101,9 @@ class ConfluenceEventServiceImplTest {
 
     @Test
     void handleEventBlogCreate() {
-        BlogPost blog = new BlogPost();
-        blog.setCreator(eventUser.getUser());
+        BlogPost blog = mock(BlogPost.class);
+
+        when(blog.getCreator()).thenReturn(eventUser.getUser());
 
         confluencerManager.addUser(eventUser);
 
@@ -109,8 +114,9 @@ class ConfluenceEventServiceImplTest {
 
     @Test
     void handleEventBlogRemove() {
-        BlogPost blog = new BlogPost();
-        blog.setCreator(eventUser.getUser());
+        BlogPost blog = mock(BlogPost.class);
+
+        when(blog.getCreator()).thenReturn(eventUser.getUser());
 
         confluencerManager.addUser(eventUser);
 
@@ -125,8 +131,9 @@ class ConfluenceEventServiceImplTest {
 
     @Test
     void handleEventCommentCreate() {
-        Comment comment = new Comment();
-        comment.setCreator(eventUser.getUser());
+        Comment comment = mock(Comment.class);
+
+        when(comment.getCreator()).thenReturn(eventUser.getUser());
 
         confluencerManager.addUser(eventUser);
 
@@ -137,8 +144,9 @@ class ConfluenceEventServiceImplTest {
 
     @Test
     void handleEventCommentRemove() {
-        Comment comment = new Comment();
-        comment.setCreator(eventUser.getUser());
+        Comment comment = mock(Comment.class);
+
+        when(comment.getCreator()).thenReturn(eventUser.getUser());
 
         confluencerManager.addUser(eventUser);
 
