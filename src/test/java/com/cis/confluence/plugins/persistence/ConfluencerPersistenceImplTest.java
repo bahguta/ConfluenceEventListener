@@ -4,7 +4,8 @@ import com.atlassian.activeobjects.external.ActiveObjects;
 import com.atlassian.activeobjects.test.TestActiveObjects;
 import com.atlassian.confluence.user.ConfluenceUserImpl;
 import com.cis.confluence.plugins.dto.EventUser;
-import com.google.common.collect.ImmutableMap;
+//import com.google.common.collect.ImmutableMap;
+import net.java.ao.DBParam;
 import net.java.ao.EntityManager;
 import net.java.ao.Query;
 import net.java.ao.test.jdbc.Data;
@@ -14,9 +15,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
+import static org.junit.Assert.*;
 
 @RunWith(ActiveObjectsJUnitRunner.class)
 @Data(ConfluencerPersistenceImplTest.ConfluencerPersistenceImplTestDataBaseUpdater.class)
@@ -33,9 +32,10 @@ public class ConfluencerPersistenceImplTest {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
         EventUser eventUser2 = new EventUser(new ConfluenceUserImpl("someUsername2", "someFullname2", "someEmail2"));
 
-        EventUserServ eventUserServ = ao.create(EventUserServ.class, ImmutableMap.<String, Object>of("NAME", eventUser.getName()));
+        EventUserServ eventUserServ = ao.create(EventUserServ.class, new DBParam("NAME", eventUser.getName()));
+
         eventUserServ.save();
-        EventUserServ eventUserServ2 = ao.create(EventUserServ.class, ImmutableMap.<String, Object>of("NAME", eventUser2.getName()));
+        EventUserServ eventUserServ2 = ao.create(EventUserServ.class, new DBParam("NAME", eventUser2.getName()));
         eventUserServ2.save();
 
         assertEquals(2, ao.find(EventUserServ.class).length);
@@ -45,7 +45,7 @@ public class ConfluencerPersistenceImplTest {
     public void save() {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
 
-        EventUserServ eventUserServ = ao.create(EventUserServ.class, ImmutableMap.<String, Object>of("NAME", eventUser.getName()));
+        EventUserServ eventUserServ = ao.create(EventUserServ.class, new DBParam("NAME", eventUser.getName()));
         eventUserServ.save();
 
         assertEquals(1, ao.find(EventUserServ.class).length);
@@ -57,7 +57,7 @@ public class ConfluencerPersistenceImplTest {
     public void remove() {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
 
-        EventUserServ eventUserServ = ao.create(EventUserServ.class, ImmutableMap.<String, Object>of("NAME", eventUser.getName()));
+        EventUserServ eventUserServ = ao.create(EventUserServ.class, new DBParam("NAME", eventUser.getName()));
         eventUserServ.save();
 
         assertEquals(1, ao.find(EventUserServ.class).length);

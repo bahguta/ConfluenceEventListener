@@ -323,6 +323,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: io.atlassian.fugue:fugue-guava:4.5.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: io.atlassian.fugue:fugue-optics:4.5.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: io.atlassian.fugue:fugue-retry:4.5.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.code.gson:gson:2.8.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.http:atlassian-http:2.0.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.instrumentation:atlassian-instrumentation-core:2.2.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.github.kristofa:brave-web-servlet-filter:3.0.0" level="project" />
@@ -345,7 +346,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.plugin:atlassian-spring-scanner-annotation:2.0.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.ws.rs:jsr311-api:1.1.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.code.gson:gson:2.2.2-atlassian-1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.sun.jersey:jersey-json:1.8-atlassian-13" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.sun.jersey:jersey-core:1.8-atlassian-13" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.codehaus.jettison:jettison:1.1" level="project" />
@@ -373,17 +373,13 @@
     <orderEntry type="library" scope="TEST" name="Maven: com.atlassian.upm:upm-api:2.15" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: net.java.dev.activeobjects:activeobjects-test:3.2.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.atlassian.activeobjects:activeobjects-test:3.2.3" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.10" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.hamcrest:hamcrest-core:1.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.6.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.apiguardian:apiguardian-api:1.1.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.opentest4j:opentest4j:1.2.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.6.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.12" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.slf4j:slf4j-simple:1.6.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: hsqldb:hsqldb:1.8.0.10" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.mockito:mockito-all:1.8.5" level="project" />
-    <orderEntry type="library" name="Maven: org.reflections:reflections:0.9.11" level="project" />
-    <orderEntry type="library" name="Maven: org.javassist:javassist:3.21.0-GA" level="project" />
-    <orderEntry type="library" name="Maven: com.google.guava:guava:21.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.reflections:reflections:0.9.11" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.javassist:javassist:3.21.0-GA" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.guava:guava:21.0" level="project" />
   </component>
 </module>

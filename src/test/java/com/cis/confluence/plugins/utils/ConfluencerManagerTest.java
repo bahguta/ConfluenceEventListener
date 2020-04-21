@@ -6,19 +6,18 @@ import com.atlassian.confluence.spaces.SpaceManager;
 import com.atlassian.confluence.user.ConfluenceUserImpl;
 import com.cis.confluence.plugins.dto.EventUser;
 import com.cis.confluence.plugins.persistence.ConfluencerPersistenceImpl;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mock;
-
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 public class ConfluencerManagerTest {
 
     @Mock
     private ConfluencerManager objectToTest;
 
-    @BeforeEach
+    @Before
     public void setUp() {
         EventSeekerManager eventSeekerManager = new EventSeekerManager();
         objectToTest = new ConfluencerManager();
@@ -37,14 +36,14 @@ public class ConfluencerManagerTest {
     }
 
     @Test
-    void getList() {
+    public void getList() {
         objectToTest.addUser(new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail")));
 
         assertEquals(1, objectToTest.getList().size());
     }
 
     @Test
-    void getSortedList() {
+    public void getSortedList() {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
         EventUser eventUser1 = new EventUser(new ConfluenceUserImpl("someUsername1", "someFullname1", "someEmail1"));
 
@@ -60,7 +59,7 @@ public class ConfluencerManagerTest {
     }
 
     @Test
-    void getFirst() {
+    public void getFirst() {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
         EventUser eventUser1 = new EventUser(new ConfluenceUserImpl("someUsername1", "someFullname1", "someEmail1"));
 
@@ -76,7 +75,7 @@ public class ConfluencerManagerTest {
     }
 
     @Test
-    void sortedListWithoutFirst() {
+    public void sortedListWithoutFirst() {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
         EventUser eventUser1 = new EventUser(new ConfluenceUserImpl("someUsername1", "someFullname1", "someEmail1"));
 
@@ -92,7 +91,7 @@ public class ConfluencerManagerTest {
     }
 
     @Test
-    void participa() {
+    public void participa() {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
 
         objectToTest.addUser(eventUser);
@@ -101,7 +100,7 @@ public class ConfluencerManagerTest {
     }
 
     @Test
-    void setParticipa() {
+    public void setParticipa() {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
 
         objectToTest.addUser(eventUser);
@@ -110,7 +109,7 @@ public class ConfluencerManagerTest {
     }
 
     @Test
-    void cancelarParticipacion() {
+    public void cancelarParticipacion() {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
 
         objectToTest.addUser(eventUser);
@@ -123,7 +122,7 @@ public class ConfluencerManagerTest {
     }
 
     @Test
-    void containsUser() {
+    public void containsUser() {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
 
         objectToTest.addUser(eventUser);
@@ -132,7 +131,7 @@ public class ConfluencerManagerTest {
     }
 
     @Test
-    void addUser() {
+    public void addUser() {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
 
         objectToTest.addUser(eventUser);
@@ -141,7 +140,7 @@ public class ConfluencerManagerTest {
     }
 
     @Test
-    void addSpace() {
+    public void addSpace() {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
 
         objectToTest.addUser(eventUser);
@@ -152,7 +151,7 @@ public class ConfluencerManagerTest {
     }
 
     @Test
-    void addPage() {
+    public void addPage() {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
 
         objectToTest.addUser(eventUser);
@@ -163,7 +162,7 @@ public class ConfluencerManagerTest {
     }
 
     @Test
-    void addBlog() {
+    public void addBlog() {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
 
         objectToTest.addUser(eventUser);
@@ -174,7 +173,7 @@ public class ConfluencerManagerTest {
     }
 
     @Test
-    void addComment() {
+    public void addComment() {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
 
         objectToTest.addUser(eventUser);
@@ -185,7 +184,7 @@ public class ConfluencerManagerTest {
     }
 
     @Test
-    void addLike() {
+    public void addLike() {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
 
         objectToTest.addUser(eventUser);
@@ -196,7 +195,7 @@ public class ConfluencerManagerTest {
     }
 
     @Test
-    void restSpace() {
+    public void restSpace() {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
 
         objectToTest.addUser(eventUser);
@@ -211,7 +210,7 @@ public class ConfluencerManagerTest {
     }
 
     @Test
-    void restPage() {
+    public void restPage() {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
 
         objectToTest.addUser(eventUser);
@@ -226,7 +225,7 @@ public class ConfluencerManagerTest {
     }
 
     @Test
-    void restBlog() {
+    public void restBlog() {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
 
         objectToTest.addUser(eventUser);
@@ -241,7 +240,7 @@ public class ConfluencerManagerTest {
     }
 
     @Test
-    void restComment() {
+    public void restComment() {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
 
         objectToTest.addUser(eventUser);
@@ -256,7 +255,7 @@ public class ConfluencerManagerTest {
     }
 
     @Test
-    void restLike() {
+    public void restLike() {
         EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
 
         objectToTest.addUser(eventUser);

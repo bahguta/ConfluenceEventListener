@@ -21,13 +21,13 @@ import com.cis.confluence.plugins.dto.EventUser;
 import com.cis.confluence.plugins.persistence.ConfluencerPersistenceImpl;
 import com.cis.confluence.plugins.utils.ConfluencerManager;
 import com.cis.confluence.plugins.utils.EventSeekerManager;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mock;
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-class ConfluenceEventServiceImplTest {
+public class ConfluenceEventServiceImplTest {
 
     private ConfluenceEventServiceImpl objectToTest;
 
@@ -39,7 +39,7 @@ class ConfluenceEventServiceImplTest {
     private EventSeekerManager eventSeekerManager;
 
     @Test
-    void handleEventSpaceCreate() {
+    public void handleEventSpaceCreate() {
         Space space = mock(Space.class);
 
         when(space.getCreator()).thenReturn(eventUser.getUser());
@@ -53,7 +53,7 @@ class ConfluenceEventServiceImplTest {
     }
 
     @Test
-    void handleEventSpaceRemove() {
+    public void handleEventSpaceRemove() {
         Space space = mock(Space.class);
 
         when(space.getCreator()).thenReturn(eventUser.getUser());
@@ -70,7 +70,7 @@ class ConfluenceEventServiceImplTest {
     }
 
     @Test
-    void handleEventPageCreate() {
+    public void handleEventPageCreate() {
         Page page = mock(Page.class);
 
         when(page.getCreator()).thenReturn(eventUser.getUser());
@@ -83,7 +83,7 @@ class ConfluenceEventServiceImplTest {
     }
 
     @Test
-    void handleEventPageRemove() {
+    public void handleEventPageRemove() {
         Page page = mock(Page.class);
 
         when(page.getCreator()).thenReturn(eventUser.getUser());
@@ -100,7 +100,7 @@ class ConfluenceEventServiceImplTest {
     }
 
     @Test
-    void handleEventBlogCreate() {
+    public void handleEventBlogCreate() {
         BlogPost blog = mock(BlogPost.class);
 
         when(blog.getCreator()).thenReturn(eventUser.getUser());
@@ -113,7 +113,7 @@ class ConfluenceEventServiceImplTest {
     }
 
     @Test
-    void handleEventBlogRemove() {
+    public void handleEventBlogRemove() {
         BlogPost blog = mock(BlogPost.class);
 
         when(blog.getCreator()).thenReturn(eventUser.getUser());
@@ -130,7 +130,7 @@ class ConfluenceEventServiceImplTest {
     }
 
     @Test
-    void handleEventCommentCreate() {
+    public void handleEventCommentCreate() {
         Comment comment = mock(Comment.class);
 
         when(comment.getCreator()).thenReturn(eventUser.getUser());
@@ -143,7 +143,7 @@ class ConfluenceEventServiceImplTest {
     }
 
     @Test
-    void handleEventCommentRemove() {
+    public void handleEventCommentRemove() {
         Comment comment = mock(Comment.class);
 
         when(comment.getCreator()).thenReturn(eventUser.getUser());
@@ -160,7 +160,7 @@ class ConfluenceEventServiceImplTest {
     }
 
     @Test
-    void handleEventLikeCreate() {
+    public void handleEventLikeCreate() {
         ContentEntityObject contentEntityObject = mock(ContentEntityObject.class);
 
         when(contentEntityObject.getCreator()).thenReturn(eventUser.getUser());
@@ -174,7 +174,7 @@ class ConfluenceEventServiceImplTest {
     }
 
     @Test
-    void handleEventLikeRemove() {
+    public void handleEventLikeRemove() {
         ContentEntityObject contentEntityObject = mock(ContentEntityObject.class);
 
         when(contentEntityObject.getCreator()).thenReturn(eventUser.getUser());
@@ -192,7 +192,7 @@ class ConfluenceEventServiceImplTest {
 
     }
 
-    @BeforeEach
+    @Before
     public void setUp() {
         objectToTest = new ConfluenceEventServiceImpl();
         ConfluencerPersistenceImpl persistence = mock(ConfluencerPersistenceImpl.class);

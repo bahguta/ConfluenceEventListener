@@ -50,8 +50,8 @@ public class ConfluencerREST {
     @Path("/name/participa")
     public Response setParticipate() {
         ConfluenceUser user = AuthenticatedUserThreadLocal.get();
-        EventUser eventUser =  new EventUser(user);
         if (null != user) {
+            EventUser eventUser = new EventUser(user);
             confluencerManager.addUser(eventUser);
         }
         return Response.ok(true).build();
