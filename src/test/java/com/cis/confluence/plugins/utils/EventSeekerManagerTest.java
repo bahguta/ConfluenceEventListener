@@ -8,19 +8,17 @@ import com.atlassian.confluence.spaces.SpaceManager;
 import com.atlassian.confluence.user.ConfluenceUserImpl;
 import com.cis.confluence.plugins.dto.EventUser;
 import com.cis.confluence.plugins.persistence.ConfluencerPersistence;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-
-class EventSeekerManagerTest {
+public class EventSeekerManagerTest {
 
     private EventSeekerManager objectToTest;
 
@@ -38,7 +36,7 @@ class EventSeekerManagerTest {
 
 
     @Test
-    void addNumSpacesForUser() {
+    public void addNumSpacesForUser() {
         Space space = mock(Space.class);
 
         List<Space> list = new LinkedList<>();
@@ -53,7 +51,7 @@ class EventSeekerManagerTest {
     }
 
     @Test
-    void addNumPagesForUser() {
+    public void addNumPagesForUser() {
         Space space = mock(Space.class);
 
         List<Space> list = new LinkedList<>();
@@ -74,7 +72,7 @@ class EventSeekerManagerTest {
     }
 
     @Test
-    void addNumBlogsForUser() {
+    public void addNumBlogsForUser() {
         Space space = mock(Space.class);
         List<Space> list = new LinkedList<>();
         list.add(space);
@@ -88,16 +86,14 @@ class EventSeekerManagerTest {
         when(objectToTest.getSpaceManager().getAllSpaces()).thenReturn(list);
         when(objectToTest.getPageManager().getBlogPosts(space, true)).thenReturn(listBlogs);
 
-        System.out.println(eventUser.toString());
         confluencerManager.addUser(eventUser);
-        System.out.println(eventUser.toString());
 
         assertEquals(1, eventUser.getBlog());
 
     }
 
     @Test
-    void addNumCommentsForUser() {
+    public void addNumCommentsForUser() {
         Space space = mock(Space.class);
 
         List<Space> list = new LinkedList<>();
@@ -121,7 +117,7 @@ class EventSeekerManagerTest {
     }
 
     @Test
-    void addNumLikesForUser() {
+    public void addNumLikesForUser() {
         Space space = mock(Space.class);
 
         List<Space> list = new LinkedList<>();
@@ -143,18 +139,16 @@ class EventSeekerManagerTest {
 
         confluencerManager.addUser(eventUser);
 
-        assertEquals(1, eventUser.getLike());
+        assertTrue(eventUser.getLike() == 1);
     }
 
 
 
-    @BeforeEach
+    @Before
     public void setUp() {
         objectToTest = new EventSeekerManager();
-        //objectToTest = mock(EventSeekerManager.class);
 
         confluencerManager = new ConfluencerManager();
-        //confluencerManager = mock(ConfluencerManager.class);
         confluencerManager.setPersistence(mock(ConfluencerPersistence.class));
         confluencerManager.setEventSeekerManager(objectToTest);
 

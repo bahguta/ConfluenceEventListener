@@ -6,7 +6,7 @@ import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.spring.container.ContainerManager;
 import com.cis.confluence.plugins.dto.EventUser;
 import com.atlassian.activeobjects.external.ActiveObjects;
-import com.google.common.collect.ImmutableMap;
+import net.java.ao.DBParam;
 import net.java.ao.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +67,7 @@ public class ConfluencerPersistenceImpl implements ConfluencerPersistence, Dispo
     public void save(EventUser user) {
         EventUserServ[] u = ao.find(EventUserServ.class, Query.select().where("NAME = ?", user.getName()));
         if ( u.length == 0){
-            EventUserServ eventUser = ao.create(EventUserServ.class, ImmutableMap.<String, Object>of("NAME", user.getName()));
+            EventUserServ eventUser = ao.create(EventUserServ.class, new DBParam("NAME", user.getName()));
             eventUser.setParticipate(user.isParticipate());
             eventUser.save();
         }

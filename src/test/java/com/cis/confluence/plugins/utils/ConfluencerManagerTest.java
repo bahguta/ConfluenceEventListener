@@ -1,148 +1,271 @@
 package com.cis.confluence.plugins.utils;
 
-import com.atlassian.activeobjects.external.ActiveObjects;
-import com.atlassian.confluence.user.ConfluenceUser;
+import com.atlassian.confluence.like.LikeManager;
+import com.atlassian.confluence.pages.PageManager;
+import com.atlassian.confluence.spaces.SpaceManager;
+import com.atlassian.confluence.user.ConfluenceUserImpl;
 import com.cis.confluence.plugins.dto.EventUser;
-import com.cis.confluence.plugins.persistence.ConfluencerPersistence;
 import com.cis.confluence.plugins.persistence.ConfluencerPersistenceImpl;
-import com.cis.confluence.plugins.persistence.EventUserServ;
-import net.java.ao.EntityManager;
-import net.java.ao.Query;
-import net.java.ao.test.jdbc.Data;
-import net.java.ao.test.jdbc.DatabaseUpdater;
-import net.java.ao.test.junit.ActiveObjectsJUnitRunner;
-//import org.junit.Test;
-import org.junit.Ignore;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import com.atlassian.activeobjects.test.TestActiveObjects;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-@RunWith(ActiveObjectsJUnitRunner.class)
-@Data(ConfluencerManagerTest.ConfluencerManagerTestDatabaseUpdater.class)
-//@Jdbc(DerbyEmbedded.class)
-//@NameConverters
-@Ignore
 public class ConfluencerManagerTest {
 
+    @Mock
     private ConfluencerManager objectToTest;
 
-    private EntityManager entityManager;
+    @Before
+    public void setUp() {
+        EventSeekerManager eventSeekerManager = new EventSeekerManager();
+        objectToTest = new ConfluencerManager();
 
-    private ActiveObjects ao;
+        SpaceManager spaceManager = mock(SpaceManager.class);
+        PageManager pageManager = mock(PageManager.class);
+        LikeManager likeManager = mock(LikeManager.class);
 
-    @Mock
-    private ConfluencerPersistence persistence;
+        eventSeekerManager.setSpaceManager(spaceManager);
+        eventSeekerManager.setPageManager(pageManager);
+        eventSeekerManager.setLikeManager(likeManager);
 
+        objectToTest.setPersistence(mock(ConfluencerPersistenceImpl.class));
+        objectToTest.setEventSeekerManager(eventSeekerManager);
 
-    @Test
-    void findUsers() {
-//        EventUser eventUser = new EventUser(mock(ConfluenceUser.class));
-//
-//        when(eventUser.getName()).thenReturn("someName");
-//        when(eventUser.getUser().getEmail()).thenReturn("some@email");
-//        //when(objectToTest.getPersistence()).thenReturn(new ConfluencerPersistenceImpl(mock(ActiveObjects.class)));
-//        //System.out.println(new ConfluencerPersistenceImpl(mock(TestActiveObjects.class)));
-//        //when(objectToTest.getPersistence()).thenReturn(new ConfluencerPersistenceImpl(new TestActiveObjects(entityManager)));
-//
-//                System.out.println(" :: " + entityManager.toString());
-//        objectToTest.getPersistence().save(eventUser);
-//
-//
-//        //assertEquals(1, ao.find(EventUser.class).length);
-//        System.out.println("::::: " + objectToTest.getPersistence().getAll());
-//        assertEquals(1, objectToTest.getPersistence().getAll().size());
-//        //verify(objectToTest.getPersistence()).getAll();
-    }
-
-
-    @Test
-    void addUser() {
-//        EventUser eventUser = new EventUser(mock(ConfluenceUser.class));
-//
-//        when(eventUser.getName()).thenReturn("someName");
-//        when(eventUser.getUser().getEmail()).thenReturn("someEmail");
-//
-//        objectToTest.addUser(eventUser);
-//
-//        assertTrue(objectToTest.getList().size() > 0);
     }
 
     @Test
-    void getSortedList() {
-//        EventUser eventUser = new EventUser(mock(ConfluenceUser.class));
-//        eventUser.addSpace();
-//        EventUser eventUser2 = new EventUser(mock(ConfluenceUser.class));
-//        eventUser2.addSpace();
-//        eventUser2.addSpace();
-//
-//        when(eventUser.getName()).thenReturn("someName");
-//        when(eventUser.getUser().getEmail()).thenReturn("someEmail");
-//
-//        when(eventUser2.getName()).thenReturn("someName2");
-//        when(eventUser2.getUser().getEmail()).thenReturn("someEmail2");
-//
-//        objectToTest.addUser(eventUser);
-//        objectToTest.addUser(eventUser2);
-//
-//        boolean result = objectToTest.getSortedList().get(0).getSpace() > objectToTest.getSortedList().get(1).getSpace();
-//
-//        assertTrue(result);
+    public void getList() {
+        objectToTest.addUser(new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail")));
+
+        assertEquals(1, objectToTest.getList().size());
+    }
+
+    @Test
+    public void getSortedList() {
+        EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
+        EventUser eventUser1 = new EventUser(new ConfluenceUserImpl("someUsername1", "someFullname1", "someEmail1"));
+
+        objectToTest.addUser(eventUser);
+        objectToTest.addUser(eventUser1);
+
+        //añado 2 putnos al segundo usuario
+        objectToTest.addSpace(eventUser1.getUser().getEmail());
+        objectToTest.addSpace(eventUser1.getUser().getEmail());
+
+        //compruebo que el primer usuario tiene mas puntos (se sorteado la lista, el segundo usuario ha ido primero)
+        assertTrue(objectToTest.getSortedList().get(0).getSpace() > objectToTest.getSortedList().get(1).getSpace());
     }
 
     @Test
     public void getFirst() {
-//        EventUser eventUser = new EventUser(mock(ConfluenceUser.class));
-//
-//        when(eventUser.getName()).thenReturn("someName");
-//        when(eventUser.getUser().getEmail()).thenReturn("someEmail");
-//
-//        objectToTest.addUser(eventUser);
-//
-//        assertEquals(1, objectToTest.getList().size());
+        EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
+        EventUser eventUser1 = new EventUser(new ConfluenceUserImpl("someUsername1", "someFullname1", "someEmail1"));
+
+        objectToTest.addUser(eventUser);
+        objectToTest.addUser(eventUser1);
+
+        //añado 2 putnos al segundo usuario
+        objectToTest.addSpace(eventUser1.getUser().getEmail());
+        objectToTest.addSpace(eventUser1.getUser().getEmail());
+
+        //compruebo que el segundo usuario ha pasado primero
+        assertEquals(eventUser1, objectToTest.getFirst());
     }
 
-    @BeforeEach
-    public void setUp() {
+    @Test
+    public void sortedListWithoutFirst() {
+        EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
+        EventUser eventUser1 = new EventUser(new ConfluenceUserImpl("someUsername1", "someFullname1", "someEmail1"));
 
-//        assertNotNull(entityManager);
-//
-//        EventSeekerManager eventSeekerManager = mock(EventSeekerManager.class);
-//        objectToTest = new ConfluencerManager(eventSeekerManager);
-//        //persistence = mock(ConfluencerPersistence.class);
-//
-//        //entityManager = mock(EntityManager.class);
-//        ao = new TestActiveObjects(entityManager);
-//        persistence = new ConfluencerPersistenceImpl(ao);
-//        //persistence = mock(ConfluencerPersistence.class);
-//
-//        objectToTest.setPersistence(persistence);
+        objectToTest.addUser(eventUser);
+        objectToTest.addUser(eventUser1);
 
+        //añado 2 putnos al segundo usuario
+        objectToTest.addSpace(eventUser1.getUser().getEmail());
+        objectToTest.addSpace(eventUser1.getUser().getEmail());
+
+        //compruebo que no existe el primer usuario en la lista
+        assertFalse(objectToTest.sortedListWithoutFirst().contains(eventUser1));
     }
 
-    public static final class ConfluencerManagerTestDatabaseUpdater implements DatabaseUpdater {
-        @Override
-        public void update(EntityManager entityManager) throws Exception {
-            entityManager.migrate(EventUserServ.class);
-            //em.migrate(Credentials.class);
+    @Test
+    public void participa() {
+        EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
 
-            final EventUserServ eventUserServ = entityManager.create(EventUserServ.class);
-//            eventUserServ.
-//
-//                    setUrl("https://www.zxc.com");
-//            credentials.setAuthToken("f1%Z8Z3YPxQ01NhBMj6&");
-            EventUser eventUser = new EventUser(mock(ConfluenceUser.class));
+        objectToTest.addUser(eventUser);
 
-            when(eventUser.getName()).thenReturn("someName");
-            when(eventUser.getUser().getEmail()).thenReturn("some@email");
-            eventUser.save();
-            eventUserServ.save();
-        }
+        assertTrue(objectToTest.participa(eventUser.getName()));
+    }
+
+    @Test
+    public void setParticipa() {
+        EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
+
+        objectToTest.addUser(eventUser);
+
+        assertTrue(eventUser.isParticipate());
+    }
+
+    @Test
+    public void cancelarParticipacion() {
+        EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
+
+        objectToTest.addUser(eventUser);
+
+        assertTrue(eventUser.isParticipate());
+
+        objectToTest.cancelarParticipacion(eventUser.getName());
+
+        assertFalse(eventUser.isParticipate());
+    }
+
+    @Test
+    public void containsUser() {
+        EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
+
+        objectToTest.addUser(eventUser);
+
+        assertTrue(objectToTest.getList().contains(eventUser));
+    }
+
+    @Test
+    public void addUser() {
+        EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
+
+        objectToTest.addUser(eventUser);
+
+        assertTrue(objectToTest.getList().contains(eventUser));
+    }
+
+    @Test
+    public void addSpace() {
+        EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
+
+        objectToTest.addUser(eventUser);
+
+        objectToTest.addSpace(eventUser.getUser().getEmail());
+
+        assertEquals(1, eventUser.getSpace());
+    }
+
+    @Test
+    public void addPage() {
+        EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
+
+        objectToTest.addUser(eventUser);
+
+        objectToTest.addPage(eventUser.getUser().getEmail());
+
+        assertEquals(1, eventUser.getPage());
+    }
+
+    @Test
+    public void addBlog() {
+        EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
+
+        objectToTest.addUser(eventUser);
+
+        objectToTest.addBlog(eventUser.getUser().getEmail());
+
+        assertEquals(1, eventUser.getBlog());
+    }
+
+    @Test
+    public void addComment() {
+        EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
+
+        objectToTest.addUser(eventUser);
+
+        objectToTest.addComment(eventUser.getUser().getEmail());
+
+        assertEquals(1, eventUser.getComment());
+    }
+
+    @Test
+    public void addLike() {
+        EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
+
+        objectToTest.addUser(eventUser);
+
+        objectToTest.addLike(eventUser.getUser().getEmail());
+
+        assertEquals(1, eventUser.getLike());
+    }
+
+    @Test
+    public void restSpace() {
+        EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
+
+        objectToTest.addUser(eventUser);
+
+        objectToTest.addSpace(eventUser.getUser().getEmail());
+
+        assertEquals(1, eventUser.getSpace());
+
+        objectToTest.restSpace(eventUser.getUser().getEmail());
+
+        assertEquals(0, eventUser.getSpace());
+    }
+
+    @Test
+    public void restPage() {
+        EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
+
+        objectToTest.addUser(eventUser);
+
+        objectToTest.addPage(eventUser.getUser().getEmail());
+
+        assertEquals(1, eventUser.getPage());
+
+        objectToTest.restPage(eventUser.getUser().getEmail());
+
+        assertEquals(0, eventUser.getPage());
+    }
+
+    @Test
+    public void restBlog() {
+        EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
+
+        objectToTest.addUser(eventUser);
+
+        objectToTest.addBlog(eventUser.getUser().getEmail());
+
+        assertEquals(1, eventUser.getBlog());
+
+        objectToTest.restBlog(eventUser.getUser().getEmail());
+
+        assertEquals(0, eventUser.getBlog());
+    }
+
+    @Test
+    public void restComment() {
+        EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
+
+        objectToTest.addUser(eventUser);
+
+        objectToTest.addComment(eventUser.getUser().getEmail());
+
+        assertEquals(1, eventUser.getComment());
+
+        objectToTest.restComment(eventUser.getUser().getEmail());
+
+        assertEquals(0, eventUser.getComment());
+    }
+
+    @Test
+    public void restLike() {
+        EventUser eventUser = new EventUser(new ConfluenceUserImpl("someUsername", "someFullname", "someEmail"));
+
+        objectToTest.addUser(eventUser);
+
+        objectToTest.addLike(eventUser.getUser().getEmail());
+
+        assertEquals(1, eventUser.getLike());
+
+        objectToTest.restLike(eventUser.getUser().getEmail());
+
+        assertEquals(0, eventUser.getLike());
     }
 }

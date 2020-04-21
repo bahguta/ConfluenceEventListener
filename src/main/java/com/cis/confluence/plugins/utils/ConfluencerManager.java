@@ -71,7 +71,7 @@ public class ConfluencerManager {
      * @return una lista con usuarios
      */
     public List<EventUser> getList(){
-        findUsers();
+        //findUsers();
         if (null == list){
             list = new LinkedHashMap<>();
         }
@@ -165,8 +165,6 @@ public class ConfluencerManager {
      * @param eventUser el usuario
      */
     public void addUser(EventUser eventUser){
-        //EventUser eventUser =  new EventUser(AuthenticatedUserThreadLocal.get());
-
         if (null == list){
             list = new LinkedHashMap<>();
         }

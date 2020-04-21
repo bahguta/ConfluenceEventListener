@@ -8,12 +8,12 @@ import com.cis.confluence.plugins.dto.EventUser;
 import com.cis.confluence.plugins.persistence.ConfluencerPersistenceImpl;
 import com.cis.confluence.plugins.utils.ConfluencerManager;
 import com.cis.confluence.plugins.utils.EventSeekerManager;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-class ConfluencerRESTTest {
+public class ConfluencerRESTTest {
 
     private ConfluencerREST objectToTest;
 
@@ -21,7 +21,7 @@ class ConfluencerRESTTest {
 
 
     @Test
-    void getUser() {
+    public void getUser() {
 
         objectToTest.getConfluencerManager().addUser(eventUser);
 
@@ -30,7 +30,7 @@ class ConfluencerRESTTest {
     }
 
     @Test
-    void setParticipate() {
+    public void setParticipate() {
 
         objectToTest.getConfluencerManager().addUser(eventUser);
 
@@ -38,7 +38,7 @@ class ConfluencerRESTTest {
     }
 
     @Test
-    void cancelarParticipate() {
+    public void cancelarParticipate() {
 
         objectToTest.getConfluencerManager().addUser(eventUser);
 
@@ -49,8 +49,8 @@ class ConfluencerRESTTest {
         assertEquals(false, eventUser.isParticipate());
     }
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         objectToTest = new ConfluencerREST();
 
         EventSeekerManager eventSeekerManager = new EventSeekerManager();
