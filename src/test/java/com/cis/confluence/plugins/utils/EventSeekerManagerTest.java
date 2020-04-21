@@ -151,10 +151,8 @@ class EventSeekerManagerTest {
     @BeforeEach
     public void setUp() {
         objectToTest = new EventSeekerManager();
-        //objectToTest = mock(EventSeekerManager.class);
 
         confluencerManager = new ConfluencerManager();
-        //confluencerManager = mock(ConfluencerManager.class);
         confluencerManager.setPersistence(mock(ConfluencerPersistence.class));
         confluencerManager.setEventSeekerManager(objectToTest);
 
