@@ -169,8 +169,7 @@ public class ConfluenceEventServiceImplTest {
 
         objectToTest.handleEventLikeCreate(new LikeCreatedEvent("source", eventUser.getUser(), contentEntityObject));
 
-        //esperamos 2 porque añade un like para el liker y otro para liked
-        assertEquals(2, eventUser.getLike());
+        assertEquals(1, eventUser.getLike());
     }
 
     @Test
@@ -183,8 +182,7 @@ public class ConfluenceEventServiceImplTest {
 
         objectToTest.handleEventLikeCreate(new LikeCreatedEvent("source", eventUser.getUser(), contentEntityObject));
 
-        //esperamos 2 porque añade un like para el liker y otro para liked
-        assertEquals(2, eventUser.getLike());
+        assertEquals(1, eventUser.getLike());
 
         objectToTest.handleEventLikeRemove(new LikeRemovedEvent("source", eventUser.getUser(), contentEntityObject));
 

@@ -182,26 +182,33 @@ public class ConfluencerManager {
      */
     private void searchEvents(EventUser eventUser){
 
+        eventSeekerManager.searchEvents(eventUser);
 
-        for (int i = 0; i < eventSeekerManager.addNumSpacesForUser(eventUser); i++) {
-            addSpace(eventUser.getUser().getEmail());
-        }
+//        eventUser.setSpace(eventUser.getSpace() + eventSeekerManager.addNumSpacesForUser(eventUser));
+//        eventUser.setPage(eventUser.getPage() + eventSeekerManager.addNumPagesForUser(eventUser));
+//        eventUser.setBlog(eventUser.getBlog() + eventSeekerManager.addNumBlogsForUser(eventUser));
+//        eventUser.setComment(eventUser.getComment() + eventSeekerManager.addNumCommentsForUser(eventUser));
+//        eventUser.setLike(eventUser.getLike() + eventSeekerManager.addNumLikesForUser(eventUser));
 
-        for (int i = 0; i < eventSeekerManager.addNumPagesForUser(eventUser); i++) {
-            addPage(eventUser.getUser().getEmail());
-        }
-
-        for (int i = 0; i < eventSeekerManager.addNumBlogsForUser(eventUser); i++) {
-            addBlog(eventUser.getUser().getEmail());
-        }
-
-        for (int i = 0; i < eventSeekerManager.addNumCommentsForUser(eventUser); i++) {
-            addComment(eventUser.getUser().getEmail());
-        }
-
-        for (int i = 0; i < eventSeekerManager.addNumLikesForUser(eventUser); i++) {
-            addLike(eventUser.getUser().getEmail());
-        }
+//        for (int i = 0; i < eventSeekerManager.addNumSpacesForUser(eventUser); i++) {
+//            addSpace(eventUser.getUser().getEmail());
+//        }
+//
+//        for (int i = 0; i < eventSeekerManager.addNumPagesForUser(eventUser); i++) {
+//            addPage(eventUser.getUser().getEmail());
+//        }
+//
+//        for (int i = 0; i < eventSeekerManager.addNumBlogsForUser(eventUser); i++) {
+//            addBlog(eventUser.getUser().getEmail());
+//        }
+//
+//        for (int i = 0; i < eventSeekerManager.addNumCommentsForUser(eventUser); i++) {
+//            addComment(eventUser.getUser().getEmail());
+//        }
+//
+//        for (int i = 0; i < eventSeekerManager.addNumLikesForUser(eventUser); i++) {
+//            addLike(eventUser.getUser().getEmail());
+//        }
 
         persistence.save(eventUser);
     }

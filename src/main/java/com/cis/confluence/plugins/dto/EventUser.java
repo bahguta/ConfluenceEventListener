@@ -91,6 +91,27 @@ public class EventUser  implements EventUserServ, Serializable, Comparable<Event
         like += 1;
     }
 
+
+    public void setSpace(int space) {
+        this.space += space;
+    }
+
+    public void setPage(int page) {
+        this.page += page;
+    }
+
+    public void setBlog(int blog) {
+        this.blog += blog;
+    }
+
+    public void setComment(int comment) {
+        this.comment += comment;
+    }
+
+    public void setLike(int like) {
+        this.like += like;
+    }
+
     public void restSpace() {
         if (space - 1 < 0){
             space = 0;

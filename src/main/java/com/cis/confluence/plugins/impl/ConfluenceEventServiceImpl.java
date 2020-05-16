@@ -145,12 +145,18 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
         String correoLiker = Objects.requireNonNull(event.getOriginatingUser()).getEmail();
         String fullNameLiker = event.getOriginatingUser().getFullName();
 
-        if (confluencerManager.containsUser(correoLiked)){
-            confluencerManager.addLike(correoLiked);
-        }
+        if (correoLiked.equals(correoLiker)){
+            if (confluencerManager.containsUser(correoLiked)){
+                confluencerManager.addLike(correoLiked);
+            }
+        } else {
+            if (confluencerManager.containsUser(correoLiked)) {
+                confluencerManager.addLike(correoLiked);
+            }
 
-        if (confluencerManager.containsUser(correoLiker)){
-            confluencerManager.addLike(correoLiker);
+            if (confluencerManager.containsUser(correoLiker)) {
+                confluencerManager.addLike(correoLiker);
+            }
         }
     }
 
@@ -163,12 +169,18 @@ public class ConfluenceEventServiceImpl implements EventListener, DisposableBean
         String correoLiker = Objects.requireNonNull(event.getOriginatingUser()).getEmail();
         String fullNameLiker = event.getOriginatingUser().getFullName();
 
-        if (confluencerManager.containsUser(correoLiked)){
-            confluencerManager.restLike(correoLiked);
-        }
+        if (correoLiked.equals(correoLiker)){
+            if (confluencerManager.containsUser(correoLiked)){
+                confluencerManager.restLike(correoLiked);
+            }
+        } else {
+            if (confluencerManager.containsUser(correoLiked)) {
+                confluencerManager.restLike(correoLiked);
+            }
 
-        if (confluencerManager.containsUser(correoLiker)){
-            confluencerManager.restLike(correoLiker);
+            if (confluencerManager.containsUser(correoLiker)) {
+                confluencerManager.restLike(correoLiker);
+            }
         }
     }
 
