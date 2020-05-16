@@ -6,6 +6,7 @@ import com.atlassian.confluence.pages.*;
 import com.atlassian.confluence.spaces.Space;
 import com.atlassian.confluence.spaces.SpaceManager;
 import com.atlassian.confluence.user.ConfluenceUserImpl;
+import com.atlassian.spring.container.ContainerManager;
 import com.cis.confluence.plugins.dto.EventUser;
 import com.cis.confluence.plugins.persistence.ConfluencerPersistence;
 import org.junit.Before;
@@ -36,112 +37,45 @@ public class EventSeekerManagerTest {
 
 
     @Test
-    public void addNumSpacesForUser() {
-        Space space = mock(Space.class);
-
-        List<Space> list = new LinkedList<>();
-        list.add(space);
-
-        when(objectToTest.getSpaceManager().getAllSpaces()).thenReturn(list);
-        when(space.getCreator()).thenReturn(eventUser.getUser());
-
-        confluencerManager.addUser(eventUser);
-
-        assertEquals(1, eventUser.getSpace());
-    }
-
-    @Test
-    public void addNumPagesForUser() {
-        Space space = mock(Space.class);
-
-        List<Space> list = new LinkedList<>();
-        list.add(space);
+    public void searchEventsTest(){
+        Space space = new Space();
+        space.setCreator(eventUser.getUser());
+        List<Space> listSpaces = new LinkedList<>();
+        listSpaces.add(space);
 
         Page page = new Page();
         page.setCreator(eventUser.getUser());
-
         List<Page> listPages = new LinkedList<>();
         listPages.add(page);
 
-        when(objectToTest.getSpaceManager().getAllSpaces()).thenReturn(list);
-        when(objectToTest.getPageManager().getPages(space, true)).thenReturn(listPages);
-
-        confluencerManager.addUser(eventUser);
-
-        assertEquals(1, eventUser.getPage());
-    }
-
-    @Test
-    public void addNumBlogsForUser() {
-        Space space = mock(Space.class);
-        List<Space> list = new LinkedList<>();
-        list.add(space);
-
         BlogPost blog = new BlogPost();
         blog.setCreator(eventUser.getUser());
-
         List<BlogPost> listBlogs = new LinkedList<>();
         listBlogs.add(blog);
-
-        when(objectToTest.getSpaceManager().getAllSpaces()).thenReturn(list);
-        when(objectToTest.getPageManager().getBlogPosts(space, true)).thenReturn(listBlogs);
-
-        confluencerManager.addUser(eventUser);
-
-        assertEquals(1, eventUser.getBlog());
-
-    }
-
-    @Test
-    public void addNumCommentsForUser() {
-        Space space = mock(Space.class);
-
-        List<Space> list = new LinkedList<>();
-        list.add(space);
 
         Comment comment = new Comment();
         comment.setCreator(eventUser.getUser());
-
-        BlogPost blog = new BlogPost();
-        blog.setCreator(eventUser.getUser());
-
-        List<BlogPost> listBlogs = new LinkedList<>();
-        listBlogs.add(blog);
-
-        when(objectToTest.getSpaceManager().getAllSpaces()).thenReturn(list);
-        when(objectToTest.getPageManager().getBlogPosts(space, true)).thenReturn(listBlogs);
-
-        confluencerManager.addUser(eventUser);
-
-        assertEquals(1, eventUser.getBlog());
-    }
-
-    @Test
-    public void addNumLikesForUser() {
-        Space space = mock(Space.class);
-
-        List<Space> list = new LinkedList<>();
-        list.add(space);
+        List<Comment> listComments = new LinkedList<>();
+        listComments.add(comment);
+        page.setComments(listComments);
 
         Like like = new Like(1, eventUser.getName(), new Date());
         List<Like> listLikes = new LinkedList<>();
         listLikes.add(like);
 
-        BlogPost blog = new BlogPost();
-        blog.setCreator(eventUser.getUser());
-
-        List<BlogPost> listBlogs = new LinkedList<>();
-        listBlogs.add(blog);
-
-        when(objectToTest.getSpaceManager().getAllSpaces()).thenReturn(list);
+        when(objectToTest.getSpaceManager().getAllSpaces()).thenReturn(listSpaces);
+        when(objectToTest.getPageManager().getPages(space, true)).thenReturn(listPages);
         when(objectToTest.getPageManager().getBlogPosts(space, true)).thenReturn(listBlogs);
         when(objectToTest.getLikeManager().getLikes(blog.getEntity())).thenReturn(listLikes);
 
         confluencerManager.addUser(eventUser);
 
-        assertTrue(eventUser.getLike() == 1);
+        assertEquals(1, eventUser.getSpace());
+        assertEquals(1, eventUser.getPage());
+        assertEquals(1, eventUser.getBlog());
+        assertEquals(1, eventUser.getComment());
+        assertEquals(1, eventUser.getLike());
     }
-
 
 
     @Before
