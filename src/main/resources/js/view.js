@@ -42,11 +42,9 @@ function isBusy (button) {
 
 function setParticipa(){
     AJS.$(document).on('click', '#btnOK', function() {
-        var that = this;
-        var spinner = document.getElementById('spinner');
 
-        that.setAttribute('disabled', '');
-        spinner.hidden = false;
+        this.setAttribute('disabled', '');
+        AJS.$('.button-spinner').spin();
 
         new AJS.$.ajax({ // urlBase
             url: "/confluence/rest/Confluencer/1.0/name/participa",

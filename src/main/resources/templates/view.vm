@@ -54,16 +54,14 @@
                     <p style="margin-left: 50px;"><b>IECISA | Informática El Corte Ingles</b></p>
                     <div class="aui-page-panel-inner" style="margin-left: 50px; margin-top: 30px;">
                         #if (!$participate)
-                            <div>
-                                <button id="btnOK" class="aui-button aui-button-primary aui-style" type="submit" onclick="setParticipa()" >
-                                    Voy a Participar
-                                </button>
-                                <aui-spinner id="spinner" size="medium" hidden="true"></aui-spinner>
-                            </div>
+                            <button id="btnOK" class="aui-button aui-button-primary aui-style" type="submit" onclick="setParticipa()" >
+                                Voy a Participar
+                            </button>
+                            <span class="button-spinner" style="display: inline-block; height: 10px; width: 20px"></span>
                         #else
                             <p><b>Ya estás participando en este evento !!!</b></p>
                             </br>
-                            <button id="btnCancelar" class="aui-button  aui-style" type="submit" onclick="cancelarParticipa()" >
+                            <button id="btnCancelar" class="aui-button  aui-style" style="border: solid black 1px" type="submit" onclick="cancelarParticipa()" >
                                 Cancelar Participación
                             </button>
                         #end
