@@ -2,6 +2,7 @@
 #requireResource("confluence.web.resources:aui-forms")
 
 #requireResource("com.atlassian.auiplugin:aui-buttons")
+#requireResource("com.atlassian.auiplugin:aui-spinner")
 #requireResource("confluence.web.resources:jquery")
 #requireResource("confluence.web.resources:ajs")
 
@@ -53,9 +54,12 @@
                     <p style="margin-left: 50px;"><b>IECISA | Informática El Corte Ingles</b></p>
                     <div class="aui-page-panel-inner" style="margin-left: 50px; margin-top: 30px;">
                         #if (!$participate)
-                            <button id="btnOK" class="aui-button aui-button-primary aui-style" type="submit" onclick="setParticipa()" >
-                                Voy a Participar
-                            </button>
+                            <div>
+                                <button id="btnOK" class="aui-button aui-button-primary aui-style" type="submit" onclick="setParticipa()" >
+                                    Voy a Participar
+                                </button>
+                                <aui-spinner id="spinner" size="medium" hidden="true"></aui-spinner>
+                            </div>
                         #else
                             <p><b>Ya estás participando en este evento !!!</b></p>
                             </br>
